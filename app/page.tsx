@@ -36,6 +36,7 @@ const ExternalLink = ({ size = 18, color = "currentColor" }) => (
 );
 
 export default function Page() {
+  const year = new Date().getFullYear();
   return (
     <>
       <div className="w-full flex items-start justify-center relative overflow-hidden dark:bg-slate-900">
@@ -129,14 +130,14 @@ export default function Page() {
               client="Sollective"
               description="Landing page design for an all-in-one freelancer community"
               img_src="/images/projects/sollective.jpg"
-              link="/projects/platform-navigation"
+              link="/projects/site-redesign"
             />
             <FolioItem
               title="Web App Redesign"
               client="Staple"
               description="Frontend overhaul for a corporate payments web application"
               img_src="/images/projects/staplecard.jpg"
-              link="/projects/platform-navigation"
+              link="/projects/staple"
             />
             <FolioItem
               title="Corporate Brand"
@@ -150,7 +151,8 @@ export default function Page() {
       </div>
       <footer className="p-3 w-full">
         <p className="text-center text-xs text-slate-400">
-          Interested in working together? Say{" "}
+          © Copyright Geoffrey Wu {year}&emsp;•&emsp;Interested in working
+          together? Say{" "}
           <a
             className="underline hover:text-slate-600"
             href="mailto:hello@geoffreywu.digital"

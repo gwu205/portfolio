@@ -105,6 +105,10 @@
   ol {
     @apply list-decimal ml-4 my-2;
   }
+  p + ul,
+  p + ol {
+    @apply -mt-4;
+  }
   li + li {
     @apply mt-2;
   }

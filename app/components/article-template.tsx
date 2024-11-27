@@ -9,7 +9,7 @@ const ArticleTemplate: React.FC<WrapperProps> = ({ children }) => {
   return (
     <main className="article">
       <nav>
-        <a className="text-slate-500 hover:text-slate-700" href="/">
+        <a className="text-slate-500 hover:text-slate-700 text-sm" href="/">
           〱 Back to Home
         </a>
       </nav>

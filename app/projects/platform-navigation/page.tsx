@@ -111,10 +111,10 @@ export default function Page() {
       </p>
       <p className="subheading">Key Insight: Context Switching</p>
       <p>
-        nspired by platforms like Slack, which uses a context switcher, we
-        explored ways to separate and streamline user flows. This approach
-        allows users to focus on a single task or feature without distraction,
-        reducing overwhelm and enhancing usability.
+        Inspired by platforms like Slack, which uses a context switcher and
+        app-like icon affordance, we explored ways to separate and streamline
+        user flows. This approach allows users to focus on a single task or
+        feature without distraction, reducing overwhelm and enhancing usability.
       </p>
       <Image
         src="/images/projects/slack-switcher.png"

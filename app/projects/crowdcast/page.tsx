@@ -62,10 +62,10 @@ export default function Page() {
         various sizes and applications. The refined logo retains the spirit of
         the original design but is more adaptable for both digital and print
         media. The brand mark itself was inspired by the concept of unity,
-        aligning with the company's motto: "Power to the Crowds." By softening
-        sharp angles and refining the asymmetrical shape, I improved the logo’s
-        visual impact, making it both modern and more representative of the
-        company’s core values.
+        aligning with the company's motto: <i>"Power to the Crowds"</i>. By
+        softening sharp angles and refining the asymmetrical shape, I improved
+        the logo’s visual impact, making it both modern and more representative
+        of the company’s core values.
       </p>
       <Image
         src="/images/projects/cc_logo.jpg"

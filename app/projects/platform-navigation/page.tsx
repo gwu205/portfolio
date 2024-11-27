@@ -50,7 +50,7 @@ export default function Page() {
           <b>feature prioritisation</b> evolve to showcase its new capabilities?
         </li>
         <li>
-          How could we ensure users recognized Sollective as a{" "}
+          How could we ensure users recognised Sollective as a{" "}
           <b>matching service</b>, a <b>productivity suite</b>, and a{" "}
           <b>community hub</b>?
         </li>
@@ -84,11 +84,17 @@ export default function Page() {
         offerings:
       </p>
       <ol>
-        <li>Matching Services</li>
-        <li>Productivity Tools</li>
-        <li>Community Access</li>
+        <li>
+          <b>Matching Services</b>
+        </li>
+        <li>
+          <b>Productivity Tools</b>
+        </li>
+        <li>
+          <b>Community Access</b>
+        </li>
       </ol>
-      <p>We prioritized addressing common user pain points:</p>
+      <p>We prioritised addressing common user pain points:</p>
       <ul>
         <li>Lack of clarity on where to access productivity tools.</li>
         <li>Uncertainty about what to do after signing up.</li>

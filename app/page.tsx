@@ -1,5 +1,5 @@
 import Image from "@/node_modules/next/image";
-import FolioItem from "./components/folioItem";
+import FolioItem from "./components/folio-item";
 
 const ReadIcon = ({ size = 14, color = "#000000" }) => (
   <svg

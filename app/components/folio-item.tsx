@@ -48,7 +48,7 @@ const FolioItem: React.FC<ItemProps> = ({
             alt={title}
             width={1200}
             height={800}
-            className="grayscale group-hover:scale-[1.03] group-hover:grayscale-0 transition-all duration-700"
+            className="grayscale-0 sm:grayscale group-hover:scale-[1.03] group-hover:grayscale-0 transition-all duration-700"
           />
         </div>
       </a>

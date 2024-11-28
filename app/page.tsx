@@ -42,15 +42,15 @@ export default function Page() {
       <div className="w-full flex items-start justify-center relative overflow-hidden dark:bg-slate-900">
         <section className="overflow-y-auto snap-mandatory snap-y text-center text-gray-900 px-8 relative z-10 max-w-4xl flex flex-col gap-24">
           <div className="min-h-screen flex flex-col justify-center gap-10">
-            <h1 className="mb-4 tracking-tight text-7xl font-normal leading-tight text-left font-sans bg-gradient-to-b from-slate-900 dark:from-slate-100 to-slate-500 dark:to-slate-400 text-transparent bg-clip-text">
-              <span className="font-normal bg-gradient-to-r from-indigo-500 dark:from-pink-300 to-blue-500 dark:to-purple-400 inline-block text-transparent bg-clip-text">
+            <h1 className="animate-in fade-in zoom-in-105 ease-out duration-1000 mb-4 tracking-tight text-5xl sm:text-7xl font-normal leading-tight text-left font-sans bg-gradient-to-b from-slate-900 dark:from-slate-100 to-slate-500 dark:to-slate-400 text-transparent bg-clip-text">
+              <span className="font-normal bg-gradient-to-r from-indigo-500 dark:from-pink-300 to-blue-500 dark:to-purple-400 inline-block text-transparent bg-clip-text -mb-1 pb-1">
                 Geoffrey
               </span>{" "}
               is a product designer, user experience strategist and systems
               innovator.
             </h1>
 
-            <p className="text-lg md:text-2xl text-gray-800 mb-8 text-left text-slate-600 dark:text-slate-400">
+            <p className="animate-in fade-in slide-in-from-bottom-10 duration-1000 ease-out text-lg md:text-2xl text-gray-800 mb-8 text-left text-slate-600 dark:text-slate-400">
               I'm based in Tokyo and currently a Product Designer @{" "}
               <a
                 href="https://www.sollective.jp"

@@ -27,15 +27,6 @@ const nextConfig = {
       },
     ];
   },
-  async redirects() {
-    return [
-      {
-        source: "/:path*",
-        destination: "https://www.geoffreywu.digital",
-        permanent: true,
-      },
-    ];
-  },
 };
 
 export default nextConfig;

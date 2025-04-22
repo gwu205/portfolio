@@ -1,18 +1,15 @@
 import Image from "@/node_modules/next/image";
 import FolioItem from "./components/folio-item";
 
-const ReadIcon = ({ size = 14, color = "#000000" }) => (
+const LiIcon = ({ size = 14, color = "#000000" }) => (
   <svg
+    xmlns="http://www.w3.org/2000/svg"
     width={size}
     height={size}
-    viewBox="0 0 20 20"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    fill={color}
   >
-    <path
-      d="M16.4673 3.06641L6.29148 1.26953C5.96504 1.21209 5.62915 1.28664 5.35768 1.47681C5.0862 1.66697 4.90137 1.95717 4.84382 2.28359L2.5196 15.4867C2.49117 15.6485 2.4949 15.8142 2.53056 15.9745C2.56622 16.1348 2.63313 16.2866 2.72745 16.421C2.82176 16.5554 2.94165 16.67 3.08025 16.7581C3.21886 16.8462 3.37346 16.9061 3.53523 16.9344L13.711 18.7313C13.8728 18.7598 14.0387 18.7562 14.1991 18.7205C14.3595 18.6849 14.5113 18.6181 14.6458 18.5237C14.7803 18.4294 14.8949 18.3095 14.9831 18.1708C15.0712 18.0321 15.1311 17.8775 15.1594 17.7156L17.4837 4.5125C17.5406 4.18596 17.4655 3.85017 17.2749 3.57898C17.0843 3.3078 16.7938 3.12342 16.4673 3.06641ZM13.9266 17.5L3.75007 15.7031L6.07429 2.5L16.2501 4.29688L13.9266 17.5ZM6.97976 4.56406C7.00871 4.40092 7.10126 4.25594 7.23706 4.16101C7.37287 4.06608 7.54081 4.02896 7.70398 4.05781L14.1884 5.20234C14.3425 5.22934 14.4808 5.31315 14.5761 5.43723C14.6715 5.5613 14.7168 5.71661 14.7031 5.87247C14.6895 6.02833 14.6179 6.1734 14.5025 6.27903C14.387 6.38466 14.2362 6.44316 14.0798 6.44297C14.0431 6.44292 14.0065 6.43978 13.9704 6.43359L7.48601 5.28828C7.32286 5.25933 7.17789 5.16678 7.08296 5.03098C6.98802 4.89517 6.9509 4.72723 6.97976 4.56406ZM6.54695 7.02656C6.56119 6.94571 6.59122 6.86846 6.63533 6.79921C6.67944 6.72997 6.73676 6.6701 6.80401 6.62301C6.87127 6.57593 6.94714 6.54255 7.02729 6.5248C7.10745 6.50704 7.19032 6.50525 7.27116 6.51953L13.7555 7.66484C13.9107 7.6908 14.0504 7.77434 14.1467 7.89878C14.243 8.02321 14.2888 8.1794 14.275 8.33614C14.2612 8.49288 14.1888 8.63864 14.0722 8.74432C13.9557 8.85001 13.8035 8.90783 13.6462 8.90625C13.6092 8.90632 13.5723 8.90292 13.536 8.89609L7.05163 7.75156C6.88861 7.72226 6.74389 7.62944 6.64926 7.4935C6.55463 7.35756 6.51783 7.18962 6.54695 7.02656ZM6.11335 9.48828C6.14285 9.32557 6.23562 9.18117 6.37137 9.08672C6.50711 8.99227 6.67475 8.95547 6.83757 8.98438L10.0782 9.55391C10.2322 9.58089 10.3706 9.66465 10.4659 9.78864C10.5612 9.91263 10.6065 10.0678 10.593 10.2236C10.5795 10.3794 10.508 10.5245 10.3927 10.6302C10.2775 10.7359 10.1268 10.7945 9.97038 10.7945C9.93373 10.7945 9.89713 10.7914 9.86101 10.7852L6.61882 10.2125C6.45582 10.1834 6.31104 10.0907 6.21627 9.95496C6.1215 9.81917 6.08448 9.65133 6.11335 9.48828Z"
-      fill={color}
-    />
+    <path d="M12 0c6.627 0 12 5.373 12 12s-5.373 12-12 12S0 18.627 0 12 5.373 0 12 0zM8.951 9.404H6.165V17.5H8.95V9.404zm6.841-.192c-1.324 0-1.993.629-2.385 1.156l-.127.181V9.403h-2.786l.01.484c.006.636.007 1.748.005 2.93l-.015 4.683h2.786v-4.522c0-.242.018-.484.092-.657.202-.483.66-.984 1.43-.984.955 0 1.367.666 1.408 1.662l.003.168V17.5H19v-4.643c0-2.487-1.375-3.645-3.208-3.645zM7.576 5.5C6.623 5.5 6 6.105 6 6.899c0 .73.536 1.325 1.378 1.392l.18.006c.971 0 1.577-.621 1.577-1.398C9.116 6.105 8.53 5.5 7.576 5.5z" />
   </svg>
 );
 
@@ -62,26 +59,43 @@ export default function Page() {
               </a>
             </p>
           </div>
-          <div className="flex flex-col gap-7 items-start">
+          <div className="flex flex-col gap-7">
             <h3 className="w-full h-auto text-left font-light text-xs uppercase tracking-widest relative after:content-[''] after:bg-slate-300 after:w-full after:h-px after:absolute after:-top-3 after:left-0">
               What I do
             </h3>
-            <div className="flex flex-col md:flex-row items-start gap-3">
+            <div className="flex flex-col md:flex-row items-center">
               <Image
-                src="/images/avatar.jpeg"
-                height={80}
-                width={80}
+                src="/images/avatar.png"
+                height={100}
+                width={100}
                 alt="Geoffrey Wu"
-                className="rounded-full mr-2"
+                className="md:mr-2"
               />
-              <p className="w-full max-w-xl text-left h-auto text-lg leading-relaxed font-light">
-                As a full stack designer with 7+ years of experience, I
-                specialise in shaping product vision, streamlining design
-                operations, and building products from 0 to 1 to deliver
-                tangible business impact.
-              </p>
+              <div className="flex flex-col md:flex-row items-center">
+                <svg
+                  className="md:-rotate-90 -mb-[2px] md:-mr-[4px] z-[1]"
+                  width="25"
+                  height="22"
+                  viewBox="0 0 25 22"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    className="fill-white"
+                    d="M12.5 1L24.1913 21.25H0.808657L12.5 1Z"
+                  />
+                  <path className="stroke-slate-300" d="M24 21L12.5 1L1 21" />
+                </svg>
+                <p className="w-full relative max-w-xl text-left h-auto text-lg leading-relaxed font-light bg-white p-4 border border-slate-300 rounded-lg">
+                  As a full stack designer with&nbsp;
+                  {new Date().getFullYear() - 2017}+ years of experience, I
+                  specialise in shaping product vision, streamlining design
+                  operations, and building products from 0 to 1 to deliver
+                  tangible business impact.
+                </p>
+              </div>
             </div>
-            <div className="flex flex-row flex-wrap gap-[10px] w-full">
+            <div className="flex flex-row flex-wrap justify-center md:justify-start gap-[10px] w-full">
               <p className="border border-current inline-block bg-fuchsia-50 py-2 px-3 rounded-lg font-bold text-fuchsia-700 hover:scale-105 transition-transform select-none">
                 🎨 &nbsp;Web / UI Design
               </p>
@@ -92,13 +106,13 @@ export default function Page() {
                 💎 &nbsp;User Experience
               </p>
               <a
-                href="https://read.cv/geoffreywu"
+                href="https://www.linkedin.com/in/geoffrey-wu/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex flex-row items-center w-fit gap-3 py-2 pr-3 pl-2 text-slate-500 border rounded-lg transition-all ease-in-out duration-300 bg-slate-50 border-current hover:bg-slate-50 hover:text-slate-800 hover:scale-[1.02] active:scale-[0.98]"
+                className="flex flex-row items-center w-fit gap-2 py-2 pr-3 pl-2 text-slate-500 border rounded-lg transition-all ease-in-out duration-300 bg-slate-50 border-current hover:bg-slate-50 hover:text-slate-800 hover:scale-[1.02] active:scale-[0.98]"
               >
-                <div className="bg-white border rounded-full p-1">
-                  <ReadIcon />
+                <div className="bg-white text-sky-700 rounded-full p-1">
+                  <LiIcon color="currentColor" />
                 </div>
                 <span className="text-md">
                   View my CV / Resume

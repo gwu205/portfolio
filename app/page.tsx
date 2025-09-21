@@ -49,15 +49,18 @@ export default function Page() {
             <h1 className="animate-in fade-in zoom-in-105 ease-out duration-1000 mb-4 tracking-tight text-5xl sm:text-6xl font-normal leading-tight text-left font-sans bg-gradient-to-b from-slate-900 dark:from-slate-100 to-slate-400 dark:to-slate-400 text-transparent bg-clip-text pb-3 cursor-default">
               <span className="font-medium">Geoffrey Wu</span>
               &nbsp;is a&nbsp;
-              <span className="hover:font-medium ease-out transition-all">
+              <br />
+              <span className="hover:font-extrabold ease-out transition-all">
                 product designer
               </span>
               ,&nbsp;
-              <span className="hover:font-medium ease-out transition-all">
+              <br />
+              <span className="hover:font-extrabold ease-out transition-all">
                 user experience strategist
               </span>
-              &nbsp;and&nbsp;
-              <span className="hover:font-medium ease-out transition-all">
+              <br />
+              and&nbsp;
+              <span className="hover:font-extrabold ease-out transition-all break-all">
                 systems innovator
               </span>
               .

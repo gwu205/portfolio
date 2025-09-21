@@ -39,23 +39,50 @@ export default function Page() {
       <div className="w-full flex items-start justify-center relative overflow-hidden dark:bg-slate-900">
         <section className="overflow-y-auto snap-mandatory snap-y text-center text-gray-900 px-8 relative z-10 max-w-4xl flex flex-col gap-24">
           <div className="min-h-screen flex flex-col justify-center gap-10">
-            <h1 className="animate-in fade-in zoom-in-105 ease-out duration-1000 mb-4 tracking-tight text-5xl sm:text-7xl font-normal leading-tight text-left font-sans bg-gradient-to-b from-slate-900 dark:from-slate-100 to-slate-500 dark:to-slate-400 text-transparent bg-clip-text">
-              <span className="font-normal bg-gradient-to-r from-indigo-500 dark:from-pink-300 to-blue-500 dark:to-purple-400 inline-block text-transparent bg-clip-text -mb-1 pb-1">
-                Geoffrey
-              </span>{" "}
-              is a product designer, user experience strategist and systems
-              innovator.
+            <Image
+              src="/images/wuxdlogo.png"
+              height={80}
+              width={80}
+              alt="Logo"
+              className="-ml-2 animate-in fade-in slide-in-from-top-10 duration-1000 ease-out"
+            />
+            <h1 className="animate-in fade-in zoom-in-105 ease-out duration-1000 mb-4 tracking-tight text-5xl sm:text-6xl font-normal leading-tight text-left font-sans bg-gradient-to-b from-slate-900 dark:from-slate-100 to-slate-400 dark:to-slate-400 text-transparent bg-clip-text pb-3 cursor-default">
+              <span className="font-medium">Geoffrey Wu</span>
+              &nbsp;is a&nbsp;
+              <span className="hover:font-medium ease-out transition-all">
+                product designer
+              </span>
+              ,&nbsp;
+              <span className="hover:font-medium ease-out transition-all">
+                user experience strategist
+              </span>
+              &nbsp;and&nbsp;
+              <span className="hover:font-medium ease-out transition-all">
+                systems innovator
+              </span>
+              .
             </h1>
 
             <p className="animate-in fade-in slide-in-from-bottom-10 duration-1000 ease-out text-lg md:text-2xl text-gray-800 mb-8 text-left text-slate-600 dark:text-slate-400">
-              I'm based in Tokyo and currently a Product Designer @{" "}
+              I'm based in{" "}
+              <span className="text-red-500 p-1 bg-red-50 rounded-lg font-light hover:bg-red-100">
+                Tokyo
+              </span>{" "}
+              and currently a&nbsp;
+              <span className="text-sky-600 p-1 bg-sky-50 rounded-lg font-light hover:bg-sky-100">
+                Product Designer
+              </span>
+              &nbsp;at&nbsp;
               <a
                 href="https://www.sollective.jp"
                 target="_blank"
-                className="text-violet-600 pointer hover:text-violet-800 hover:underline dark:text-purple-400"
+                className="group text-violet-600 pointer hover:text-violet-800 hover:underline dark:text-purple-400 hover:pl-2 transition-all ease-out"
                 rel="noopener noreferrer"
               >
-                Sollective
+                Sollective&nbsp;
+                <span className="opacity-0 group-hover:opacity-100 -ml-3 group-hover:ml-0 transition-all ease-out">
+                  ↗
+                </span>
               </a>
             </p>
           </div>
@@ -169,9 +196,9 @@ export default function Page() {
           together? Say{" "}
           <a
             className="underline hover:text-slate-600"
-            href="mailto:hello@geoffreywu.digital"
+            href="mailto:hello@wuxdesign.dev"
           >
-            hello@geoffreywu.digital
+            hello@wuxdesign.dev
           </a>
         </p>
       </footer>

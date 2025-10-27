@@ -32,20 +32,33 @@ const ExternalLink = ({ size = 18, color = "currentColor" }) => (
   </svg>
 );
 
+const Logo = ({ size = 18, color = "currentColor" }) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width={size}
+    height={size}
+    fill={color}
+    viewBox="0 0 10 8"
+  >
+    <path
+      fill="#000"
+      fill-rule="evenodd"
+      d="M9.453.135 6.125 7.898h-.437L5.041 5.31l-.233-2.432L4.39 5.31l-.631 2.588H1.92L0 .176 1.708 0l.86 3.447.418 2.49h.021L3.22 3.42 4.037.135h1.47l.818 3.291.424 2.562h.021l.212-2.551.823-3.302z"
+      clip-rule="evenodd"
+    />
+  </svg>
+);
+
 export default function Page() {
   const year = new Date().getFullYear();
   return (
     <>
       <div className="w-full flex items-start justify-center relative overflow-hidden dark:bg-slate-900">
         <section className="overflow-y-auto snap-mandatory snap-y text-center text-gray-900 px-8 relative z-10 max-w-4xl flex flex-col gap-24">
-          <div className="min-h-screen flex flex-col justify-center gap-6 sm:gap-10">
-            <Image
-              src="/images/wuxdlogo.png"
-              height={80}
-              width={80}
-              alt="Logo"
-              className="mx-auto sm:-ml-2 animate-in fade-in slide-in-from-top-10 duration-1000 ease-out w-14 h-14 sm:w-24 sm:h-24"
-            />
+          <div className="min-h-screen flex flex-col justify-center gap-6 sm:gap-12">
+            <div className="flex justify-center sm:justify-start">
+              <Logo size={32} />
+            </div>
             <h1 className="text-center sm:text-left animate-in fade-in zoom-in-105 ease-out duration-1000 mb-0 sm:mb-2 tracking-tight text-2xl sm:text-6xl font-normal leading-tight text-left font-sans bg-gradient-to-b from-slate-900 dark:from-slate-100 to-slate-400 dark:to-slate-400 text-transparent bg-clip-text pb-3 cursor-default">
               <span className="font-medium">Geoffrey Wu</span>
               &nbsp;is a&nbsp;
@@ -68,11 +81,11 @@ export default function Page() {
 
             <p className="text-center sm:text-left animate-in fade-in slide-in-from-bottom-10 duration-1000 ease-out text-lg md:text-2xl text-gray-800 mb-8 text-left text-slate-600 dark:text-slate-400">
               I'm based in{" "}
-              <span className="text-red-500 p-1 bg-red-50 rounded-lg font-light hover:bg-red-100">
+              <span className="cursor-tyo text-red-500 p-1 bg-red-50 rounded-sm font-light hover:bg-red-400 hover:text-red-100">
                 Tokyo
               </span>{" "}
               and currently a&nbsp;
-              <span className="text-sky-600 p-1 bg-sky-50 rounded-lg font-light hover:bg-sky-100">
+              <span className="cursor-design text-sky-600 p-1 bg-sky-50 rounded-sm font-light hover:bg-sky-500 hover:text-sky-100">
                 Product Designer
               </span>
               &nbsp;at&nbsp;

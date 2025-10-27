@@ -56,7 +56,7 @@ export default function Page() {
       <div className="w-full flex items-start justify-center relative overflow-hidden dark:bg-slate-900">
         <section className="overflow-y-auto snap-mandatory snap-y text-center text-gray-900 px-8 relative z-10 max-w-4xl flex flex-col gap-24">
           <div className="min-h-screen flex flex-col justify-center gap-6 sm:gap-12">
-            <div className="flex justify-center sm:justify-start">
+            <div className="flex justify-center sm:justify-start animate-in fade-in slide-in-from-top-10 duration-1000 ease-out">
               <Logo size={32} />
             </div>
             <h1 className="text-center sm:text-left animate-in fade-in zoom-in-105 ease-out duration-1000 mb-0 sm:mb-2 tracking-tight text-2xl sm:text-6xl font-normal leading-tight text-left font-sans bg-gradient-to-b from-slate-900 dark:from-slate-100 to-slate-400 dark:to-slate-400 text-transparent bg-clip-text pb-3 cursor-default">

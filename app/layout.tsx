@@ -3,8 +3,9 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Geoffrey Wu",
-  description: "Portfolio Works by Geoffrey Wu",
+  title: "Geoffrey Wu | Product Designer",
+  description:
+    "Geoffrey helps product teams ship user-focused products, builds out thoughtfully considered design systems, and crafts innovative user experiences.",
 };
 
 const NoiseOverlay = () => (

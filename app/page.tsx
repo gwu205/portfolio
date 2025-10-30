@@ -213,9 +213,9 @@ export default function Page() {
           together? Say{" "}
           <a
             className="underline hover:text-slate-600"
-            href="mailto:hello@wuxdesign.dev"
+            href="mailto:geoffrey@wuxdesign.dev"
           >
-            hello@wuxdesign.dev
+            geoffrey@wuxdesign.dev
           </a>
         </p>
       </footer>

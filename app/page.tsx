@@ -210,7 +210,7 @@ export default function Page() {
       <footer className="p-3 w-full">
         <p className="text-center text-xs text-slate-400">
           © Copyright Geoffrey Wu {year}&emsp;•&emsp;Interested in working
-          together? Say{" "}
+          together? Reach out at{" "}
           <a
             className="underline hover:text-slate-600"
             href="mailto:geoffrey@wuxdesign.dev"

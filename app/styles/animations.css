@@ -1,0 +1,164 @@
+@keyframes blurCircleOrbit {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  20% {
+    transform: translate3d(4%, -6%, 0) scale(1.02);
+  }
+  40% {
+    transform: translate3d(8%, -2%, 0) scale(0.99);
+  }
+  60% {
+    transform: translate3d(4%, 4%, 0) scale(1.03);
+  }
+  80% {
+    transform: translate3d(-2%, 2%, 0) scale(1.01);
+  }
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+}
+
+.blur-circle-orbit {
+  animation-name: blurCircleOrbit;
+  animation-timing-function: cubic-bezier(0.42, 0, 0.58, 1);
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+
+@keyframes lineReveal {
+  0% {
+    transform: translateY(200%); /* start below baseline */
+    opacity: 0;
+  }
+  60% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.animate-line-reveal {
+  animation-name: lineReveal;
+  animation-duration: 2s;
+  animation-timing-function: cubic-bezier(0.33, 1, 0.68, 1); /* ease-out */
+  animation-fill-mode: both;
+}
+
+@keyframes move-in-from-top {
+  0% {
+    transform: translateY(-20px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.animate-move-in-from-top {
+  animation: move-in-from-top 0.6s ease-out forwards;
+  animation-delay: 2s;
+}
+
+@keyframes glitchText {
+  0% {
+    transform: translate(0, 0);
+    text-shadow: none;
+    opacity: 1;
+  }
+  15% {
+    transform: translate(-1px, 0);
+    text-shadow:
+      -1px 0 rgba(255, 0, 255, 0.7),
+      1px 0 rgba(0, 255, 255, 0.7);
+    opacity: 0.9;
+  }
+  30% {
+    transform: translate(1px, -1px);
+    text-shadow:
+      -1px 1px rgba(255, 0, 255, 0.8),
+      1px -1px rgba(0, 255, 255, 0.8);
+    opacity: 0.85;
+  }
+  45% {
+    transform: translate(-1px, 1px);
+    text-shadow:
+      -1px -1px rgba(255, 0, 255, 0.6),
+      1px 1px rgba(0, 255, 255, 0.6);
+    opacity: 0.9;
+  }
+  60% {
+    transform: translate(0.5px, -0.5px);
+    text-shadow:
+      -0.5px 0.5px rgba(255, 0, 255, 0.4),
+      0.5px -0.5px rgba(0, 255, 255, 0.4);
+    opacity: 0.95;
+  }
+  75% {
+    transform: translate(-0.5px, 0.5px);
+    text-shadow:
+      -0.5px -0.5px rgba(255, 0, 255, 0.3),
+      0.5px 0.5px rgba(0, 255, 255, 0.3);
+    opacity: 0.98;
+  }
+  90% {
+    transform: translate(0.2px, 0);
+    text-shadow:
+      0.2px 0 rgba(255, 0, 255, 0.2),
+      -0.2px 0 rgba(0, 255, 255, 0.2);
+    opacity: 0.99;
+  }
+  100% {
+    transform: translate(0, 0);
+    text-shadow: none;
+    opacity: 1;
+  }
+}
+
+.glitch-text {
+  animation: glitchText 0.8s ease-in-out;
+}
+
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-scroll {
+  animation: scroll 40s linear infinite;
+  width: fit-content;
+}
+
+@keyframes tooltipIn {
+  0% {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes tooltipOut {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+}
+
+.animate-in {
+  animation: tooltipIn 0.2s ease-out forwards;
+}

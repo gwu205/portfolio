@@ -9,12 +9,12 @@ const ArticleTemplate: React.FC<WrapperProps> = ({ children }) => {
   return (
     <main className="article">
       <nav>
-        <a className="text-slate-500 hover:text-slate-700 text-sm" href="/">
+        <a className="text-slate-500 hover:text-slate-200 text-sm" href="/">
           〱 Back to Home
         </a>
       </nav>
       {children}
-      <footer className="flex flex-row justify-between mt-20 text-slate-400 text-sm">
+      <footer className="flex flex-row justify-between mt-20 text-slate-200 text-sm">
         <a className="hover:text-slate-700" href="/">
           〱 Back
         </a>

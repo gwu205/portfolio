@@ -4,4 +4,4 @@
   <img src="app/favicon.ico" />
 </p>
 
-This is a portfolio website built with Next.js, TailwindCSS, and ShadCN.
+This is a portfolio website built with Next.js and TailwindCSS.

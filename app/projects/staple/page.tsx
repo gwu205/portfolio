@@ -1,5 +1,5 @@
-import Image from "@/node_modules/next/image";
 import ArticleTemplate from "@/app/components/article-template";
+import Image from "@/node_modules/next/image";
 
 export default function Page() {
   return (
@@ -157,7 +157,23 @@ export default function Page() {
           documentation, ensuring consistency across the platform.
         </li>
         <li>
-          This system was adapted into a custom CSS framework, allowing the team
+          Inspired by{" "}
+          <a
+            href="https://bradfrost.com/blog/post/atomic-web-design/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Atomic Design principles
+          </a>{" "}
+          and{" "}
+          <a
+            href="https://frontstuff.io/generate-all-your-utility-classes-with-sass-maps"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            this article by Sarah Dayan
+          </a>
+          , I adapted the concept into a custom CSS framework, allowing the team
           to build and scale pages quickly and efficiently.
         </li>
       </ul>
@@ -188,7 +204,8 @@ export default function Page() {
           <ul>
             <li>
               The design system provided a cohesive and scalable foundation for
-              future feature development, reducing implementation time.
+              future feature development, cutting down frontend implementation
+              time by 100%.
             </li>
           </ul>
         </li>

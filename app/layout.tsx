@@ -24,9 +24,8 @@ export default function RootLayout({
   return (
     <html lang="en">
       <GoogleTagManager gtmId={process.env.NEXT_PUBLIC_GA_ID as string} />
-      <body>
+      <body className="font-sans bg-gradient-to-b from-gray-800 to-black">
         {children}
-        <NoiseOverlay />
       </body>
     </html>
   );

@@ -12,10 +12,8 @@ export default function Page() {
   const yearsSince2017 = year - 2017;
   return (
     <>
-      <section className="relative bg-gradient-to-b from-[#eeeeee] to-black min-h-[800px] flex items-center justify-center overflow-hidden">
-        <Hero />
-      </section>
-      <main id="#work" className="w-full relative z-10 bg-white">
+      <Hero />
+      <main id="work" className="w-full relative z-10 bg-white">
         <Works />
       </main>
       <section className="bg-[#2A1F33] py-4">

@@ -1,9 +1,10 @@
-export const Logo = ({ size = 18, color = "currentColor" }) => (
+export const Logo = ({ size = 18, color = "currentColor", className = "" }) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width={size}
     height={size}
     fill={color}
+    className={className}
     viewBox="0 0 10 8"
   >
     <path

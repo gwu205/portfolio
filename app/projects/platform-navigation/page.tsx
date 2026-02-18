@@ -1,5 +1,5 @@
+import ArticleTemplate from "@/app/components/ArticleTemplate";
 import Image from "@/node_modules/next/image";
-import ArticleTemplate from "@/app/components/article-template";
 
 export default function Page() {
   return (

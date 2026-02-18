@@ -1,13 +1,17 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { Logo } from "./Logo";
+import { TransitionLink } from "./TransitionLink";
 
 interface FooterProps {
   year: number;
 }
 
 export const Footer = ({ year }: FooterProps) => {
+  const pathname = usePathname();
+
   return (
     <footer className="p-3 w-full">
       <div className="flex flex-col md:flex-row md:justify-between justify-center items-center p-8">
@@ -21,9 +25,12 @@ export const Footer = ({ year }: FooterProps) => {
           >
             Reach Out
           </Link>
-          {/* <Link href="/about" className="hover:underline">
-            Philosophy
-          </Link> */}
+          <TransitionLink
+            href={pathname === "/about" ? "/" : "/about"}
+            className="hover:underline"
+          >
+            {pathname === "/about" ? "Work" : "Philosophy"}
+          </TransitionLink>
           <div
             className="p-4 flex w-fit cursor-pointer hover:scale-110 transition-transform duration-300"
             onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}

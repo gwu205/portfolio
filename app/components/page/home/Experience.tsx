@@ -7,7 +7,7 @@ interface ExperienceProps {
 export const Experience = ({ yearsSince2017 }: ExperienceProps) => {
   return (
     <div className="max-w-5xl px-8 mx-auto flex flex-col gap-10 font-light">
-      <h2 className="w-full text-sm font-extrabold text-white uppercase tracking-[0.15rem] flex items-center">
+      <h2 className="u-stack-label">
         <span>Experience</span>
         <span className="ml-4 flex-1 h-px bg-white"></span>
       </h2>
@@ -19,19 +19,19 @@ export const Experience = ({ yearsSince2017 }: ExperienceProps) => {
         I've excelled at the forefront of design production and operations for
         agile product development teams.
       </p>
-      <h6 className="pl-[8%] w-full text-sm font-extrabold text-white uppercase tracking-[0.15rem] flex items-center">
+      <h6 className="pl-[8%] u-stack-label">
         <span>Present</span>
         <span className="ml-4 flex-1 h-px bg-white"></span>
       </h6>
       <p className="pl-[8%] text-white">UX Designer — Sollective (HR Tech)</p>
-      <h6 className="pl-[16%] w-full text-sm font-extrabold text-white uppercase tracking-[0.15rem] flex items-center">
+      <h6 className="pl-[16%] u-stack-label">
         <span>2020</span>
         <span className="ml-4 flex-1 h-px bg-white"></span>
       </h6>
       <p className="pl-[16%] text-white">
         Senior UX Designer — Crowd Cast (FinTech)
       </p>
-      <h6 className="pl-[24%] w-full text-sm font-extrabold text-white uppercase tracking-[0.15rem] flex items-center">
+      <h6 className="pl-[24%] u-stack-label">
         <span>2017</span>
         <span className="ml-4 flex-1 h-px bg-white"></span>
       </h6>
@@ -39,7 +39,7 @@ export const Experience = ({ yearsSince2017 }: ExperienceProps) => {
         Graphic Designer & Front-End Developer — Wisenet Information Systems
         (EdTech)
       </p>
-      <h6 className="pl-[32%] w-full text-sm font-extrabold text-white uppercase tracking-[0.15rem] flex items-center">
+      <h6 className="pl-[32%] u-stack-label">
         <span>2015</span>
         <span className="ml-4 flex-1 h-px bg-white"></span>
       </h6>

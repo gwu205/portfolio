@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { Footer } from "../components/common/Footer";
+import { ParallaxCircles } from "../components/common/ParallaxCircles";
 import { Hero } from "../components/page/about/Hero";
 import { Stack } from "../components/page/about/Stack";
 
@@ -8,7 +9,7 @@ export default function Page() {
     <>
       <Hero />
       <main className="w-full relative z-10 bg-white p-8 max-md:py-24 md:p-24">
-        <div className="relative w-full max-w-3xl mx-auto p-12 bg-[#F7F4F8] rounded-[32px]">
+        <div className="z-10 relative w-full max-w-3xl mx-auto p-12 bg-[#F7F4F8] rounded-[32px]">
           <Image
             src="/images/avatar.jpeg"
             alt="Geoffrey Wu"
@@ -34,7 +35,7 @@ export default function Page() {
             clear, shippable products.
           </p>
         </div>
-        <div className="mt-12 max-w-3xl mx-auto flex flex-col gap-4">
+        <div className="relative z-10 mt-12 max-w-3xl mx-auto flex flex-col gap-4">
           <h1 className="text-4xl font-semibold text-[#4E3960] flex items-center gap-8">
             Design Philosophy
             <svg
@@ -114,6 +115,26 @@ export default function Page() {
             usability and accessibility best practices.
           </p>
         </div>
+        <ParallaxCircles
+          circles={[
+            {
+              position: "top",
+              side: "left",
+              offset: "-20%",
+              speed: 0.1,
+              zIndex: 0,
+              color: "#efe4f1",
+            },
+            {
+              position: "bottom",
+              side: "right",
+              offset: "-15%",
+              speed: 0.5,
+              zIndex: 0,
+              color: "#efe4f1",
+            },
+          ]}
+        />
       </main>
       <section
         id="stack"

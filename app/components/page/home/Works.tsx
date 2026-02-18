@@ -1,72 +1,14 @@
 "use client";
 
-import Image from "@/node_modules/next/image";
 import { CopyIcon } from "lucide-react";
-import { useEffect, useRef, useState } from "react";
-import FolioItem from "../../common/FolioItem";
+import Image from "next/image";
 
-const CircleSvg = ({
-  width = "1086",
-  height = "1086",
-}: {
-  width?: string;
-  height?: string;
-}) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width={width}
-    height={height}
-    fill="none"
-    viewBox="0 0 1086 1086"
-  >
-    <circle cx="542.5" cy="542.5" r="542" stroke="#00F" />
-  </svg>
-);
+import { useState } from "react";
+import { AnimatedFolioItem } from "../../common/AnimatedFolioItem";
+import { ParallaxCircles } from "../../common/ParallaxCircles";
 
 export const Works = () => {
   const [copied, setCopied] = useState(false);
-  const parallaxRef = useRef<HTMLDivElement>(null);
-  const [scrollY, setScrollY] = useState(0);
-  const [visibleItems, setVisibleItems] = useState<Set<number>>(new Set());
-  const itemRefs = useRef<(HTMLDivElement | null)[]>([]);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setScrollY(window.scrollY);
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          const index = parseInt(
-            entry.target.getAttribute("data-index") || "0",
-          );
-          if (entry.isIntersecting) {
-            setVisibleItems((prev) => new Set(prev).add(index));
-          }
-        });
-      },
-      {
-        threshold: 0.1,
-        rootMargin: "-50px 0px -50px 0px",
-      },
-    );
-
-    itemRefs.current.forEach((ref) => {
-      if (ref) observer.observe(ref);
-    });
-
-    return () => {
-      itemRefs.current.forEach((ref) => {
-        if (ref) observer.unobserve(ref);
-      });
-    };
-  }, []);
 
   const copyEmail = async () => {
     try {
@@ -77,105 +19,59 @@ export const Works = () => {
       console.error("Failed to copy email:", err);
     }
   };
+
   return (
     <>
       <div className="max-w-5xl mx-auto px-8 py-16 md:py-32 flex md:flex-row flex-col-reverse gap-8 relative">
         <div className="md:w-1/2 w-full flex flex-col gap-8 md:-mt-[30%] z-10">
-          <div
-            ref={(el) => {
-              itemRefs.current[0] = el;
-            }}
-            data-index="0"
-            className={`transition-all duration-700 ease-out ${
-              visibleItems.has(0)
-                ? "opacity-100 translate-y-0"
-                : "opacity-0 translate-y-8"
-            }`}
-          >
-            <FolioItem
-              title="Invoice Builder"
-              client="FreelanceOS"
-              skills={["UI Design", "UX Research", "Web SaaS"]}
-              img_src="/images/projects/invoices.jpg"
-              link="/projects/invoice-builder"
-            />
-          </div>
-          <div
-            ref={(el) => {
-              itemRefs.current[1] = el;
-            }}
-            data-index="1"
-            className={`transition-all duration-700 ease-out delay-100 ${
-              visibleItems.has(1)
-                ? "opacity-100 translate-y-0"
-                : "opacity-0 translate-y-8"
-            }`}
-          >
-            <FolioItem
-              title="Platform Navigation"
-              client="Sollective"
-              skills={["UI Design", "B2C", "Branding"]}
-              img_src="/images/projects/navigation.jpg"
-              link="/projects/platform-navigation"
-            />
-          </div>
-          <div
-            ref={(el) => {
-              itemRefs.current[2] = el;
-            }}
-            data-index="2"
-            className={`transition-all duration-700 ease-out delay-200 ${
-              visibleItems.has(2)
-                ? "opacity-100 translate-y-0"
-                : "opacity-0 translate-y-8"
-            }`}
-          >
-            <FolioItem
-              title="Product Website"
-              client="Sollective"
-              skills={["Web Design", "Framer", "Motion Design", "Branding"]}
-              video_src="https://res.cloudinary.com/gswu205/video/upload/v1770948413/sollectivejp-reel_zdbmbj.mp4"
-              link="/projects/site-redesign"
-            />
-          </div>
-          <div
-            ref={(el) => {
-              itemRefs.current[3] = el;
-            }}
-            data-index="3"
-            className={`transition-all duration-700 ease-out delay-300 ${
-              visibleItems.has(3)
-                ? "opacity-100 translate-y-0"
-                : "opacity-0 translate-y-8"
-            }`}
-          >
-            <FolioItem
-              title="Web App Redesign"
-              client="Staple"
-              skills={["Frontend Dev", "UI/UX Design", "B2B SaaS"]}
-              img_src="/images/projects/staplecard.jpg"
-              link="/projects/staple"
-            />
-          </div>
-          <div
-            ref={(el) => {
-              itemRefs.current[4] = el;
-            }}
-            data-index="4"
-            className={`transition-all duration-700 ease-out delay-400 ${
-              visibleItems.has(4)
-                ? "opacity-100 translate-y-0"
-                : "opacity-0 translate-y-8"
-            }`}
-          >
-            <FolioItem
-              title="Corporate Brand"
-              client="Crowd Cast"
-              skills={["Branding", "Visual Design"]}
-              img_src="/images/projects/crowdcast.jpg"
-              link="/projects/crowdcast"
-            />
-          </div>
+          <AnimatedFolioItem
+            title="Experience.Lab"
+            client="Publicis Groupe"
+            skills={["Framer", "Frontend Dev", "Motion Design"]}
+            video_src="https://res.cloudinary.com/gswu205/video/upload/v1771406232/explab-square_ryl87l.mp4"
+            link="/projects/experience-lab"
+            index={0}
+          />
+          <AnimatedFolioItem
+            title="Invoice Builder"
+            client="FreelanceOS"
+            skills={["UI Design", "UX Research", "Web SaaS"]}
+            img_src="/images/projects/invoices.jpg"
+            link="/projects/invoice-builder"
+            index={1}
+          />
+          <AnimatedFolioItem
+            title="Platform Navigation"
+            client="Sollective"
+            skills={["UI Design", "B2C", "Branding"]}
+            img_src="/images/projects/navigation.jpg"
+            link="/projects/platform-navigation"
+            index={2}
+          />
+          <AnimatedFolioItem
+            title="Product Website"
+            client="Sollective"
+            skills={["Web Design", "Framer", "Motion Design", "Branding"]}
+            video_src="https://res.cloudinary.com/gswu205/video/upload/v1770948413/sollectivejp-reel_zdbmbj.mp4"
+            link="/projects/site-redesign"
+            index={3}
+          />
+          <AnimatedFolioItem
+            title="Web App Redesign"
+            client="Staple"
+            skills={["Frontend Dev", "UI/UX Design", "B2B SaaS"]}
+            img_src="/images/projects/staplecard.jpg"
+            link="/projects/staple"
+            index={4}
+          />
+          <AnimatedFolioItem
+            title="Corporate Brand"
+            client="Crowd Cast"
+            skills={["Branding", "Visual Design"]}
+            img_src="/images/projects/crowdcast.jpg"
+            link="/projects/crowdcast"
+            index={5}
+          />
         </div>
         <div className="md:w-1/2 w-full md:sticky top-10 md:h-screen z-10">
           <div className="flex flex-col gap-8">
@@ -242,27 +138,25 @@ export const Works = () => {
           </div>
         </div>
       </div>
-      <div
-        className="absolute inset-0 overflow-hidden pointer-events-none"
-        ref={parallaxRef}
-      >
-        <div
-          className="absolute top-[15%] z-0 right-[-30%]"
-          style={{
-            transform: `translateY(${scrollY * 0.3}px)`,
-          }}
-        >
-          <CircleSvg />
-        </div>
-        <div
-          className="absolute bottom-[15%] z-0 left-[-25%]"
-          style={{
-            transform: `translateY(${scrollY * 0.5}px)`,
-          }}
-        >
-          <CircleSvg />
-        </div>
-      </div>
+
+      <ParallaxCircles
+        circles={[
+          {
+            position: "top",
+            side: "right",
+            offset: "-30%",
+            speed: 0.3,
+            zIndex: 0,
+          },
+          {
+            position: "bottom",
+            side: "left",
+            offset: "-25%",
+            speed: 0.3,
+            zIndex: 0,
+          },
+        ]}
+      />
     </>
   );
 };

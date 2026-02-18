@@ -17,7 +17,7 @@ import Icon from "../../common/Icon";
 
 export const Stack = () => {
   return (
-    <div className="flex-1 flex flex-col gap-5">
+    <div className="min-md:flex-1 w-full flex flex-col gap-5">
       <h6 className="u-stack-label">
         <span>Design</span>
         <span className="ml-4 flex-1 h-px bg-white"></span>

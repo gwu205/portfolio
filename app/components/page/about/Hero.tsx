@@ -1,8 +1,14 @@
+"use client";
+
+import { useWindowSize } from "../../../hooks/useWindowSize";
 import { AnimatedTitle } from "../../common/AnimatedTitle";
 import { BlurCircle } from "../../common/BlurCircle";
 import { Header } from "../../common/Header";
 
 export const Hero = () => {
+  const { width } = useWindowSize();
+  const isDesktop = width >= 768;
+
   return (
     <section className="relative bg-gradient-to-b from-[#eeeeee] to-black flex flex-col items-center justify-center overflow-hidden">
       <div className="w-full h-[120px] pointer-events-none" />
@@ -10,11 +16,15 @@ export const Hero = () => {
       <div className="md:p-8 p-4 w-full max-w-5xl">
         <AnimatedTitle
           className="mb-16"
-          titleLines={[
-            "Product designer focused on",
-            "systems, clarity, and ",
-            "end‑to‑end execution",
-          ]}
+          titleLines={
+            isDesktop
+              ? [
+                  "Product designer focused on",
+                  "systems, clarity, and ",
+                  "end‑to‑end execution",
+                ]
+              : ["Designing", "systems", "with clarity", "and execution"]
+          }
         />
       </div>
       <div className="h-full w-full overflow-hidden absolute top-0 left-0">

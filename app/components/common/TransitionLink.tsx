@@ -20,7 +20,6 @@ export function TransitionLink({ href, children, className }: Props) {
       return;
     }
 
-    // Let modified clicks behave normally (new tab, etc.)
     if (
       e.defaultPrevented ||
       e.button !== 0 ||
@@ -33,7 +32,7 @@ export function TransitionLink({ href, children, className }: Props) {
     }
 
     e.preventDefault();
-    startTransition(href); // <-- now always a string
+    startTransition(href);
   };
 
   return (

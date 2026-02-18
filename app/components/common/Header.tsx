@@ -111,13 +111,6 @@ export const Header = () => {
   const word1 = useTextSwap(3500, 6500, 0);
   const word2 = useTextSwap(3500, 6500, 2000);
 
-  // const handleWorkClick = (e: React.MouseEvent) => {
-  //   if (window.location.pathname === "/") {
-  //     e.preventDefault();
-  //     document.getElementById("work")?.scrollIntoView({ behavior: "smooth" });
-  //   }
-  // };
-
   const handleLogoClick = () => {
     if (pathname !== "/") {
       router.push("/");
@@ -142,11 +135,7 @@ export const Header = () => {
             className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-0 scale-50 group-hover:opacity-100 group-hover:scale-100 transition-all duration-700"
           />
         </div>
-        <TransitionLink
-          href="/"
-          className="relative group overflow-hidden"
-          // onClick={handleWorkClick}
-        >
+        <TransitionLink href="/" className="relative group overflow-hidden">
           <span className="block top-0 left-0 w-full h-full group-hover:translate-y-[-100%] transition-transform duration-300">
             Work
           </span>
@@ -166,7 +155,7 @@ export const Header = () => {
           </span>
         </TransitionLink>
       </div>
-      <div className="font-bold flex gap-2 items-baseline">
+      <div className="hidden sm:flex font-bold gap-2 items-baseline">
         <SwapText
           text1="Designer"
           text2="デザイナー"

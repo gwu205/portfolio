@@ -38,7 +38,7 @@ export function RouteTransitionProvider({ children }: ProviderProps) {
   const hasNavigated = useRef(false);
 
   const duration = 0.6;
-  const easing = [0.25, 0.8, 0.25, 1];
+  const easing: [number, number, number, number] = [0.25, 0.8, 0.25, 1];
 
   const startTransition = useCallback(
     (href: string) => {
@@ -59,17 +59,15 @@ export function RouteTransitionProvider({ children }: ProviderProps) {
           {isTransitioning && (
             <motion.div
               key="wipe"
-              initial={{ y: "100%" }} // from bottom
-              animate={{ y: "0%" }} // cover screen
-              exit={{ y: "-100%" }} // wipe up & away
+              initial={{ y: "100%" }}
+              animate={{ y: "0%" }}
+              exit={{ y: "-100%" }}
               transition={{ duration, ease: easing }}
               className="pointer-events-none fixed inset-0 z-50 bg-black"
               onAnimationComplete={() => {
-                // First time it completes the "animate" phase: navigate
                 if (!hasNavigated.current && pendingHref.current) {
                   hasNavigated.current = true;
                   router.push(pendingHref.current);
-                  // let the new page mount under the overlay, then remove overlay
                   setTimeout(() => {
                     setIsTransitioning(false);
                     pendingHref.current = null;

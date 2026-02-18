@@ -7,7 +7,7 @@ export default function Page() {
   return (
     <>
       <Hero />
-      <main className="w-full relative z-10 bg-white p-24">
+      <main className="w-full relative z-10 bg-white p-8 max-md:py-24 md:p-24">
         <div className="relative w-full max-w-3xl mx-auto p-12 bg-[#F7F4F8] rounded-[32px]">
           <Image
             src="/images/avatar.jpeg"
@@ -117,9 +117,14 @@ export default function Page() {
       </main>
       <section
         id="stack"
-        className="bg-[#2A1F33] py-40 md:rounded-br-[128px] md:rounded-bl-[128px]"
+        className="bg-[#2A1F33] py-20 md:py-40 md:rounded-br-[128px] md:rounded-bl-[128px]"
       >
-        <div className="max-w-5xl px-8 mx-auto flex gap-10 font-light">
+        <div className="max-w-5xl px-8 mx-auto flex gap-10 max-md:flex-wrap">
+          <div className="min-md:flex-1 w-full">
+            <h2 className="md:text-[10vw] text-6xl font-bold text-[#1B0E26] tracking-tighter">
+              Stack
+            </h2>
+          </div>
           <Stack />
         </div>
       </section>

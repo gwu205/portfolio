@@ -1,4 +1,4 @@
-import ArticleTemplate from "@/app/components/article-template";
+import ArticleTemplate from "@/app/components/ArticleTemplate";
 import Image from "@/node_modules/next/image";
 
 export default function Page() {

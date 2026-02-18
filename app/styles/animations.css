@@ -28,7 +28,7 @@
 
 @keyframes lineReveal {
   0% {
-    transform: translateY(200%); /* start below baseline */
+    transform: translateY(100%);
     opacity: 0;
   }
   60% {
@@ -62,65 +62,6 @@
 .animate-move-in-from-top {
   animation: move-in-from-top 0.6s ease-out forwards;
   animation-delay: 2s;
-}
-
-@keyframes glitchText {
-  0% {
-    transform: translate(0, 0);
-    text-shadow: none;
-    opacity: 1;
-  }
-  15% {
-    transform: translate(-1px, 0);
-    text-shadow:
-      -1px 0 rgba(255, 0, 255, 0.7),
-      1px 0 rgba(0, 255, 255, 0.7);
-    opacity: 0.9;
-  }
-  30% {
-    transform: translate(1px, -1px);
-    text-shadow:
-      -1px 1px rgba(255, 0, 255, 0.8),
-      1px -1px rgba(0, 255, 255, 0.8);
-    opacity: 0.85;
-  }
-  45% {
-    transform: translate(-1px, 1px);
-    text-shadow:
-      -1px -1px rgba(255, 0, 255, 0.6),
-      1px 1px rgba(0, 255, 255, 0.6);
-    opacity: 0.9;
-  }
-  60% {
-    transform: translate(0.5px, -0.5px);
-    text-shadow:
-      -0.5px 0.5px rgba(255, 0, 255, 0.4),
-      0.5px -0.5px rgba(0, 255, 255, 0.4);
-    opacity: 0.95;
-  }
-  75% {
-    transform: translate(-0.5px, 0.5px);
-    text-shadow:
-      -0.5px -0.5px rgba(255, 0, 255, 0.3),
-      0.5px 0.5px rgba(0, 255, 255, 0.3);
-    opacity: 0.98;
-  }
-  90% {
-    transform: translate(0.2px, 0);
-    text-shadow:
-      0.2px 0 rgba(255, 0, 255, 0.2),
-      -0.2px 0 rgba(0, 255, 255, 0.2);
-    opacity: 0.99;
-  }
-  100% {
-    transform: translate(0, 0);
-    text-shadow: none;
-    opacity: 1;
-  }
-}
-
-.glitch-text {
-  animation: glitchText 0.8s ease-in-out;
 }
 
 @keyframes scroll {
@@ -161,4 +102,36 @@
 
 .animate-in {
   animation: tooltipIn 0.2s ease-out forwards;
+}
+
+@keyframes textExitUp {
+  0% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+}
+
+@keyframes textEnterUp {
+  0% {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.text-swap-container {
+  position: relative;
+  overflow: hidden;
+  display: inline-flex;
+}
+
+.text-swap-exit {
+  animation: textExitUp 0.4s ease-in-out forwards;
 }

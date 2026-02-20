@@ -105,7 +105,7 @@
   h5,
   h6,
   li {
-    @apply font-sans text-slate-300;
+    @apply font-sans text-[#4E3960];
   }
   body {
     @apply bg-background text-foreground;
@@ -127,13 +127,50 @@
 
 @layer components {
   .article {
-    @apply max-w-3xl text-slate-100 py-12 px-6 mx-auto flex flex-col gap-7 z-10 relative text-lg/8;
+    @apply relative bg-white px-5 sm:px-10 pb-16;
+
+    .video-container:first-child {
+      @apply mt-0;
+    }
+
+    .video-container,
+    img {
+      @apply my-10;
+    }
+
+    .image {
+      @apply max-w-3xl w-full;
+    }
+
     a {
       @apply text-purple-400 hover:underline;
+    }
+
+    .content {
+      @apply max-w-6xl mx-auto;
+    }
+
+    h2 {
+      @apply text-4xl/loose font-bold tracking-tight mt-12 mb-4;
+    }
+
+    h3 {
+      @apply text-xl font-semibold mt-8 mb-2;
+    }
+
+    p {
+      @apply max-w-3xl leading-relaxed pb-2;
+    }
+
+    ul {
+      @apply max-w-3xl mt-3 mb-5;
     }
   }
   .article-headline {
     @apply text-2xl text-slate-200 font-medium tracking-tight md:text-5xl/[1.15];
+  }
+  .article-meta {
+    @apply flex flex-col font-bold bg-gradient-to-r from-indigo-500 dark:from-pink-300 to-blue-500 dark:to-purple-400 inline-block text-transparent bg-clip-text;
   }
   .section-heading {
     @apply text-2xl md:text-3xl font-semibold mt-8 capitalize;
@@ -144,16 +181,11 @@
   .link {
     @apply text-purple-600 hover:underline;
   }
-  .cursor-tyo {
-    cursor:
-      url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg'  width='40' height='48' viewport='0 0 100 100' style='fill:black;font-size:24px;'><text y='50%'>🗼</text></svg>")
-        16 0,
-      auto;
-  }
-  .cursor-design {
-    cursor:
-      url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg'  width='40' height='48' viewport='0 0 100 100' style='fill:black;font-size:24px;'><text y='50%'>🎨</text></svg>")
-        16 0,
-      auto;
-  }
+}
+
+.cursor-tyo {
+  cursor:
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg'  width='40' height='48' viewport='0 0 100 100' style='fill:black;font-size:24px;'><text y='50%'>🗼</text></svg>")
+      16 0,
+    auto;
 }

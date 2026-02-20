@@ -6,9 +6,10 @@ import { Hero } from "./components/page/home/Hero";
 import { Skills } from "./components/page/home/Skills";
 import { Ticker } from "./components/page/home/Ticker";
 import { Works } from "./components/page/home/Works";
+import { getCurrentYear } from "./utils/dateHelpers";
 
 export default function Page() {
-  const year = new Date().getFullYear();
+  const year = getCurrentYear();
   const yearsSince2017 = year - 2017;
   return (
     <>
@@ -27,7 +28,7 @@ export default function Page() {
       <section className="bg-[#2A1F33] pt-12 pb-40 md:rounded-br-[128px] md:rounded-bl-[128px]">
         <Experience yearsSince2017={yearsSince2017} />
       </section>
-      <Footer year={year} />
+      <Footer />
     </>
   );
 }

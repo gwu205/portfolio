@@ -52,7 +52,7 @@ export function RouteTransitionProvider({ children }: ProviderProps) {
 
   return (
     <TransitionContext.Provider value={{ startTransition, isTransitioning }}>
-      <div className="relative bg-black text-white">
+      <div className="relative bg-black">
         {children}
 
         <AnimatePresence>

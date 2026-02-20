@@ -8,15 +8,19 @@ export default function Page() {
         Designing an Invoice Builder for Freelance Work in Japan
       </h1>
       <div className="text-slate-400 flex flex-row gap-x-10 gap-y-0 flex-wrap">
-        <h2 className="flex flex-col font-bold bg-gradient-to-r from-indigo-500 dark:from-pink-300 to-blue-500 dark:to-purple-400 inline-block text-transparent bg-clip-text">
-          <span className="font-light text-xs">Discipline:</span>Product Design
+        <h2 className="article-meta">
+          <span className="font-light text-xs">Year:</span>2024
         </h2>
-        <h2 className="flex flex-col font-bold bg-gradient-to-r from-indigo-500 dark:from-pink-300 to-blue-500 dark:to-purple-400 inline-block text-transparent bg-clip-text">
-          <span className="font-light text-xs">Medium:</span>SaaS Web App
+        <h2 className="article-meta">
+          <span className="font-light text-xs">Role:</span>Product Design
         </h2>
-        <h2 className="flex flex-col font-bold bg-gradient-to-r from-indigo-500 dark:from-pink-300 to-blue-500 dark:to-purple-400 inline-block text-transparent bg-clip-text">
+        <h2 className="article-meta">
+          <span className="font-light text-xs">Medium:</span>SaaS Web
+          Application
+        </h2>
+        <h2 className="article-meta">
           <span className="font-light text-xs">Tools:</span>Figma, Google Meets
-          (Interviews)
+          (User Interviews)
         </h2>
       </div>
       <Image
@@ -29,47 +33,67 @@ export default function Page() {
       <p className="italic">
         Sollective is a vetted freelancer matching platform in Japan, connecting
         highly skilled freelancers with companies looking to expand their
-        business operations. In addition to matching, Sollective aims to support
-        the future of freelance work in Japan through community events and
-        made-for-freelance workflow tools.
+        business operations. Beyond matching, the platform aims to support the
+        future of freelance work through community events and workflow tools
+        tailored to independent professionals.
+        <br />
+        <br />
+        To support this vision, the team set out to design an invoice builder
+        specifically for freelancers in Japan - a tool that simplifies invoice
+        creation, respects local accounting standards, and feels approachable
+        for users without a finance background.
       </p>
-      <h3 className="section-heading">The Problem</h3>
+      <h3 className="section-heading">Context</h3>
       <p>
-        Freelancers often face challenges managing invoices due to their lack of
-        financial expertise or familiarity with legal requirements. Existing
-        tools in the market are typically tailored to back-office staff and
-        finance professionals, making them inaccessible or too complex for
-        novice users.
+        Many freelancers in Japan lack formal financial training and are
+        unfamiliar with local tax and invoicing laws. Existing solutions tend to
+        be built for accountants and back-office staff, making them overpowered,
+        jargon-heavy, and intimidating for solo freelancers.
       </p>
+      <h3 className="section-heading">Problem</h3>
       <p>
-        Our team set out to build an invoice builder that addresses these key
-        considerations:
+        Freelancers struggled to:
+        <ul>
+          <li>Understand what legally needed to appear on an invoice.</li>
+          <li>
+            Navigate complex interfaces designed for finance professionals.
+          </li>
+          <li>
+            Confidently create compliant invoices under new Japanese tax
+            regulations.
+          </li>
+        </ul>
+        This became more acute with the introduction of the{" "}
+        <a
+          href="https://www.nta.go.jp/taxes/shiraberu/zeimokubetsu/shohi/keigenzeiritsu/invoice_about.htm"
+          target="_blank"
+          rel="nofollow noreferrer"
+          className="link"
+        >
+          Qualified Invoice System
+        </a>{" "}
+        and existing requirements such as tax withholding rules for certain
+        types of work. The team needed a tool that felt accessible to
+        non-experts while still meeting legal standards in Japan.
       </p>
-      <ol>
-        <li>
-          <strong>Ease of Use and Education:</strong>
-          <br />
-          The tool needed to simplify invoice creation for freelancers
-          unfamiliar with accounting practices. It also had to educate users
-          about legal obligations, particularly the nuances of Japanese tax law.
-        </li>
-        <li>
-          <strong>Legal Compliance:</strong>
-          <br />
-          Japanese tax regulations introduced specific requirements, such as the{" "}
-          <a
-            href="https://www.nta.go.jp/taxes/shiraberu/zeimokubetsu/shohi/keigenzeiritsu/invoice_about.htm"
-            target="_blank"
-            rel="nofollow noreferrer"
-            className="link"
-          >
-            Qualified Invoice System
-          </a>
-          , which mandated detailed tax breakdowns. Additionally, laws like the
-          tax withholding system required certain freelancers to account for tax
-          payment based on their work type.
-        </li>
-      </ol>
+      <h3 className="section-heading">Goals</h3>
+      <p>
+        The project focused on three primary goals:
+        <ul>
+          <li>
+            Make invoice creation approachable for freelancers with limited
+            accounting knowledge.
+          </li>
+          <li>
+            Ensure generated invoices comply with Japanese regulations (e.g.
+            Qualified Invoice System, tax withholding).
+          </li>
+          <li>
+            Reduce friction and errors compared with existing workflows
+            (spreadsheets, manual templates, generic accounting tools).
+          </li>
+        </ul>
+      </p>
       <p>
         These challenges demanded a solution that was both accessible and
         compliant with Japan’s legal standards.

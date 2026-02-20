@@ -149,7 +149,7 @@ export default function Page() {
           <Stack />
         </div>
       </section>
-      <Footer year={new Date().getFullYear()} />
+      <Footer />
     </>
   );
 }

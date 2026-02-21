@@ -10,7 +10,7 @@ export const Hero = () => {
   const isDesktop = width >= 768;
 
   return (
-    <section className="relative bg-gradient-to-b from-[#eeeeee] to-black flex flex-col items-center justify-center overflow-hidden">
+    <section className="animate-in fade-in duration-1000 relative bg-gradient-to-b from-[#eeeeee] to-black flex flex-col items-center justify-center overflow-hidden">
       <div className="w-full h-[120px] pointer-events-none" />
       <Header />
       <div className="md:p-8 p-4 w-full max-w-5xl">

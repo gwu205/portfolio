@@ -129,7 +129,7 @@
   .article {
     @apply relative bg-white px-5 sm:px-10 pb-16;
 
-    .video-container:first-child {
+    .content > *:first-child {
       @apply mt-0;
     }
 
@@ -162,24 +162,13 @@
       @apply max-w-3xl leading-relaxed pb-2;
     }
 
-    ul {
+    ul,
+    ol {
       @apply max-w-3xl mt-3 mb-5;
     }
   }
-  .article-headline {
-    @apply text-2xl text-slate-200 font-medium tracking-tight md:text-5xl/[1.15];
-  }
-  .article-meta {
-    @apply flex flex-col font-bold bg-gradient-to-r from-indigo-500 dark:from-pink-300 to-blue-500 dark:to-purple-400 inline-block text-transparent bg-clip-text;
-  }
-  .section-heading {
-    @apply text-2xl md:text-3xl font-semibold mt-8 capitalize;
-  }
   .subheading {
-    @apply text-2xl font-medium capitalize;
-  }
-  .link {
-    @apply text-purple-600 hover:underline;
+    @apply font-bold capitalize;
   }
 }
 

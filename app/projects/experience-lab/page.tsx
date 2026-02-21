@@ -29,6 +29,7 @@ export default function Page() {
         themes={themes}
         h1Title="Brand Website for Experience.Lab"
         timeline="5 weeks"
+        link="https://experiencelab.publicisgroupe.jp"
         introductionText={`Experience.Lab is Publicis Groupe Japan’s bespoke experience practice — a studio focused on CX strategy, design systems, and creative technology across Japan and APAC. The brief was to create a flagship brand site that could act as a live portfolio: a single, seamless experience that showcases the team’s capabilities in strategy, design, and creative tech.\n\nThe result is a fully custom Framer build where layered motion, scroll‑tied interaction, and a bespoke 3D hero combine into an experience that feels distinctly “Tokyo at night” while remaining performant and maintainable for the internal team.\n\nThe project launched in January 2026 and now serves as Experience.Lab’s primary brand showcase. The site was highlighted within the Framer community and submitted to the “Best Animations” category in Framer’s Community Awards, with average session times exceeding three minutes - a strong signal of engagement for a portfolio-style site.`}
       />
       <main className="article">
@@ -451,9 +452,9 @@ export default function Page() {
             </li>
           </ul>
           <p>
-            Experience.Lab sits alongside other work as a demonstration of how
-            design, motion, and engineering can be combined inside Framer to
-            create expressive yet practical interfaces for real teams.
+            Experience.Lab is a prime example of how design, motion, and
+            engineering can be combined inside Framer to create expressive yet
+            practical interfaces for real teams.
           </p>
         </div>
       </main>

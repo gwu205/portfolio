@@ -1,22 +1,27 @@
-// app/components/TransitionLink.tsx
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { MouseEvent, ReactNode } from "react";
 import { useRouteTransition } from "./RouteTransitionProvider";
 
 type Props = {
-  href: string; // <-- force string href
+  href: string;
   children: ReactNode;
   className?: string;
 };
 
 export function TransitionLink({ href, children, className }: Props) {
   const { startTransition, isTransitioning } = useRouteTransition();
+  const pathname = usePathname();
 
   const handleClick = (e: MouseEvent<HTMLAnchorElement>) => {
     if (isTransitioning) {
       e.preventDefault();
+      return;
+    }
+
+    if (pathname === href) {
       return;
     }
 

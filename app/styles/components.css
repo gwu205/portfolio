@@ -1,5 +1,5 @@
 .u-stack-label {
-  @apply w-full text-sm font-extrabold text-white uppercase tracking-[0.15rem] flex items-center;
+  @apply text-sm font-extrabold text-white uppercase tracking-[0.15rem] flex items-center;
 }
 
 .badge {

@@ -1,7 +1,15 @@
 "use client";
 
-import { Blocks, Bot, Gem, Paintbrush, Unplug } from "lucide-react";
+import {
+  ArrowRightIcon,
+  Blocks,
+  Bot,
+  Gem,
+  Paintbrush,
+  Unplug,
+} from "lucide-react";
 import { InfoCard } from "../../common/InfoCard";
+import { TransitionLink } from "../../common/TransitionLink";
 
 export const Skills = () => {
   return (
@@ -35,6 +43,15 @@ export const Skills = () => {
           title="AI-Powered Workflows"
           description="Interfaces and flows that integrate AI to streamline decisions and user tasks."
         />
+        <TransitionLink
+          href="/about#stack"
+          className="flex items-center justify-between gap-8 p-6 border-2 border-white bg-transparent rounded-[32px] hover:bg-white/10 transition-colors group"
+        >
+          <span className="text-2xl font-semibold from-white to-white bg-gradient-to-r bg-clip-text text-transparent group-hover:from-purple-200 group-hover:to-orange-300 transition-all duration-500">
+            Technology Stack
+          </span>
+          <ArrowRightIcon className="w-6 h-6 text-white group-hover:text-purple-200 transition-all duration-500" />
+        </TransitionLink>
       </div>
     </div>
   );

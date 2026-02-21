@@ -1,5 +1,6 @@
 "use client";
 
+import { ArrowLeft } from "lucide-react";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Logo } from "./Logo";
@@ -105,7 +106,29 @@ const SwapText = ({
   );
 };
 
-export const Header = () => {
+const LogoComponent = () => {
+  return (
+    <>
+      <Logo
+        size={32}
+        color="white"
+        className="group-hover:scale-150 group-hover:opacity-0 transition-all duration-700"
+      />
+      <Logo
+        size={32}
+        color="white"
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-0 scale-50 group-hover:opacity-100 group-hover:scale-100 transition-all duration-700"
+      />
+    </>
+  );
+};
+
+interface HeaderProps {
+  type?: "default" | "article";
+  articleTitle?: string;
+}
+
+export const Header = ({ type = "default", articleTitle }: HeaderProps) => {
   const pathname = usePathname();
   const router = useRouter();
   const word1 = useTextSwap(3500, 6500, 0);
@@ -117,62 +140,81 @@ export const Header = () => {
     }
   };
 
-  return (
-    <header className="opacity-0 animate-move-in-from-top w-full flex items-center justify-between md:p-7 p-4 absolute top-0 left-0 z-20 text-white uppercase tracking-[0.15rem] font-extralight text-sm">
-      <div className="flex items-center gap-8">
-        <div
-          className="p-4 flex w-fit cursor-pointer group relative"
-          onClick={handleLogoClick}
-        >
-          <Logo
-            size={32}
-            color="white"
-            className="group-hover:scale-150 group-hover:opacity-0 transition-all duration-700"
-          />
-          <Logo
-            size={32}
-            color="white"
-            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-0 scale-50 group-hover:opacity-100 group-hover:scale-100 transition-all duration-700"
-          />
+  if (type !== "article") {
+    return (
+      <header className="opacity-0 animate-move-in-from-top w-full flex items-center justify-between md:p-7 p-4 absolute top-0 left-0 z-20 text-white uppercase tracking-[0.15rem] font-extralight text-sm">
+        <div className="flex items-center gap-8">
+          <div
+            className="p-4 flex w-fit cursor-pointer group relative"
+            onClick={handleLogoClick}
+          >
+            <LogoComponent />
+          </div>
+          <TransitionLink href="/" className="relative group overflow-hidden">
+            <span className="block top-0 left-0 w-full h-full group-hover:translate-y-[-100%] transition-transform duration-300">
+              Work
+            </span>
+            <span className="block absolute top-[100%] left-0 w-full h-full group-hover:translate-y-[-100%] transition-transform duration-300">
+              Work
+            </span>
+          </TransitionLink>
+          <TransitionLink
+            href="/about"
+            className="relative group overflow-hidden"
+          >
+            <span className="block top-0 left-0 w-full h-full group-hover:translate-y-[-100%] transition-transform duration-300">
+              Philosophy
+            </span>
+            <span className="block absolute top-[100%] left-0 w-full h-full group-hover:translate-y-[-100%] transition-transform duration-300">
+              Philosophy
+            </span>
+          </TransitionLink>
         </div>
-        <TransitionLink href="/" className="relative group overflow-hidden">
-          <span className="block top-0 left-0 w-full h-full group-hover:translate-y-[-100%] transition-transform duration-300">
-            Work
-          </span>
-          <span className="block absolute top-[100%] left-0 w-full h-full group-hover:translate-y-[-100%] transition-transform duration-300">
-            Work
-          </span>
-        </TransitionLink>
-        <TransitionLink
-          href="/about"
-          className="relative group overflow-hidden"
-        >
-          <span className="block top-0 left-0 w-full h-full group-hover:translate-y-[-100%] transition-transform duration-300">
-            Philosophy
-          </span>
-          <span className="block absolute top-[100%] left-0 w-full h-full group-hover:translate-y-[-100%] transition-transform duration-300">
-            Philosophy
-          </span>
-        </TransitionLink>
-      </div>
-      <div className="hidden sm:flex font-bold gap-2 items-baseline">
-        <SwapText
-          text1="Designer"
-          text2="デザイナー"
-          isAlt={word1.isAlt}
-          position="end"
-        />
+        <div className="hidden sm:flex font-bold gap-2 items-baseline">
+          <SwapText
+            text1="Designer"
+            text2="デザイナー"
+            isAlt={word1.isAlt}
+            position="end"
+          />
 
-        <span className="opacity-50">Based in</span>
+          <span className="opacity-50">Based in</span>
 
-        <SwapText
-          text1="Tokyo"
-          text2="東京"
-          isAlt={word2.isAlt}
-          position="start"
-          delay={0.1}
-        />
-      </div>
-    </header>
-  );
+          <div className="cursor-tyo hover:scale-110 transition-all duration-300">
+            <SwapText
+              text1="Tokyo"
+              text2="東京"
+              isAlt={word2.isAlt}
+              position="start"
+              delay={0.1}
+            />
+          </div>
+        </div>
+      </header>
+    );
+  } else {
+    return (
+      <header className="w-full flex items-center justify-between md:p-7 p-4 absolute top-0 left-0 z-20 text-white uppercase tracking-[0.15rem] font-extralight text-sm">
+        <div className="w-full flex items-center gap-8">
+          <TransitionLink
+            href="/"
+            className="hidden sm:flex items-center gap-2 w-1/3"
+          >
+            <ArrowLeft className="w-4 h-4" /> Home
+          </TransitionLink>
+          <div className="w-full sm:w-1/3">
+            <div
+              className="mx-auto p-4 flex w-fit cursor-pointer group relative"
+              onClick={handleLogoClick}
+            >
+              <LogoComponent />
+            </div>
+          </div>
+          <span className="hidden sm:inline-block u-stack-label w-1/3 text-right opacity-70">
+            {articleTitle}
+          </span>
+        </div>
+      </header>
+    );
+  }
 };

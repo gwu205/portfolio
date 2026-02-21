@@ -196,9 +196,12 @@ export const Header = ({ type = "default", articleTitle }: HeaderProps) => {
     return (
       <header className="w-full flex items-center justify-between md:p-7 p-4 absolute top-0 left-0 z-20 text-white uppercase tracking-[0.15rem] font-extralight text-sm">
         <div className="w-full flex items-center gap-8">
-          <a href="/" className="hidden sm:flex items-center gap-2 w-1/3">
+          <TransitionLink
+            href="/"
+            className="hidden sm:flex items-center gap-2 w-1/3"
+          >
             <ArrowLeft className="w-4 h-4" /> Home
-          </a>
+          </TransitionLink>
           <div className="w-full sm:w-1/3">
             <div
               className="mx-auto p-4 flex w-fit cursor-pointer group relative"

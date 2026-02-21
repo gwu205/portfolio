@@ -38,18 +38,18 @@ export default function Page() {
             overpowered, jargon-heavy, and intimidating for solo freelancers.
           </p>
           <h2>Problem</h2>
+          <p>Freelancers struggled to:</p>
+          <ul>
+            <li>Understand what legally needed to appear on an invoice.</li>
+            <li>
+              Navigate complex interfaces designed for finance professionals.
+            </li>
+            <li>
+              Confidently create compliant invoices under new Japanese tax
+              regulations.
+            </li>
+          </ul>
           <p>
-            Freelancers struggled to:
-            <ul>
-              <li>Understand what legally needed to appear on an invoice.</li>
-              <li>
-                Navigate complex interfaces designed for finance professionals.
-              </li>
-              <li>
-                Confidently create compliant invoices under new Japanese tax
-                regulations.
-              </li>
-            </ul>
             This became more acute with the introduction of the{" "}
             <a
               href="https://www.nta.go.jp/taxes/shiraberu/zeimokubetsu/shohi/keigenzeiritsu/invoice_about.htm"
@@ -64,23 +64,21 @@ export default function Page() {
             non-experts while still meeting legal standards in Japan.
           </p>
           <h2>Goals</h2>
-          <p>
-            The project focused on three primary goals:
-            <ul>
-              <li>
-                Make invoice creation approachable for freelancers with limited
-                accounting knowledge.
-              </li>
-              <li>
-                Ensure generated invoices comply with Japanese regulations (e.g.
-                Qualified Invoice System, tax withholding).
-              </li>
-              <li>
-                Reduce friction and errors compared with existing workflows
-                (spreadsheets, manual templates, generic accounting tools).
-              </li>
-            </ul>
-          </p>
+          <p>The project focused on three primary goals:</p>
+          <ul>
+            <li>
+              Make invoice creation approachable for freelancers with limited
+              accounting knowledge.
+            </li>
+            <li>
+              Ensure generated invoices comply with Japanese regulations (e.g.
+              Qualified Invoice System, tax withholding).
+            </li>
+            <li>
+              Reduce friction and errors compared with existing workflows
+              (spreadsheets, manual templates, generic accounting tools).
+            </li>
+          </ul>
           <p>
             These challenges demanded a solution that was both accessible and
             compliant with Japan’s legal standards.

@@ -36,35 +36,10 @@ export default function Page() {
           </p>
         </div>
         <div className="relative z-10 mt-12 max-w-3xl mx-auto flex flex-col gap-4">
-          <h1 className="text-4xl font-semibold text-[#4E3960] flex items-center gap-8">
-            Design Philosophy
-            <svg
-              width="120"
-              height="8"
-              viewBox="0 0 120 8"
-              className="flex-shrink-0"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <defs>
-                <linearGradient
-                  id="squiggleGradient"
-                  x1="0%"
-                  y1="0%"
-                  x2="100%"
-                  y2="0%"
-                >
-                  <stop offset="0%" stopColor="#4E3960" stopOpacity="0.8" />
-                  <stop offset="100%" stopColor="#4E3960" stopOpacity="0" />
-                </linearGradient>
-              </defs>
-              <path
-                d="M0,4 Q10,2 20,4 T40,4 T60,4 T80,4 T100,4 T120,4"
-                stroke="url(#squiggleGradient)"
-                strokeWidth="2"
-                fill="none"
-                strokeLinecap="round"
-              />
-            </svg>
+          <h1 className="text-4xl sm:text-7xl mt-4 font-semibold text-[#4E3960] flex items-center gap-8">
+            Design
+            <br />
+            Philosophy
           </h1>
           <h2 className="text-2xl font-semibold text-[#4E3960] mt-16">
             <sup>01&ensp;—&emsp;</sup>Systems first.

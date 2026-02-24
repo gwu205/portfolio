@@ -33,20 +33,12 @@ export const Works = () => {
             index={0}
           />
           <AnimatedFolioItem
-            title="Invoice Builder"
-            client="FreelanceOS"
-            skills={["UI Design", "UX Research", "Web SaaS"]}
-            img_src="/images/projects/invoices.jpg"
-            link="/projects/invoice-builder"
-            index={1}
-          />
-          <AnimatedFolioItem
-            title="Platform Navigation"
+            title="Timesheets"
             client="Sollective"
-            skills={["UI Design", "B2C", "Branding"]}
-            img_src="/images/projects/navigation.jpg"
-            link="/projects/platform-navigation"
-            index={2}
+            skills={["UI Design", "UX Research", "Web SaaS"]}
+            img_src="/images/projects/timesheets-hero.png"
+            link="/projects/timesheets"
+            index={1}
           />
           <AnimatedFolioItem
             title="Product Website"
@@ -54,7 +46,23 @@ export const Works = () => {
             skills={["Web Design", "Framer", "Motion Design", "Branding"]}
             video_src="https://res.cloudinary.com/gswu205/video/upload/v1770948413/sollectivejp-reel_zdbmbj.mp4"
             link="/projects/site-redesign"
+            index={2}
+          />
+          <AnimatedFolioItem
+            title="Invoice Builder"
+            client="FreelanceOS"
+            skills={["UI Design", "UX Research", "Web SaaS"]}
+            img_src="/images/projects/invoices.jpg"
+            link="/projects/invoice-builder"
             index={3}
+          />
+          <AnimatedFolioItem
+            title="Platform Navigation"
+            client="Sollective"
+            skills={["UI Design", "B2C", "Branding"]}
+            img_src="/images/projects/navigation.jpg"
+            link="/projects/platform-navigation"
+            index={4}
           />
           <AnimatedFolioItem
             title="Web App Redesign"
@@ -62,7 +70,7 @@ export const Works = () => {
             skills={["Frontend Dev", "UI/UX Design", "B2B SaaS"]}
             img_src="/images/projects/staplecard.jpg"
             link="/projects/staple"
-            index={4}
+            index={5}
           />
           <AnimatedFolioItem
             title="Corporate Brand"
@@ -70,7 +78,7 @@ export const Works = () => {
             skills={["Branding", "Visual Design"]}
             img_src="/images/projects/crowdcast.jpg"
             link="/projects/crowdcast"
-            index={5}
+            index={6}
           />
         </div>
         <div className="md:w-1/2 w-full md:sticky top-10 md:h-screen z-10">

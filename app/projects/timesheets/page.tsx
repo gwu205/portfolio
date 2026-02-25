@@ -14,7 +14,7 @@ export default function Page() {
         heroImageSrc="/images/projects/timesheets-hero.png"
         heroImageAlt="Timesheets"
         clientName="Sollective"
-        year="2024"
+        year="2025"
         role="Lead Product Designer"
         stack={["Figma", "Figma Make", "TypeScript / React"]}
         themes={themes}

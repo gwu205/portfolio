@@ -52,7 +52,7 @@ export const Works = () => {
             title="Invoice Builder"
             client="FreelanceOS"
             skills={["UI Design", "UX Research", "Web SaaS"]}
-            img_src="/images/projects/invoices.jpg"
+            img_src="/images/projects/invoices-hero.png"
             link="/projects/invoice-builder"
             index={3}
           />

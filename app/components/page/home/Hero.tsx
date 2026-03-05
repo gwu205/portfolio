@@ -1,3 +1,7 @@
+"use client";
+
+import gsap from "gsap";
+import { useEffect, useRef } from "react";
 import { siFramer, siGithub } from "simple-icons/icons";
 import { AnimatedTitle } from "../../common/AnimatedTitle";
 import { BlurCircle } from "../../common/BlurCircle";
@@ -21,8 +25,24 @@ const Icon = ({ icon, size = 24 }: { icon: any; size?: number }) => {
 };
 
 export const Hero = () => {
+  const sectionRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    if (sectionRef.current) {
+      gsap.fromTo(
+        sectionRef.current,
+        { opacity: 0 },
+        { opacity: 1, duration: 1, ease: "power2.out" },
+      );
+    }
+  }, []);
+
   return (
-    <section className="animate-in fade-in duration-1000 relative bg-gradient-to-b from-[#eeeeee] to-black min-h-[800px] flex items-center justify-center overflow-hidden">
+    <section
+      ref={sectionRef}
+      className="relative bg-gradient-to-b from-[#eeeeee] to-black min-h-[800px] flex items-center justify-center overflow-hidden"
+      style={{ opacity: 0 }}
+    >
       <Header />
       <div className="md:p-8 p-4 w-full max-w-5xl">
         <AnimatedTitle className="mb-16" />
@@ -60,7 +80,7 @@ export const Hero = () => {
           <Icon icon={siFramer} size={24} />
         </a>
         <a
-          href="mailto:geoffrey.wu205@gmail.com"
+          href={`mailto:${process.env.NEXT_PUBLIC_EMAIL_ADDRESS}`}
           target="_blank"
           rel="noopener noreferrer"
           className="p-4 opacity-50 hover:opacity-100 transition-opacity duration-300 text-white"

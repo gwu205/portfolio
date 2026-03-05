@@ -1,7 +1,11 @@
 "use client";
 
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useEffect, useRef } from "react";
 import FolioItem from "./FolioItem";
+
+gsap.registerPlugin(ScrollTrigger);
 
 interface AnimatedFolioItemProps {
   title: string;
@@ -27,38 +31,36 @@ export const AnimatedFolioItem = ({
   const itemRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("opacity-100", "translate-y-0");
-            entry.target.classList.remove("opacity-0", "translate-y-8");
-          }
-        });
-      },
-      {
-        threshold: 0.1,
-        rootMargin: "-50px 0px -50px 0px",
-      },
-    );
+    if (!itemRef.current) return;
 
-    if (itemRef.current) {
-      observer.observe(itemRef.current);
-    }
+    const ctx = gsap.context(() => {
+      gsap.fromTo(
+        itemRef.current,
+        { opacity: 0, y: 32 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.7,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: itemRef.current,
+            start: "top 90%",
+            end: "top 60%",
+            toggleActions: "play none none none",
+          },
+        },
+      );
+    });
 
-    return () => {
-      if (itemRef.current) {
-        observer.unobserve(itemRef.current);
-      }
-      observer.disconnect();
-    };
+    return () => ctx.revert();
   }, []);
 
   return (
     <div
       ref={itemRef}
       data-index={index}
-      className={`transition-all duration-700 ease-out opacity-0 translate-y-8 ${className}`}
+      className={className}
+      style={{ opacity: 0, transform: "translateY(32px)" }}
     >
       <FolioItem
         title={title}

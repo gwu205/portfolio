@@ -1,8 +1,9 @@
 "use client";
 
+import gsap from "gsap";
 import { ArrowLeft } from "lucide-react";
 import { usePathname, useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { Logo } from "./Logo";
 import { TransitionLink } from "./TransitionLink";
 
@@ -12,19 +13,13 @@ function useTextSwap(
   initialOffsetMs: number = 0,
 ) {
   const [isAlt, setIsAlt] = useState(false);
-  const [isSwapping, setIsSwapping] = useState(false);
 
   useEffect(() => {
     let timeoutId: number | undefined;
 
     const scheduleNext = (delay: number) => {
       timeoutId = window.setTimeout(() => {
-        setIsSwapping(true);
         setIsAlt((prev) => !prev);
-
-        window.setTimeout(() => {
-          setIsSwapping(false);
-        }, 400);
 
         const nextDelay =
           baseMinMs + Math.random() * Math.max(0, baseMaxMs - baseMinMs);
@@ -46,7 +41,7 @@ function useTextSwap(
     };
   }, [baseMinMs, baseMaxMs, initialOffsetMs]);
 
-  return { isAlt, isSwapping };
+  return { isAlt };
 }
 
 interface SwapTextProps {
@@ -64,8 +59,42 @@ const SwapText = ({
   position,
   delay = 0,
 }: SwapTextProps) => {
+  const text1Refs = useRef<(HTMLSpanElement | null)[]>([]);
+  const text2Refs = useRef<(HTMLSpanElement | null)[]>([]);
+  const prevIsAlt = useRef(isAlt);
+
+  useEffect(() => {
+    if (prevIsAlt.current === isAlt) return;
+    prevIsAlt.current = isAlt;
+
+    const showText1 = !isAlt;
+
+    // Animate text1 characters
+    text1Refs.current.forEach((el, i) => {
+      if (!el) return;
+      gsap.to(el, {
+        y: showText1 ? "0%" : "-100%",
+        opacity: showText1 ? 1 : 0,
+        duration: 0.4,
+        ease: "power2.inOut",
+        delay: i * 0.03 + delay,
+      });
+    });
+
+    // Animate text2 characters
+    text2Refs.current.forEach((el, i) => {
+      if (!el) return;
+      gsap.to(el, {
+        y: !showText1 ? "0%" : "100%",
+        opacity: !showText1 ? 1 : 0,
+        duration: 0.4,
+        ease: "power2.inOut",
+        delay: i * 0.03 + delay,
+      });
+    });
+  }, [isAlt, delay]);
+
   const showText1 = !isAlt;
-  const showText2 = isAlt;
 
   return (
     <span className="inline-flex text-swap-container">
@@ -74,11 +103,13 @@ const SwapText = ({
         {text1.split("").map((char, i) => (
           <span
             key={`t1-${i}`}
+            ref={(el) => {
+              text1Refs.current[i] = el;
+            }}
             className="inline-block will-change-transform"
             style={{
               transform: showText1 ? "translateY(0)" : "translateY(-100%)",
               opacity: showText1 ? 1 : 0,
-              transition: `transform 0.4s ease-in-out ${i * 0.03 + delay}s, opacity 0.4s ease-in-out ${i * 0.03 + delay}s`,
             }}
           >
             {char}
@@ -91,11 +122,13 @@ const SwapText = ({
         {text2.split("").map((char, i) => (
           <span
             key={`t2-${i}`}
+            ref={(el) => {
+              text2Refs.current[i] = el;
+            }}
             className="inline-block will-change-transform"
             style={{
-              transform: showText2 ? "translateY(0)" : "translateY(100%)",
-              opacity: showText2 ? 1 : 0,
-              transition: `transform 0.4s ease-in-out ${i * 0.03 + delay}s, opacity 0.4s ease-in-out ${i * 0.03 + delay}s`,
+              transform: !showText1 ? "translateY(0)" : "translateY(100%)",
+              opacity: !showText1 ? 1 : 0,
             }}
           >
             {char}
@@ -131,18 +164,39 @@ interface HeaderProps {
 export const Header = ({ type = "default", articleTitle }: HeaderProps) => {
   const pathname = usePathname();
   const router = useRouter();
+  const headerRef = useRef<HTMLElement>(null);
   const word1 = useTextSwap(3500, 6500, 0);
   const word2 = useTextSwap(3500, 6500, 2000);
 
-  const handleLogoClick = () => {
+  const handleLogoClick = useCallback(() => {
     if (pathname !== "/") {
       router.push("/");
     }
-  };
+  }, [pathname, router]);
+
+  useEffect(() => {
+    if (type !== "article" && headerRef.current) {
+      gsap.fromTo(
+        headerRef.current,
+        { y: -20, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 0.6,
+          ease: "power2.out",
+          delay: 2,
+        },
+      );
+    }
+  }, [type]);
 
   if (type !== "article") {
     return (
-      <header className="opacity-0 animate-move-in-from-top w-full flex items-center justify-between md:p-7 p-4 absolute top-0 left-0 z-20 text-white uppercase tracking-[0.15rem] font-extralight text-sm">
+      <header
+        ref={headerRef}
+        className="w-full flex items-center justify-between md:p-7 p-4 absolute top-0 left-0 z-20 text-white uppercase tracking-[0.15rem] font-extralight text-sm"
+        style={{ opacity: 0 }}
+      >
         <div className="flex items-center gap-8">
           <div
             className="p-4 flex w-fit cursor-pointer group relative"

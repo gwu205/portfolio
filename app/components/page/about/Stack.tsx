@@ -85,7 +85,43 @@ export const Stack = () => {
         <span className="ml-4 flex-1 h-px bg-white"></span>
       </h6>
       <p className="text-white">
-        Built with Next.js, TypeScript, and Tailwind CSS.
+        Built with{" "}
+        <a
+          href="https://nextjs.org/"
+          className="hover:underline"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Next.js
+        </a>
+        ,{" "}
+        <a
+          href="https://www.typescriptlang.org/"
+          className="hover:underline"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          TypeScript
+        </a>
+        ,{" "}
+        <a
+          href="https://greensock.com/gsap/"
+          className="hover:underline"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          GSAP
+        </a>
+        , and{" "}
+        <a
+          href="https://tailwindcss.com/"
+          className="hover:underline"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Tailwind CSS
+        </a>
+        .
       </p>
     </div>
   );

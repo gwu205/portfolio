@@ -1,7 +1,6 @@
-// app/components/RouteTransitionProvider.tsx
 "use client";
 
-import { AnimatePresence, motion } from "framer-motion";
+import gsap from "gsap";
 import { usePathname, useRouter } from "next/navigation";
 import {
   createContext,
@@ -35,74 +34,80 @@ type ProviderProps = {
 export function RouteTransitionProvider({ children }: ProviderProps) {
   const router = useRouter();
   const pathname = usePathname();
-  const [transitionState, setTransitionState] = useState({
-    isActive: false,
-    canExit: false,
-  });
+  const [isActive, setIsActive] = useState(false);
   const pendingHref = useRef<string | null>(null);
   const hasNavigated = useRef(false);
   const previousPathname = useRef(pathname);
+  const wipeRef = useRef<HTMLDivElement>(null);
+  const tlRef = useRef<gsap.core.Timeline | null>(null);
 
   const duration = 0.6;
-  const easing: [number, number, number, number] = [0.25, 0.8, 0.25, 1];
+  const easing = "cubic-bezier(0.25, 0.8, 0.25, 1)";
 
   // Listen for pathname changes to detect when navigation completes
   useEffect(() => {
-    if (
-      transitionState.isActive &&
-      hasNavigated.current &&
-      pathname !== previousPathname.current
-    ) {
-      // Page has loaded, set canExit AND make inactive in one atomic update
-      // This ensures the exit animation plays with canExit = true
-      setTransitionState({ isActive: false, canExit: true });
+    if (isActive && hasNavigated.current && pathname !== previousPathname.current) {
       previousPathname.current = pathname;
+      // Page has loaded — play exit animation
+      const wipe = wipeRef.current;
+      if (wipe) {
+        gsap.to(wipe, {
+          y: "-100%",
+          duration,
+          ease: easing,
+          onComplete: () => {
+            setIsActive(false);
+            pendingHref.current = null;
+            hasNavigated.current = false;
+            // Reset to off-screen below for next transition
+            gsap.set(wipe, { y: "100%" });
+          },
+        });
+      }
     }
-  }, [pathname, transitionState.isActive]);
+  }, [pathname, isActive]);
 
   const startTransition = useCallback(
     (href: string) => {
-      if (transitionState.isActive) return;
+      if (isActive) return;
       pendingHref.current = href;
       hasNavigated.current = false;
-      setTransitionState({ isActive: true, canExit: false });
+      setIsActive(true);
+
+      const wipe = wipeRef.current;
+      if (wipe) {
+        // Enter animation: wipe up from bottom to cover the screen
+        gsap.fromTo(
+          wipe,
+          { y: "100%" },
+          {
+            y: "0%",
+            duration,
+            ease: easing,
+            onComplete: () => {
+              if (!hasNavigated.current && pendingHref.current) {
+                hasNavigated.current = true;
+                router.push(pendingHref.current);
+              }
+            },
+          },
+        );
+      }
     },
-    [transitionState.isActive],
+    [isActive, router],
   );
 
   return (
     <TransitionContext.Provider
-      value={{ startTransition, isTransitioning: transitionState.isActive }}
+      value={{ startTransition, isTransitioning: isActive }}
     >
       <div className="relative bg-black">
         {children}
-
-        <AnimatePresence
-          mode="wait"
-          onExitComplete={() => {
-            // Reset canExit after exit animation completes
-            setTransitionState({ isActive: false, canExit: false });
-            pendingHref.current = null;
-            hasNavigated.current = false;
-          }}
-        >
-          {transitionState.isActive && (
-            <motion.div
-              key="wipe"
-              initial={{ y: "100%" }}
-              animate={{ y: "0%" }}
-              exit={{ y: "-100%" }}
-              transition={{ duration, ease: easing }}
-              className="pointer-events-none fixed inset-0 z-50 bg-black"
-              onAnimationComplete={() => {
-                if (!hasNavigated.current && pendingHref.current) {
-                  hasNavigated.current = true;
-                  router.push(pendingHref.current);
-                }
-              }}
-            />
-          )}
-        </AnimatePresence>
+        <div
+          ref={wipeRef}
+          className="pointer-events-none fixed inset-0 z-50 bg-black"
+          style={{ transform: "translateY(100%)" }}
+        />
       </div>
     </TransitionContext.Provider>
   );

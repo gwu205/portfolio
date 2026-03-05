@@ -132,7 +132,7 @@ export const Works = () => {
                   className="relative group cursor-pointer"
                 >
                   <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#F7F4F8] to-[#F7F4F8] group-hover:from-[#EFFFDF] group-hover:to-[#F1CEFF] transition-all duration-300 font-semibold">
-                    hello@wuxdesign.dev
+                    {process.env.NEXT_PUBLIC_EMAIL_ADDRESS}
                   </span>
                   <CopyIcon className="group-hover:scale-125 inline ml-2 w-4 h-4 transition-transform duration-300" />
                   {copied && (

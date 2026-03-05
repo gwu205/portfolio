@@ -1,5 +1,7 @@
 "use client";
 
+import gsap from "gsap";
+import { useEffect, useRef } from "react";
 import { useWindowSize } from "../../../hooks/useWindowSize";
 import { AnimatedTitle } from "../../common/AnimatedTitle";
 import { BlurCircle } from "../../common/BlurCircle";
@@ -8,9 +10,24 @@ import { Header } from "../../common/Header";
 export const Hero = () => {
   const { width } = useWindowSize();
   const isDesktop = width >= 768;
+  const sectionRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    if (sectionRef.current) {
+      gsap.fromTo(
+        sectionRef.current,
+        { opacity: 0 },
+        { opacity: 1, duration: 1, ease: "power2.out" },
+      );
+    }
+  }, []);
 
   return (
-    <section className="animate-in fade-in duration-1000 relative bg-gradient-to-b from-[#eeeeee] to-black flex flex-col items-center justify-center overflow-hidden">
+    <section
+      ref={sectionRef}
+      className="relative bg-gradient-to-b from-[#eeeeee] to-black flex flex-col items-center justify-center overflow-hidden"
+      style={{ opacity: 0 }}
+    >
       <div className="w-full h-[120px] pointer-events-none" />
       <Header />
       <div className="md:p-8 p-4 w-full max-w-5xl">

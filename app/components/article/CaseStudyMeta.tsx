@@ -1,7 +1,9 @@
 "use client";
 
 import { Header } from "@/app/components/common/Header";
+import gsap from "gsap";
 import { ArrowUpRight } from "lucide-react";
+import { useEffect, useRef } from "react";
 
 interface CaseStudyMetaProps {
   articleTitle?: string;
@@ -32,9 +34,25 @@ export const CaseStudyMeta = ({
   timeline,
   link,
 }: CaseStudyMetaProps) => {
+  const sectionRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    if (sectionRef.current) {
+      gsap.fromTo(
+        sectionRef.current,
+        { opacity: 0 },
+        { opacity: 1, duration: 1, ease: "power2.out" },
+      );
+    }
+  }, []);
+
   return (
     <>
-      <section className="animate-in fade-in duration-1000 relative flex flex-col items-center justify-center overflow-hidden sm:min-h-[300px] h-[200px] sm:h-[50vh]">
+      <section
+        ref={sectionRef}
+        className="relative flex flex-col items-center justify-center overflow-hidden sm:min-h-[300px] h-[200px] sm:h-[50vh]"
+        style={{ opacity: 0 }}
+      >
         <Header type="article" articleTitle={articleTitle} />
         <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-black/70 to-black/0 z-10">
           <div className="h-full w-full"></div>

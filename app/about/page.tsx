@@ -27,15 +27,14 @@ export default function Page() {
           <p className="text-[#4E3960]">
             Most of my work sits at the intersection of brand/marketing, B2B
             SaaS, and design systems, helping teams turn complex requirements
-            into simple, intentional experiences. I studied digital media
-            design, have spent time in both Australia and Japan, working mostly
-            with startups and small teams. With a firm grasp on both local
-            Western/Asian markets, I'm able to navigate the nuances of each and
+            into simple, intentional experiences. Having spent time in both Australia and Japan, working mostly
+            with startups and small teams, I have a firm grasp on both local
+            Western/Asian markets. I'm able to navigate the nuances of each and
             excel in environments where messy problem spaces need to become
             clear, shippable products.
           </p>
         </div>
-        <div className="relative z-10 mt-12 max-w-3xl mx-auto flex flex-col gap-4">
+        <div className="content-auto relative z-10 mt-12 max-w-3xl mx-auto flex flex-col gap-4">
           <h1 className="text-4xl sm:text-7xl mt-4 font-semibold text-[#4E3960] flex items-center gap-8">
             Design
             <br />
@@ -113,7 +112,7 @@ export default function Page() {
       </main>
       <section
         id="stack"
-        className="bg-[#2A1F33] py-20 md:py-40 md:rounded-br-[128px] md:rounded-bl-[128px]"
+        className="content-auto bg-[#2A1F33] py-20 md:py-40 md:rounded-br-[128px] md:rounded-bl-[128px]"
       >
         <div className="max-w-5xl px-8 mx-auto flex gap-10 max-md:flex-wrap">
           <div className="min-md:flex-1 w-full">

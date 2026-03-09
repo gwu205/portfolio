@@ -53,7 +53,7 @@ export const Footer = ({ type = "default" }: FooterProps) => {
   return (
     <footer className="p-3 flex flex-col items-center gap-12 w-full bg-white">
       <div className="w-full max-w-6xl h-px bg-slate-200" />
-      <div>
+      <div className="text-sm max-w-lg text-center text-balance">
         <Image
           src="/images/avatar.jpeg"
           alt="Geoffrey Wu"
@@ -61,16 +61,15 @@ export const Footer = ({ type = "default" }: FooterProps) => {
           height={64}
           className="rounded-full mx-auto mb-3"
         />
-        <p className="text-sm text-gray-600 max-w-lg text-center text-balance">
+        <p className="text-gray-600 font-bold">
           Geoffrey is a product designer, front-end engineer, and creative
           technologist based in{" "}
-          <span className="cursor-tyo hover:font-extrabold transition-all duration-300">
+          <span className="cursor-tyo hover:text-red-600 transition-all duration-300">
             Tokyo
           </span>
-          . He's passionate about building beautiful, functional, and accessible
-          digital experiences.
+          . </p><p className="text-gray-600 mt-3">He helps product teams ship with clarity and confidence, reducing friction, mediating between stakeholders, and advocating for user experience. Whether it’s a SaaS product for web or mobile, or a complex brand site focused on conversion, he consistently brings a thoughtful, solutions‑oriented approach to every new challenge.
         </p>
-        <p className="text-sm text-gray-600 max-w-lg text-center mt-2">
+        <p className="text-gray-600 mt-3">
           Interested in{" "}
           <a
             href={`mailto:${process.env.NEXT_PUBLIC_EMAIL_ADDRESS}`}
@@ -83,6 +82,7 @@ export const Footer = ({ type = "default" }: FooterProps) => {
       <div
         className="p-4 flex w-fit cursor-pointer hover:scale-110 transition-transform duration-300"
         onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+        title="Return to top"
       >
         <Logo size={32} color="black" />
       </div>

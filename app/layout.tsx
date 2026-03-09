@@ -1,4 +1,4 @@
-import { GoogleTagManager } from "@next/third-parties/google";
+import { GoogleAnalytics } from "@next/third-parties/google";
 import type { Metadata } from "next";
 import { AnimatedMain } from "./components/common/AnimatedMain";
 import { RouteTransitionProvider } from "./components/common/RouteTransitionProvider";
@@ -15,7 +15,7 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en">
-      <GoogleTagManager gtmId={process.env.NEXT_PUBLIC_GA_ID as string} />
+      <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID as string} />
       <body className="font-sans bg-gradient-to-b from-gray-800 to-black">
         <RouteTransitionProvider>
           <AnimatedMain>{children}</AnimatedMain>

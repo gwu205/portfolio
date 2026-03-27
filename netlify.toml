@@ -1,0 +1,23 @@
+[[headers]]
+for = "/_next/static/*"
+
+  [headers.values]
+  Cache-Control = "public, max-age=31536000, immutable"
+
+[context]
+
+  [context.production]
+
+    [[context.production.headers]]
+    for = "/_next/static/*"
+
+      [context.production.headers.values]
+      Cache-Control = "public, max-age=31536000, immutable"
+
+  [context.main]
+
+    [[context.main.headers]]
+    for = "/_next/static/*"
+
+      [context.main.headers.values]
+      Cache-Control = "public, max-age=31536000, immutable"

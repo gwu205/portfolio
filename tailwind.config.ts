@@ -63,7 +63,6 @@ const config: Config = {
       },
       fontFamily: {
         sans: ["Satoshi", "system-ui", "sans-serif"],
-        serif: ["Newsreader", "serif"],
       },
     },
   },

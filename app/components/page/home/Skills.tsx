@@ -44,7 +44,7 @@ export const Skills = () => {
           description="Interfaces and flows that integrate AI to streamline decisions and user tasks."
         />
         <TransitionLink
-          href="/about#stack"
+          href="/about.html#stack"
           className="flex items-center justify-between gap-8 p-6 border-2 border-white bg-transparent rounded-[32px] hover:bg-white/10 transition-colors group"
         >
           <span className="text-2xl font-semibold from-white to-white bg-gradient-to-r bg-clip-text text-transparent group-hover:from-purple-200 group-hover:to-orange-300 transition-all duration-500">

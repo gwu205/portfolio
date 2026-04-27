@@ -46,23 +46,28 @@ export function RouteTransitionProvider({ children }: ProviderProps) {
 
   // Listen for pathname changes to detect when navigation completes
   useEffect(() => {
-    if (isActive && hasNavigated.current && pathname !== previousPathname.current) {
-      previousPathname.current = pathname;
-      // Page has loaded — play exit animation
-      const wipe = wipeRef.current;
-      if (wipe) {
-        gsap.to(wipe, {
-          y: "-100%",
-          duration,
-          ease: easing,
-          onComplete: () => {
-            setIsActive(false);
-            pendingHref.current = null;
-            hasNavigated.current = false;
-            // Reset to off-screen below for next transition
-            gsap.set(wipe, { y: "100%" });
-          },
-        });
+    if (pathname !== previousPathname.current) {
+      if (isActive && hasNavigated.current) {
+        previousPathname.current = pathname;
+        // Page has loaded — play exit animation
+        const wipe = wipeRef.current;
+        if (wipe) {
+          gsap.to(wipe, {
+            y: "-100%",
+            duration,
+            ease: easing,
+            onComplete: () => {
+              setIsActive(false);
+              pendingHref.current = null;
+              hasNavigated.current = false;
+              // Reset to off-screen below for next transition
+              gsap.set(wipe, { y: "100%" });
+            },
+          });
+        }
+      } else if (!isActive) {
+        // Keeps state in sync for back/forward buttons or standard router.push
+        previousPathname.current = pathname;
       }
     }
   }, [pathname, isActive]);

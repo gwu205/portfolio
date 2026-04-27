@@ -2,9 +2,10 @@
 
 import gsap from "gsap";
 import { ArrowLeft } from "lucide-react";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Logo } from "./Logo";
+import { useRouteTransition } from "./RouteTransitionProvider";
 import { TransitionLink } from "./TransitionLink";
 
 function useTextSwap(
@@ -163,16 +164,16 @@ interface HeaderProps {
 
 export const Header = ({ type = "default", articleTitle }: HeaderProps) => {
   const pathname = usePathname();
-  const router = useRouter();
+  const { startTransition } = useRouteTransition();
   const headerRef = useRef<HTMLElement>(null);
   const word1 = useTextSwap(3500, 6500, 0);
   const word2 = useTextSwap(3500, 6500, 2000);
 
   const handleLogoClick = useCallback(() => {
     if (pathname !== "/") {
-      router.push("/");
+      startTransition("/");
     }
-  }, [pathname, router]);
+  }, [pathname, startTransition]);
 
   useEffect(() => {
     if (type !== "article" && headerRef.current) {

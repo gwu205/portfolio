@@ -2,7 +2,7 @@
 
 import { CaseStudyMeta } from "@/app/components/article/CaseStudyMeta";
 import { Footer } from "@/app/components/common/Footer";
-import Image from "next/image";
+import { LightboxImage as Image } from "@/app/components/common/LightboxImage";
 
 const themes = [
   "Product design",

@@ -24,13 +24,21 @@ export const Works = () => {
     <>
       <div className="max-w-5xl mx-auto px-8 py-16 md:py-32 flex md:flex-row flex-col-reverse gap-8 relative">
         <div className="md:w-1/2 w-full flex flex-col gap-8 md:-mt-[30%] z-10">
+        <AnimatedFolioItem
+          title="Experience.Lab"
+          client="Publicis Groupe"
+          skills={["Framer", "Frontend Dev", "Motion Design"]}
+          video_src="https://res.cloudinary.com/gswu205/video/upload/v1771406232/explab-square_ryl87l.mp4"
+          link="/projects/experience-lab"
+          index={0}
+        />
           <AnimatedFolioItem
-            title="Experience.Lab"
-            client="Publicis Groupe"
-            skills={["Framer", "Frontend Dev", "Motion Design"]}
-            video_src="https://res.cloudinary.com/gswu205/video/upload/v1771406232/explab-square_ryl87l.mp4"
-            link="/projects/experience-lab"
-            index={0}
+            title="Sollective Biz"
+            client="Sollective"
+            skills={["Framer", "Weavy", "LP Design"]}
+            img_src="/images/projects/biz-hero.png"
+            link="/projects/sollective-biz"
+            index={1}
           />
           <AnimatedFolioItem
             title="Timesheets"
@@ -38,7 +46,7 @@ export const Works = () => {
             skills={["UI Design", "UX Research", "Web SaaS"]}
             img_src="/images/projects/timesheets-hero.png"
             link="/projects/timesheets"
-            index={1}
+            index={2}
           />
           <AnimatedFolioItem
             title="Product Website"
@@ -46,7 +54,7 @@ export const Works = () => {
             skills={["Web Design", "Framer", "Motion Design", "Branding"]}
             video_src="https://res.cloudinary.com/gswu205/video/upload/v1770948413/sollectivejp-reel_zdbmbj.mp4"
             link="/projects/site-redesign"
-            index={2}
+            index={3}
           />
           <AnimatedFolioItem
             title="Invoice Builder"
@@ -54,7 +62,7 @@ export const Works = () => {
             skills={["UI Design", "UX Research", "Web SaaS"]}
             img_src="/images/projects/invoices-hero.png"
             link="/projects/invoice-builder"
-            index={3}
+            index={4}
           />
           <AnimatedFolioItem
             title="Platform Navigation"
@@ -62,7 +70,15 @@ export const Works = () => {
             skills={["UI Design", "B2C", "Branding"]}
             img_src="/images/projects/navigation.jpg"
             link="/projects/platform-navigation"
-            index={4}
+            index={5}
+          />
+          <AnimatedFolioItem
+            title="Staple Lite"
+            client="Staple"
+            skills={["Mobile App", "Product Design", "Design System"]}
+            img_src="/images/projects/staple-lite-hero.png"
+            link="/projects/staple-lite"
+            index={6}
           />
           <AnimatedFolioItem
             title="Web App Redesign"
@@ -70,7 +86,7 @@ export const Works = () => {
             skills={["Frontend Dev", "UI/UX Design", "B2B SaaS"]}
             img_src="/images/projects/staplecard.jpg"
             link="/projects/staple"
-            index={5}
+            index={7}
           />
           <AnimatedFolioItem
             title="Corporate Brand"
@@ -78,7 +94,7 @@ export const Works = () => {
             skills={["Branding", "Visual Design"]}
             img_src="/images/projects/crowdcast.jpg"
             link="/projects/crowdcast"
-            index={6}
+            index={8}
           />
         </div>
         <div className="md:w-1/2 w-full md:sticky top-10 md:h-screen z-10">

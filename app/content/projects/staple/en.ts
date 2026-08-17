@@ -144,7 +144,7 @@ export const en: CaseStudy = {
         {
           text: "**Unified Design System:**",
           items: [
-            "The design system provided a cohesive and scalable foundation for future feature development, cutting down frontend implementation time by 100%.",
+            "The design system provided a cohesive and scalable foundation for future feature development, cutting down frontend implementation time by 50%.",
           ],
         },
         {

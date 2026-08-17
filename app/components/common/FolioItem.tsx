@@ -1,4 +1,7 @@
-import Image from "@/node_modules/next/image";
+"use client";
+
+import { useLocale } from "@/app/i18n/LocaleProvider";
+import Image from "next/image";
 
 type ItemProps = {
   title: string;
@@ -17,12 +20,18 @@ const FolioItem: React.FC<ItemProps> = ({
   img_src,
   video_src,
 }) => {
+  const { dict } = useLocale();
+
   return (
     <div className="group rounded-3xl overflow-hidden">
       <a href={link} className="relative flex flex-col gap-2">
         <div className="opacity-0 group-hover:opacity-100 bg-black/80 backdrop-blur-sm text-center absolute w-full h-full top-0 left-0 flex flex-col justify-center items-center p-6 transition-opacity duration-700 z-10">
           <h2 className="text-5xl tracking-tight leading-[1.15] transition-all duration-700 font-medium font-semibold text-white">
-            {title} <span className="text-gray-500">for {client}</span>
+            {dict.folio.cardHeading(title, client).map((segment, index) => (
+              <span key={index} className={segment.muted ? "text-gray-500" : undefined}>
+                {segment.text}
+              </span>
+            ))}
           </h2>
           <div className="flex flex-wrap gap-2 justify-center mt-4">
             {skills.map((skill, index) => (
@@ -47,7 +56,7 @@ const FolioItem: React.FC<ItemProps> = ({
         ) : (
           <Image
             src={img_src || ""}
-            alt={title}
+            alt={dict.folio.cardImageAlt(title, client)}
             width={1200}
             height={1200}
             className="aspect-square object-cover object-left group-hover:scale-[1.15] transition-scale duration-700"

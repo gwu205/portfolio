@@ -1,5 +1,6 @@
 "use client";
 
+import { useLocale } from "@/app/i18n/LocaleProvider";
 import { MeshGradient } from "@paper-design/shaders-react";
 import gsap from "gsap";
 import { useEffect, useRef } from "react";
@@ -25,6 +26,7 @@ const Icon = ({ icon, size = 24 }: { icon: any; size?: number }) => {
 };
 
 export const Hero = () => {
+  const { dict } = useLocale();
   const sectionRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
@@ -45,7 +47,7 @@ export const Hero = () => {
     >
       <Header />
       <div className="md:p-8 p-4 w-full max-w-5xl">
-        <AnimatedTitle className="mb-16" />
+        <AnimatedTitle className="mb-16" titleLines={dict.home.heroTitleLines} />
       </div>
       <div className="flex absolute bottom-4 right-4 z-10">
         <a

@@ -1,5 +1,8 @@
 "use client";
 
+import { useLocale } from "@/app/i18n/LocaleProvider";
+import { LocaleSwitcher } from "@/app/i18n/LocaleSwitcher";
+import { localizeHref } from "@/app/i18n/locales";
 import gsap from "gsap";
 import { ArrowLeft } from "lucide-react";
 import { usePathname } from "next/navigation";
@@ -7,6 +10,8 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { Logo } from "./Logo";
 import { useRouteTransition } from "./RouteTransitionProvider";
 import { TransitionLink } from "./TransitionLink";
+
+const REDUCED_MOTION_QUERY = "(prefers-reduced-motion: reduce)";
 
 function useTextSwap(
   baseMinMs: number,
@@ -16,29 +21,44 @@ function useTextSwap(
   const [isAlt, setIsAlt] = useState(false);
 
   useEffect(() => {
+    const media = window.matchMedia(REDUCED_MOTION_QUERY);
     let timeoutId: number | undefined;
+
+    const randomDelay = () =>
+      baseMinMs + Math.random() * Math.max(0, baseMaxMs - baseMinMs);
 
     const scheduleNext = (delay: number) => {
       timeoutId = window.setTimeout(() => {
         setIsAlt((prev) => !prev);
-
-        const nextDelay =
-          baseMinMs + Math.random() * Math.max(0, baseMaxMs - baseMinMs);
-        scheduleNext(nextDelay);
+        scheduleNext(randomDelay());
       }, delay);
     };
 
-    const initialDelay =
-      initialOffsetMs +
-      baseMinMs +
-      Math.random() * Math.max(0, baseMaxMs - baseMinMs);
-
-    scheduleNext(initialDelay);
-
-    return () => {
+    const stop = () => {
       if (timeoutId !== undefined) {
         clearTimeout(timeoutId);
+        timeoutId = undefined;
       }
+    };
+
+    // Under reduced motion the swap stops entirely and pins to the primary
+    // (English) word. Dropping just the animation would still leave text
+    // auto-updating every few seconds with no way to pause it (WCAG 2.2.2).
+    const apply = () => {
+      stop();
+      if (media.matches) {
+        setIsAlt(false);
+      } else {
+        scheduleNext(initialOffsetMs + randomDelay());
+      }
+    };
+
+    apply();
+    media.addEventListener("change", apply);
+
+    return () => {
+      stop();
+      media.removeEventListener("change", apply);
     };
   }, [baseMinMs, baseMaxMs, initialOffsetMs]);
 
@@ -53,6 +73,13 @@ interface SwapTextProps {
   delay?: number;
 }
 
+const SWAP_DURATION = 0.4;
+const SWAP_STAGGER = 0.03;
+
+const prefersReducedMotion = () =>
+  typeof window !== "undefined" &&
+  window.matchMedia(REDUCED_MOTION_QUERY).matches;
+
 const SwapText = ({
   text1,
   text2,
@@ -63,43 +90,73 @@ const SwapText = ({
   const text1Refs = useRef<(HTMLSpanElement | null)[]>([]);
   const text2Refs = useRef<(HTMLSpanElement | null)[]>([]);
   const prevIsAlt = useRef(isAlt);
+  const tlRef = useRef<gsap.core.Timeline | null>(null);
+
+  // Frozen at mount. GSAP owns transform/opacity from here on, so these values
+  // must never change across renders — React writing the end state during the
+  // swap commit is what made characters jump instead of animate (GSAP then
+  // tweened from the destination to itself, a visual no-op).
+  const initialShowText1 = !useRef(isAlt).current;
 
   useEffect(() => {
     if (prevIsAlt.current === isAlt) return;
     prevIsAlt.current = isAlt;
 
     const showText1 = !isAlt;
+    const chars1 = text1Refs.current.slice(0, text1.length).filter(Boolean);
+    const chars2 = text2Refs.current.slice(0, text2.length).filter(Boolean);
 
-    // Animate text1 characters
-    text1Refs.current.forEach((el, i) => {
-      if (!el) return;
-      gsap.to(el, {
-        y: showText1 ? "0%" : "-100%",
-        opacity: showText1 ? 1 : 0,
-        duration: 0.4,
-        ease: "power2.inOut",
-        delay: i * 0.03 + delay,
-      });
-    });
+    // `y` stays a percentage string rather than `yPercent`: the element's start
+    // value is read from a computed matrix in px, and a matrix can't tell
+    // translateY(-100%) from translateY(-20px). Mixing the two silently no-ops.
+    const outgoing = { y: showText1 ? "100%" : "-100%", opacity: 0 };
+    const incoming = { y: "0%", opacity: 1 };
 
-    // Animate text2 characters
-    text2Refs.current.forEach((el, i) => {
-      if (!el) return;
-      gsap.to(el, {
-        y: !showText1 ? "0%" : "100%",
-        opacity: !showText1 ? 1 : 0,
-        duration: 0.4,
-        ease: "power2.inOut",
-        delay: i * 0.03 + delay,
-      });
-    });
-  }, [isAlt, delay]);
+    const from1 = showText1 ? incoming : outgoing;
+    const from2 = showText1 ? outgoing : incoming;
 
-  const showText1 = !isAlt;
+    // A swap landing mid-flight would otherwise leave two tweens fighting over
+    // the same properties.
+    tlRef.current?.kill();
+
+    // Only reachable when the setting is switched on mid-swap: snap back to
+    // the pinned word rather than animating there.
+    if (prefersReducedMotion()) {
+      gsap.set(chars1, from1);
+      gsap.set(chars2, from2);
+      return;
+    }
+
+    const tl = gsap.timeline({ delay });
+    tlRef.current = tl;
+
+    const tween = {
+      duration: SWAP_DURATION,
+      ease: "power2.inOut",
+      stagger: SWAP_STAGGER,
+      overwrite: "auto" as const,
+    };
+    tl.to(chars1, { ...from1, ...tween }, 0).to(
+      chars2,
+      { ...from2, ...tween },
+      0,
+    );
+  }, [isAlt, delay, text1.length, text2.length]);
+
+  useEffect(
+    () => () => {
+      tlRef.current?.kill();
+    },
+    [],
+  );
 
   return (
     <span className="inline-flex text-swap-container">
-      <span className="invisible">{text1}</span>
+      {/* Sizer stacks both strings so the container fits the wider script. */}
+      <span className="invisible grid">
+        <span className="col-start-1 row-start-1">{text1}</span>
+        <span className="col-start-1 row-start-1">{text2}</span>
+      </span>
       <span className="absolute inset-0 flex">
         {text1.split("").map((char, i) => (
           <span
@@ -107,10 +164,12 @@ const SwapText = ({
             ref={(el) => {
               text1Refs.current[i] = el;
             }}
-            className="inline-block will-change-transform"
+            className="inline-block"
             style={{
-              transform: showText1 ? "translateY(0)" : "translateY(-100%)",
-              opacity: showText1 ? 1 : 0,
+              transform: initialShowText1
+                ? "translateY(0)"
+                : "translateY(-100%)",
+              opacity: initialShowText1 ? 1 : 0,
             }}
           >
             {char}
@@ -126,10 +185,12 @@ const SwapText = ({
             ref={(el) => {
               text2Refs.current[i] = el;
             }}
-            className="inline-block will-change-transform"
+            className="inline-block"
             style={{
-              transform: !showText1 ? "translateY(0)" : "translateY(100%)",
-              opacity: !showText1 ? 1 : 0,
+              transform: initialShowText1
+                ? "translateY(100%)"
+                : "translateY(0)",
+              opacity: initialShowText1 ? 0 : 1,
             }}
           >
             {char}
@@ -164,16 +225,21 @@ interface HeaderProps {
 
 export const Header = ({ type = "default", articleTitle }: HeaderProps) => {
   const pathname = usePathname();
+  const { locale, dict } = useLocale();
   const { startTransition } = useRouteTransition();
   const headerRef = useRef<HTMLElement>(null);
   const word1 = useTextSwap(3500, 6500, 0);
   const word2 = useTextSwap(3500, 6500, 2000);
 
+  const homeHref = localizeHref(locale, "/");
+  const aboutHref = localizeHref(locale, "/about");
+  const tagline = dict.nav.tagline;
+
   const handleLogoClick = useCallback(() => {
-    if (pathname !== "/") {
-      startTransition("/");
+    if (pathname !== homeHref) {
+      startTransition(homeHref);
     }
-  }, [pathname, startTransition]);
+  }, [pathname, homeHref, startTransition]);
 
   useEffect(() => {
     if (type !== "article" && headerRef.current) {
@@ -198,52 +264,72 @@ export const Header = ({ type = "default", articleTitle }: HeaderProps) => {
         className="w-full flex items-center justify-between md:p-7 p-4 absolute top-0 left-0 z-20 text-white uppercase tracking-[0.15rem] font-extralight text-sm"
         style={{ opacity: 0 }}
       >
-        <div className="flex items-center gap-8">
+        <div className="flex items-center gap-4 md:gap-8">
           <div
-            className="p-4 flex w-fit cursor-pointer group relative"
+            className="p-2 md:p-4 flex w-fit cursor-pointer group relative"
             onClick={handleLogoClick}
           >
             <LogoComponent />
           </div>
-          <TransitionLink href="/" className="relative group overflow-hidden">
-            <span className="block top-0 left-0 w-full h-full group-hover:translate-y-[-100%] transition-transform duration-300">
-              Work
-            </span>
-            <span className="block absolute top-[100%] left-0 w-full h-full group-hover:translate-y-[-100%] transition-transform duration-300">
-              Work
-            </span>
-          </TransitionLink>
           <TransitionLink
-            href="/about"
+            href={homeHref}
             className="relative group overflow-hidden"
           >
             <span className="block top-0 left-0 w-full h-full group-hover:translate-y-[-100%] transition-transform duration-300">
-              Philosophy
+              {dict.nav.work}
             </span>
             <span className="block absolute top-[100%] left-0 w-full h-full group-hover:translate-y-[-100%] transition-transform duration-300">
-              Philosophy
+              {dict.nav.work}
+            </span>
+          </TransitionLink>
+          <TransitionLink
+            href={aboutHref}
+            className="relative group overflow-hidden"
+          >
+            <span className="block top-0 left-0 w-full h-full group-hover:translate-y-[-100%] transition-transform duration-300">
+              {dict.nav.philosophy}
+            </span>
+            <span className="block absolute top-[100%] left-0 w-full h-full group-hover:translate-y-[-100%] transition-transform duration-300">
+              {dict.nav.philosophy}
             </span>
           </TransitionLink>
         </div>
-        <div className="hidden sm:flex font-bold gap-2 items-baseline">
-          <SwapText
-            text1="Designer"
-            text2="デザイナー"
-            isAlt={word1.isAlt}
-            position="end"
-          />
+        <div className="flex items-center gap-4 md:gap-6">
+          <div className="hidden sm:flex font-bold gap-2 items-baseline">
+            <div
+              className={
+                tagline.citySlot === "lead"
+                  ? "cursor-tyo hover:scale-110 transition-all duration-300"
+                  : undefined
+              }
+            >
+              <SwapText
+                text1={tagline.leadSwap[0]}
+                text2={tagline.leadSwap[1]}
+                isAlt={word1.isAlt}
+                position="end"
+              />
+            </div>
 
-          <span className="opacity-50">Based in</span>
+            <span className="opacity-50">{tagline.middle}</span>
 
-          <div className="cursor-tyo hover:scale-110 transition-all duration-300">
-            <SwapText
-              text1="Tokyo"
-              text2="東京"
-              isAlt={word2.isAlt}
-              position="start"
-              delay={0.1}
-            />
+            <div
+              className={
+                tagline.citySlot === "trail"
+                  ? "cursor-tyo hover:scale-110 transition-all duration-300"
+                  : undefined
+              }
+            >
+              <SwapText
+                text1={tagline.trailSwap[0]}
+                text2={tagline.trailSwap[1]}
+                isAlt={word2.isAlt}
+                position="start"
+                delay={0.1}
+              />
+            </div>
           </div>
+          <LocaleSwitcher />
         </div>
       </header>
     );
@@ -252,12 +338,13 @@ export const Header = ({ type = "default", articleTitle }: HeaderProps) => {
       <header className="w-full flex items-center justify-between md:p-7 p-4 absolute top-0 left-0 z-20 text-white uppercase tracking-[0.15rem] font-extralight text-sm">
         <div className="w-full flex items-center gap-8">
           <TransitionLink
-            href="/"
-            className="hidden sm:flex items-center gap-2 w-1/3"
+            href={homeHref}
+            className="flex items-center gap-2 w-1/3"
           >
-            <ArrowLeft className="w-4 h-4" /> Home
+            <ArrowLeft className="w-4 h-4 shrink-0" />
+            <span className="hidden sm:inline">{dict.nav.backHome}</span>
           </TransitionLink>
-          <div className="w-full sm:w-1/3">
+          <div className="w-1/3">
             <div
               className="mx-auto p-4 flex w-fit cursor-pointer group relative"
               onClick={handleLogoClick}
@@ -265,9 +352,12 @@ export const Header = ({ type = "default", articleTitle }: HeaderProps) => {
               <LogoComponent />
             </div>
           </div>
-          <span className="hidden sm:inline-block u-stack-label w-1/3 text-right opacity-70">
-            {articleTitle}
-          </span>
+          <div className="flex items-center justify-end gap-4 w-1/3">
+            <span className="hidden sm:inline-block u-stack-label text-right opacity-70">
+              {articleTitle}
+            </span>
+            <LocaleSwitcher />
+          </div>
         </div>
       </header>
     );

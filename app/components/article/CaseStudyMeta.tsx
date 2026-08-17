@@ -1,6 +1,7 @@
 "use client";
 
 import { Header } from "@/app/components/common/Header";
+import { useLocale } from "@/app/i18n/LocaleProvider";
 import gsap from "gsap";
 import { ArrowUpRight } from "lucide-react";
 import { useEffect, useRef } from "react";
@@ -15,7 +16,7 @@ interface CaseStudyMetaProps {
   stack: string[];
   themes: string[];
   h1Title: string;
-  introductionText: string;
+  introduction: string[];
   timeline: string;
   link?: string;
 }
@@ -30,10 +31,11 @@ export const CaseStudyMeta = ({
   stack,
   themes,
   h1Title,
-  introductionText,
+  introduction,
   timeline,
   link,
 }: CaseStudyMetaProps) => {
+  const { dict } = useLocale();
   const sectionRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
@@ -66,22 +68,24 @@ export const CaseStudyMeta = ({
       <section className="relative bg-white p-5 sm:p-10">
         <div className="flex max-lg:flex-col max-w-6xl mx-auto">
           <div className="meta max-sm:[&>*]:w-full max-lg:[&>*]:w-1/2 flex flex-col max-lg:flex-row max-lg:gap-y-2 lg:gap-3 w-full lg:w-[330px] max-lg:flex-wrap max-lg:items-start shrink-0 h-fit p-12 lg:-mt-[25vh] bg-[#F7F4F8] rounded-[32px] z-10">
-            <h4 className="u-stack-label text-[#4E3960]">Client</h4>
+            <h4 className="u-stack-label text-[#4E3960]">
+              {dict.caseStudy.client}
+            </h4>
             <p>{clientName}</p>
             <h4 className="u-stack-label mt-6 sm:max-lg:mt-0 text-[#4E3960]">
-              Year
+              {dict.caseStudy.year}
             </h4>
             <p>{year}</p>
             <h4 className="u-stack-label mt-6 sm:max-lg:mt-0 text-[#4E3960]">
-              Role
+              {dict.caseStudy.role}
             </h4>
             <p>{role}</p>
             <h4 className="u-stack-label mt-6 sm:max-lg:mt-0 text-[#4E3960]">
-              Stack
+              {dict.caseStudy.stack}
             </h4>
             <p>{stack.join(", ")}</p>
             <h4 className="u-stack-label mt-6 mb-2 sm:max-lg:mt-0 text-[#4E3960]">
-              Themes
+              {dict.caseStudy.themes}
             </h4>
             <div className="flex flex-wrap gap-2">
               {themes.map((theme) => (
@@ -100,7 +104,7 @@ export const CaseStudyMeta = ({
             </h1>
             <div className="flex items-center justify-between gap-4 mb-6">
               <p className="u-stack-label text-[#4E3960] opacity-50">
-                Timeline:&nbsp;<span>{timeline}</span>
+                {dict.caseStudy.timeline}&nbsp;<span>{timeline}</span>
               </p>
               {link && (
                 <a
@@ -118,7 +122,7 @@ export const CaseStudyMeta = ({
               )}
             </div>
             <div>
-              {introductionText.split("\n").map((paragraph, index) => (
+              {introduction.map((paragraph, index) => (
                 <p key={index} className="mb-4">
                   <i>{paragraph}</i>
                 </p>

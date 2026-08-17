@@ -11,6 +11,8 @@ import { Logo } from "./Logo";
 import { useRouteTransition } from "./RouteTransitionProvider";
 import { TransitionLink } from "./TransitionLink";
 
+const REDUCED_MOTION_QUERY = "(prefers-reduced-motion: reduce)";
+
 function useTextSwap(
   baseMinMs: number,
   baseMaxMs: number,
@@ -19,29 +21,44 @@ function useTextSwap(
   const [isAlt, setIsAlt] = useState(false);
 
   useEffect(() => {
+    const media = window.matchMedia(REDUCED_MOTION_QUERY);
     let timeoutId: number | undefined;
+
+    const randomDelay = () =>
+      baseMinMs + Math.random() * Math.max(0, baseMaxMs - baseMinMs);
 
     const scheduleNext = (delay: number) => {
       timeoutId = window.setTimeout(() => {
         setIsAlt((prev) => !prev);
-
-        const nextDelay =
-          baseMinMs + Math.random() * Math.max(0, baseMaxMs - baseMinMs);
-        scheduleNext(nextDelay);
+        scheduleNext(randomDelay());
       }, delay);
     };
 
-    const initialDelay =
-      initialOffsetMs +
-      baseMinMs +
-      Math.random() * Math.max(0, baseMaxMs - baseMinMs);
-
-    scheduleNext(initialDelay);
-
-    return () => {
+    const stop = () => {
       if (timeoutId !== undefined) {
         clearTimeout(timeoutId);
+        timeoutId = undefined;
       }
+    };
+
+    // Under reduced motion the swap stops entirely and pins to the primary
+    // (English) word. Dropping just the animation would still leave text
+    // auto-updating every few seconds with no way to pause it (WCAG 2.2.2).
+    const apply = () => {
+      stop();
+      if (media.matches) {
+        setIsAlt(false);
+      } else {
+        scheduleNext(initialOffsetMs + randomDelay());
+      }
+    };
+
+    apply();
+    media.addEventListener("change", apply);
+
+    return () => {
+      stop();
+      media.removeEventListener("change", apply);
     };
   }, [baseMinMs, baseMaxMs, initialOffsetMs]);
 
@@ -61,7 +78,7 @@ const SWAP_STAGGER = 0.03;
 
 const prefersReducedMotion = () =>
   typeof window !== "undefined" &&
-  window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  window.matchMedia(REDUCED_MOTION_QUERY).matches;
 
 const SwapText = ({
   text1,
@@ -102,6 +119,8 @@ const SwapText = ({
     // the same properties.
     tlRef.current?.kill();
 
+    // Only reachable when the setting is switched on mid-swap: snap back to
+    // the pinned word rather than animating there.
     if (prefersReducedMotion()) {
       gsap.set(chars1, from1);
       gsap.set(chars2, from2);

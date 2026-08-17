@@ -5,28 +5,28 @@ const QUALIFIED_INVOICE_URL =
 
 export const ja: CaseStudy = {
   card: {
-    title: "請求書ビルダー",
+    title: "Invoice Builder",
     client: "FreelanceOS",
-    skills: ["UIデザイン", "UXリサーチ", "Web SaaS"],
+    skills: ["UI Design", "UX Research", "Web SaaS"],
     imgSrc: "/images/projects/invoices-hero.png",
   },
   meta: {
-    articleTitle: "フリーランス向け請求書",
+    articleTitle: "Freelancer Invoices",
     heroImageSrc: "/images/projects/invoices.jpg",
     heroImageAlt: "請求書ビルダー",
     clientName: "Sollective",
     year: "2023",
-    role: "プロダクトデザイナー",
+    role: "Product Designer",
     stack: ["Figma", "Google Meets"],
     themes: [
-      "金融ツール",
-      "UXリサーチ",
-      "フォームデザイン",
-      "法令対応",
-      "ユーザーインタビュー",
+      "Financial tooling",
+      "UX research",
+      "Form design",
+      "Compliance",
+      "User interviews",
     ],
     h1Title: "日本のフリーランスのための請求書ビルダーをデザインする",
-    timeline: "12週間",
+    timeline: "12 weeks",
     link: "https://www.sollective.jp/invoices/about",
     introduction: [
       "Sollectiveは、審査を通過した優秀なフリーランスと、事業拡大を目指す企業とをつなぐ日本のフリーランスマッチングプラットフォームです。マッチングにとどまらず、コミュニティイベントや独立して働く人に特化したワークフローツールを通じて、フリーランスという働き方の未来を支えることを目指しています。",

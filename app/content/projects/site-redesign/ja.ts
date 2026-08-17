@@ -2,32 +2,27 @@ import { CaseStudy } from "../../types";
 
 export const ja: CaseStudy = {
   card: {
-    title: "プロダクトサイト",
-    skills: [
-      "Webデザイン",
-      "Framer",
-      "モーションデザイン",
-      "ブランディング",
-    ],
+    title: "Product Website",
+    skills: ["Web Design", "Framer", "Motion Design", "Branding"],
     videoSrc:
       "https://res.cloudinary.com/gswu205/video/upload/v1770948413/sollectivejp-reel_zdbmbj.mp4",
   },
   meta: {
-    articleTitle: "プラットフォームサイト",
+    articleTitle: "Platform Website",
     heroImageSrc: "/images/projects/sollective.jpg",
     heroImageAlt: "Sollectiveのウェブサイト",
     clientName: "Sollective",
     year: "2024",
-    role: "プロダクトデザイナー",
+    role: "Product Designer",
     stack: ["Framer"],
     themes: [
-      "Webデザイン",
+      "Web design",
       "Framer",
-      "ビジュアルストーリーテリング",
-      "コンバージョン最適化",
+      "Visual storytelling",
+      "Conversion optimization",
     ],
     h1Title: "日本のフリーランスのためのオールインワン・プラットフォーム",
-    timeline: "6週間",
+    timeline: "6 weeks",
     link: "https://sollective.jp",
     introduction: [
       "Sollectiveは、審査を通過した優秀なフリーランスと、事業拡大を目指す企業とをつなぐ日本のフリーランスマッチングプラットフォームです。マッチングサービスにとどまらず、コミュニティイベントや目的に特化したワークフローツールを通じて、日本におけるフリーランスの未来を育てています。",

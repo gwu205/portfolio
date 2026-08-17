@@ -2,26 +2,26 @@ import { CaseStudy } from "../../types";
 
 export const ja: CaseStudy = {
   card: {
-    title: "工数管理（タイムシート）",
-    skills: ["UIデザイン", "UXリサーチ", "Web SaaS"],
+    title: "Timesheets",
+    skills: ["UI Design", "UX Research", "Web SaaS"],
     imgSrc: "/images/projects/timesheets-hero.png",
   },
   meta: {
-    articleTitle: "タイムシート",
+    articleTitle: "Timesheets",
     heroImageSrc: "/images/projects/timesheets-hero.png",
     heroImageAlt: "タイムシート",
     clientName: "Sollective",
     year: "2025",
-    role: "リードプロダクトデザイナー",
+    role: "Lead Product Designer",
     stack: ["Figma", "Figma Make", "TypeScript / React"],
     themes: [
-      "B2Bワークフロー",
-      "社内ツール",
-      "レポーティング",
-      "プロトタイピング",
+      "B2B workflows",
+      "internal tools",
+      "reporting",
+      "prototyping",
     ],
     h1Title: "工数報告における B2B の複雑さをシンプルにする",
-    timeline: "8週間",
+    timeline: "8 weeks",
     introduction: [
       "Sollectiveは、審査を通過した優秀なフリーランスと、事業拡大を目指す企業とをつなぐ日本のフリーランスマッチングプラットフォームです。FreelanceOSは、タイムシート、請求、レポーティングなど、フリーランスが自身の案件を管理するためのSollectiveのツール群です。",
       "2024年、チームは主にフリーランス個人を対象としたタイムシート機能をリリースしました。複数の案件にまたがって稼働時間を記録し、必要に応じて書き出せる仕組みです。ところがSollectiveの事業が拡大するにつれ、社内チームがこの機能を、フリーランスとクライアントのバックオフィスをつなぐ中核的な報告ツールとして使い始めました。フリーランスの自己管理に最適化された当初の設計は、新たに生まれたワークフローに合わず、フリーランスにも社内スタッフにも負担を生んでいました。",

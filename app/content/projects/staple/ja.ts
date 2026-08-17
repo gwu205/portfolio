@@ -2,27 +2,27 @@ import { CaseStudy } from "../../types";
 
 export const ja: CaseStudy = {
   card: {
-    title: "Webアプリのリデザイン",
-    skills: ["フロントエンド開発", "UI/UXデザイン", "B2B SaaS"],
+    title: "Web App Redesign",
+    skills: ["Frontend Dev", "UI/UX Design", "B2B SaaS"],
     imgSrc: "/images/projects/staplecard.jpg",
   },
   meta: {
-    articleTitle: "法人決済",
+    articleTitle: "Corporate Payments",
     heroImageSrc: "/images/projects/s-expenses.jpg",
     heroImageAlt: "Staple Card",
     clientName: "Staple",
     year: "2022",
-    role: "プロダクトデザイナー 兼 フロントエンドデベロッパー",
+    role: "Product Designer & Frontend Developer",
     stack: ["Figma", "React", "CSS"],
     themes: [
-      "UI/UXデザイン",
-      "フロントエンド開発",
-      "デザインシステム",
-      "SaaSデザイン",
-      "フィンテック",
+      "UI/UX design",
+      "Frontend development",
+      "Design system",
+      "SaaS design",
+      "FinTech",
     ],
     h1Title: "キャッシュレスな法人決済の未来をデザインする",
-    timeline: "6ヶ月",
+    timeline: "6 months",
     introduction: [
       "Stapleは、従業員が決済、領収書の記録、経費精算の申請を手軽に行える法人決済ソリューションです。リアルカードとバーチャルカードの両方に対応し、経費管理を効率化するとともに、経理担当者が会社全体の支出を一元的に把握できる環境を提供します。",
       "ワークフローをデジタル化することで、Stapleは日本に根強く残る紙ベースの仕組みに向き合い、旧来のプロセスに現代的な解を届けています。",

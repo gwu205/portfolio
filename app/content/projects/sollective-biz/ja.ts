@@ -3,7 +3,7 @@ import { CaseStudy } from "../../types";
 export const ja: CaseStudy = {
   card: {
     title: "Sollective Biz",
-    skills: ["Framer", "Weavy", "LPデザイン"],
+    skills: ["Framer", "Weavy", "LP Design"],
     imgSrc: "/images/projects/biz-hero.png",
   },
   meta: {
@@ -12,16 +12,16 @@ export const ja: CaseStudy = {
     heroImageAlt: "Sollective Bizのキャンペーン",
     clientName: "Sollective",
     year: "2026",
-    role: "プロダクトデザイナー",
+    role: "Product Designer",
     stack: ["Framer", "Weavy", "After Effects"],
     themes: [
-      "ブランド開発",
-      "広告キャンペーン",
-      "AIプロダクション",
-      "ウェブサイトデザイン",
+      "Brand Development",
+      "Ad Campaign",
+      "AI Production",
+      "Website Design",
     ],
     h1Title: "信頼がものを言う市場で、法人向けブランドを立ち上げる",
-    timeline: "6週間",
+    timeline: "6 weeks",
     link: "https://sollective.biz",
     introduction: [
       "Sollective Bizは、Sollectiveの法人・エンタープライズ向けサービスで、審査を通過したプロフェッショナル人材を日本全国の企業へと紹介しています。一般向けプラットフォームがフリーランスと仕事をつなぐのに対し、Bizが経営層に売るのは「信頼」です。しかもそこは、長い歴史を持つ人材サービス各社が支配する領域でした。",

@@ -2,26 +2,26 @@ import { CaseStudy } from "../../types";
 
 export const ja: CaseStudy = {
   card: {
-    title: "プラットフォームナビゲーション",
-    skills: ["UIデザイン", "B2C", "ブランディング"],
+    title: "Platform Navigation",
+    skills: ["UI Design", "B2C", "Branding"],
     imgSrc: "/images/projects/navigation.jpg",
   },
   meta: {
-    articleTitle: "プラットフォームナビゲーション",
+    articleTitle: "Platform Navigation",
     heroImageSrc: "/images/projects/navigation.jpg",
     heroImageAlt: "プラットフォームのナビゲーション",
     clientName: "Sollective",
     year: "2024",
-    role: "プロダクトデザイナー",
+    role: "Product Designer",
     stack: ["Figma", "Slack"],
     themes: [
-      "プロダクトデザイン",
-      "情報アーキテクチャ",
-      "ナビゲーション設計",
-      "ユーザーテスト",
+      "Product design",
+      "Information architecture",
+      "Navigation design",
+      "User testing",
     ],
     h1Title: "変化の速いプラットフォームに合わせてナビゲーションを再設計する",
-    timeline: "6週間",
+    timeline: "6 weeks",
     introduction: [
       "Sollectiveは、審査を通過した優秀なフリーランスと、事業拡大を目指す企業とをつなぐ日本のフリーランスマッチングプラットフォームです。マッチングに加えて、コミュニティイベントやフリーランス向けに設計されたワークフローツールを通じて、日本におけるフリーランスの未来を支えることを目指しています。",
       "プラットフォームの提供領域が広がるにつれ、ユーザー層も拡大し、仕事を探す人だけでなく、業務効率化のためのツールを求める人も訪れるようになりました。この広がりは、プラットフォームの情報アーキテクチャにとって重要な課題を突きつけることになります。",

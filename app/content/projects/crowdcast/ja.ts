@@ -2,27 +2,27 @@ import { CaseStudy } from "../../types";
 
 export const ja: CaseStudy = {
   card: {
-    title: "コーポレートブランド",
-    skills: ["ブランディング", "ビジュアルデザイン"],
+    title: "Corporate Brand",
+    skills: ["Branding", "Visual Design"],
     imgSrc: "/images/projects/crowdcast.jpg",
   },
   meta: {
-    articleTitle: "ブランドリニューアル",
+    articleTitle: "Brand Renewal",
     heroImageSrc: "/images/projects/crowdcast.jpg",
     heroImageAlt: "Crowd Castのウェブサイト",
     clientName: "Crowd Cast",
     year: "2022",
-    role: "プロダクトデザイナー",
+    role: "Product Designer",
     stack: ["Figma", "Webflow"],
     themes: [
-      "ブランディング",
-      "ビジュアルアイデンティティ",
-      "ロゴデザイン",
-      "Webデザイン",
-      "Webflow開発",
+      "Branding",
+      "Visual identity",
+      "Logo design",
+      "Web design",
+      "Webflow development",
     ],
     h1Title: "キャッシュレスの未来に向けたコーポレートブランドの刷新",
-    timeline: "6週間",
+    timeline: "6 weeks",
     introduction: [
       "Crowd Castは中小企業向けの金融ソリューションを開発する企業で、日本国内の社内経理インフラをペーパーレス化し、現代に即したかたちへとアップデートすることを目指しています。",
       "私がこのアーリーステージのスタートアップに参画した当時、社内にはデザインの方向性がほとんどなく、既存のビジュアルアセットも限られていました。事業の成長にともない、より安定した、拡張性のあるビジュアルアイデンティティが明確に求められていました。",

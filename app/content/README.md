@@ -33,9 +33,30 @@ URL and `hreflang` alternates are all derived from the content file.
 
 ## Translating an existing case study
 
-Copy `en.ts` to `ja.ts` and translate the string values. Leave these alone:
-`src`, `width`, `height`, URLs inside `[label](href)`, `stack` entries (tool
-names), and brand names.
+Copy `en.ts` to `ja.ts` and translate the string values, following the
+English-label convention below.
+
+Leave these alone: `src`, `width`, `height`, URLs inside `[label](href)`,
+`stack` entries (tool names), and brand names.
+
+## What stays English on the Japanese site
+
+Short labels keep their English wording verbatim — their meaning and intent
+drift when translated, and they read as brand voice rather than information.
+Running prose is translated.
+
+| Stays English | Gets translated |
+| --- | --- |
+| `card.title`, `card.skills` | `meta.h1Title` |
+| `meta.articleTitle`, `meta.role`, `meta.themes`, `meta.timeline` | `meta.heroImageAlt`, `meta.introduction` |
+| Meta panel labels (Client / Year / Role / Stack / Themes / Timeline) | `seo.title`, `seo.description` |
+| Nav, footer CTAs, section headings, badges, job titles, hero taglines | Block `p` / `ul` / `ol` copy, `image.alt`, `aside` text |
+
+Block headings (`h2`/`h3`/`h4`) inside the article body **are** translated —
+they are part of the running document, not chrome.
+
+When in doubt: if it sits in the page furniture, keep it English; if a reader
+reads it as a sentence, translate it.
 
 ## Block types
 

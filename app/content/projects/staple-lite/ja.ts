@@ -3,7 +3,7 @@ import { CaseStudy } from "../../types";
 export const ja: CaseStudy = {
   card: {
     title: "Staple Lite",
-    skills: ["モバイルアプリ", "プロダクトデザイン", "デザインシステム"],
+    skills: ["Mobile App", "Product Design", "Design System"],
     imgSrc: "/images/projects/staple-lite-hero.png",
   },
   meta: {
@@ -12,16 +12,11 @@ export const ja: CaseStudy = {
     heroImageAlt: "Staple Liteアプリ",
     clientName: "Staple",
     year: "2023",
-    role: "プロダクトデザイナー",
+    role: "Product Designer",
     stack: ["Figma", "React", "CSS"],
-    themes: [
-      "モバイルアプリ",
-      "プロダクトデザイン",
-      "デザインシステム",
-      "フィンテック",
-    ],
+    themes: ["Mobile App", "Product Design", "Design System", "FinTech"],
     h1Title: "小規模事業者のための、手間いらずな法人支出管理",
-    timeline: "8週間",
+    timeline: "8 weeks",
     introduction: [
       "Staple Liteは、法人決済ブランドStapleから生まれた新しいプロダクトで、既存の主力製品では届かなかった市場に向けて設計されました。Stapleがエンタープライズ向けB2B顧客に本格的な経費管理スイートを提供するのに対し、Staple Liteは飲食・小売といった対消費者の現場で働く小規模事業者やチームを、より手の届きやすい価格帯で対象としています。",
       "目指したのは、複雑な機能や学習コストなしに、Stapleの手軽さと利便性を届けることです。Staple Liteはモバイルファーストで設計され、経営者も従業員も外出先から支出を管理できます。加えて、より重い管理業務のために、組織のオーナー向けの管理用Webアプリを用意しました。資金とチームの管理、チーム全体に配布できる決済カード、既に使っているツールとのスムーズな連携といった本当に必要なものは残し、小規模な事業者が必要としない事務的な負荷は削ぎ落としています。",

@@ -56,6 +56,13 @@ interface SwapTextProps {
   delay?: number;
 }
 
+const SWAP_DURATION = 0.4;
+const SWAP_STAGGER = 0.03;
+
+const prefersReducedMotion = () =>
+  typeof window !== "undefined" &&
+  window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
 const SwapText = ({
   text1,
   text2,
@@ -66,39 +73,63 @@ const SwapText = ({
   const text1Refs = useRef<(HTMLSpanElement | null)[]>([]);
   const text2Refs = useRef<(HTMLSpanElement | null)[]>([]);
   const prevIsAlt = useRef(isAlt);
+  const tlRef = useRef<gsap.core.Timeline | null>(null);
+
+  // Frozen at mount. GSAP owns transform/opacity from here on, so these values
+  // must never change across renders — React writing the end state during the
+  // swap commit is what made characters jump instead of animate (GSAP then
+  // tweened from the destination to itself, a visual no-op).
+  const initialShowText1 = !useRef(isAlt).current;
 
   useEffect(() => {
     if (prevIsAlt.current === isAlt) return;
     prevIsAlt.current = isAlt;
 
     const showText1 = !isAlt;
+    const chars1 = text1Refs.current.slice(0, text1.length).filter(Boolean);
+    const chars2 = text2Refs.current.slice(0, text2.length).filter(Boolean);
 
-    // Animate text1 characters
-    text1Refs.current.forEach((el, i) => {
-      if (!el) return;
-      gsap.to(el, {
-        y: showText1 ? "0%" : "-100%",
-        opacity: showText1 ? 1 : 0,
-        duration: 0.4,
-        ease: "power2.inOut",
-        delay: i * 0.03 + delay,
-      });
-    });
+    // `y` stays a percentage string rather than `yPercent`: the element's start
+    // value is read from a computed matrix in px, and a matrix can't tell
+    // translateY(-100%) from translateY(-20px). Mixing the two silently no-ops.
+    const outgoing = { y: showText1 ? "100%" : "-100%", opacity: 0 };
+    const incoming = { y: "0%", opacity: 1 };
 
-    // Animate text2 characters
-    text2Refs.current.forEach((el, i) => {
-      if (!el) return;
-      gsap.to(el, {
-        y: !showText1 ? "0%" : "100%",
-        opacity: !showText1 ? 1 : 0,
-        duration: 0.4,
-        ease: "power2.inOut",
-        delay: i * 0.03 + delay,
-      });
-    });
-  }, [isAlt, delay]);
+    const from1 = showText1 ? incoming : outgoing;
+    const from2 = showText1 ? outgoing : incoming;
 
-  const showText1 = !isAlt;
+    // A swap landing mid-flight would otherwise leave two tweens fighting over
+    // the same properties.
+    tlRef.current?.kill();
+
+    if (prefersReducedMotion()) {
+      gsap.set(chars1, from1);
+      gsap.set(chars2, from2);
+      return;
+    }
+
+    const tl = gsap.timeline({ delay });
+    tlRef.current = tl;
+
+    const tween = {
+      duration: SWAP_DURATION,
+      ease: "power2.inOut",
+      stagger: SWAP_STAGGER,
+      overwrite: "auto" as const,
+    };
+    tl.to(chars1, { ...from1, ...tween }, 0).to(
+      chars2,
+      { ...from2, ...tween },
+      0,
+    );
+  }, [isAlt, delay, text1.length, text2.length]);
+
+  useEffect(
+    () => () => {
+      tlRef.current?.kill();
+    },
+    [],
+  );
 
   return (
     <span className="inline-flex text-swap-container">
@@ -114,10 +145,12 @@ const SwapText = ({
             ref={(el) => {
               text1Refs.current[i] = el;
             }}
-            className="inline-block will-change-transform"
+            className="inline-block"
             style={{
-              transform: showText1 ? "translateY(0)" : "translateY(-100%)",
-              opacity: showText1 ? 1 : 0,
+              transform: initialShowText1
+                ? "translateY(0)"
+                : "translateY(-100%)",
+              opacity: initialShowText1 ? 1 : 0,
             }}
           >
             {char}
@@ -133,10 +166,12 @@ const SwapText = ({
             ref={(el) => {
               text2Refs.current[i] = el;
             }}
-            className="inline-block will-change-transform"
+            className="inline-block"
             style={{
-              transform: !showText1 ? "translateY(0)" : "translateY(100%)",
-              opacity: !showText1 ? 1 : 0,
+              transform: initialShowText1
+                ? "translateY(100%)"
+                : "translateY(0)",
+              opacity: initialShowText1 ? 0 : 1,
             }}
           >
             {char}
@@ -242,37 +277,37 @@ export const Header = ({ type = "default", articleTitle }: HeaderProps) => {
         </div>
         <div className="flex items-center gap-4 md:gap-6">
           <div className="hidden sm:flex font-bold gap-2 items-baseline">
-          <div
-            className={
-              tagline.citySlot === "lead"
-                ? "cursor-tyo hover:scale-110 transition-all duration-300"
-                : undefined
-            }
-          >
-            <SwapText
-              text1={tagline.leadSwap[0]}
-              text2={tagline.leadSwap[1]}
-              isAlt={word1.isAlt}
-              position="end"
-            />
-          </div>
+            <div
+              className={
+                tagline.citySlot === "lead"
+                  ? "cursor-tyo hover:scale-110 transition-all duration-300"
+                  : undefined
+              }
+            >
+              <SwapText
+                text1={tagline.leadSwap[0]}
+                text2={tagline.leadSwap[1]}
+                isAlt={word1.isAlt}
+                position="end"
+              />
+            </div>
 
-          <span className="opacity-50">{tagline.middle}</span>
+            <span className="opacity-50">{tagline.middle}</span>
 
-          <div
-            className={
-              tagline.citySlot === "trail"
-                ? "cursor-tyo hover:scale-110 transition-all duration-300"
-                : undefined
-            }
-          >
-            <SwapText
-              text1={tagline.trailSwap[0]}
-              text2={tagline.trailSwap[1]}
-              isAlt={word2.isAlt}
-              position="start"
-              delay={0.1}
-            />
+            <div
+              className={
+                tagline.citySlot === "trail"
+                  ? "cursor-tyo hover:scale-110 transition-all duration-300"
+                  : undefined
+              }
+            >
+              <SwapText
+                text1={tagline.trailSwap[0]}
+                text2={tagline.trailSwap[1]}
+                isAlt={word2.isAlt}
+                position="start"
+                delay={0.1}
+              />
             </div>
           </div>
           <LocaleSwitcher />

@@ -19,7 +19,8 @@ export const en: Dictionary = {
     },
   },
   localeSwitcher: {
-    label: "Switch language",
+    toEnglish: "Switch to English",
+    toJapanese: "Switch to Japanese",
   },
   footer: {
     connectHeading: "Let's connect",

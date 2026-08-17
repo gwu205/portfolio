@@ -22,7 +22,8 @@ export interface Dictionary {
     };
   };
   localeSwitcher: {
-    label: string;
+    toEnglish: string;
+    toJapanese: string;
   };
   footer: {
     connectHeading: string;

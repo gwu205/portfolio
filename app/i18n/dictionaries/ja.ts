@@ -30,8 +30,9 @@ export const ja: Dictionary = {
     },
   },
   localeSwitcher: {
-    // Assistive-only label, never rendered visually.
-    label: "言語を切り替える",
+    // Assistive-only labels, never rendered visually.
+    toEnglish: "英語に切り替える",
+    toJapanese: "日本語に切り替える",
   },
   footer: {
     connectHeading: "Let's connect",

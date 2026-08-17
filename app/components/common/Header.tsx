@@ -210,9 +210,9 @@ export const Header = ({ type = "default", articleTitle }: HeaderProps) => {
         className="w-full flex items-center justify-between md:p-7 p-4 absolute top-0 left-0 z-20 text-white uppercase tracking-[0.15rem] font-extralight text-sm"
         style={{ opacity: 0 }}
       >
-        <div className="flex items-center gap-8">
+        <div className="flex items-center gap-4 md:gap-8">
           <div
-            className="p-4 flex w-fit cursor-pointer group relative"
+            className="p-2 md:p-4 flex w-fit cursor-pointer group relative"
             onClick={handleLogoClick}
           >
             <LogoComponent />
@@ -239,9 +239,9 @@ export const Header = ({ type = "default", articleTitle }: HeaderProps) => {
               {dict.nav.philosophy}
             </span>
           </TransitionLink>
-          <LocaleSwitcher />
         </div>
-        <div className="hidden sm:flex font-bold gap-2 items-baseline">
+        <div className="flex items-center gap-4 md:gap-6">
+          <div className="hidden sm:flex font-bold gap-2 items-baseline">
           <div
             className={
               tagline.citySlot === "lead"
@@ -273,7 +273,9 @@ export const Header = ({ type = "default", articleTitle }: HeaderProps) => {
               position="start"
               delay={0.1}
             />
+            </div>
           </div>
+          <LocaleSwitcher />
         </div>
       </header>
     );
@@ -283,11 +285,12 @@ export const Header = ({ type = "default", articleTitle }: HeaderProps) => {
         <div className="w-full flex items-center gap-8">
           <TransitionLink
             href={homeHref}
-            className="hidden sm:flex items-center gap-2 w-1/3"
+            className="flex items-center gap-2 w-1/3"
           >
-            <ArrowLeft className="w-4 h-4" /> {dict.nav.backHome}
+            <ArrowLeft className="w-4 h-4 shrink-0" />
+            <span className="hidden sm:inline">{dict.nav.backHome}</span>
           </TransitionLink>
-          <div className="w-full sm:w-1/3">
+          <div className="w-1/3">
             <div
               className="mx-auto p-4 flex w-fit cursor-pointer group relative"
               onClick={handleLogoClick}
@@ -295,8 +298,8 @@ export const Header = ({ type = "default", articleTitle }: HeaderProps) => {
               <LogoComponent />
             </div>
           </div>
-          <div className="hidden sm:flex items-center justify-end gap-4 w-1/3">
-            <span className="u-stack-label text-right opacity-70">
+          <div className="flex items-center justify-end gap-4 w-1/3">
+            <span className="hidden sm:inline-block u-stack-label text-right opacity-70">
               {articleTitle}
             </span>
             <LocaleSwitcher />

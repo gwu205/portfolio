@@ -1,16 +1,17 @@
 "use client";
 
-import { Footer } from "./components/common/Footer";
-import { Experience } from "./components/page/home/Experience";
-import { Hero } from "./components/page/home/Hero";
-import { Skills } from "./components/page/home/Skills";
-import { Ticker } from "./components/page/home/Ticker";
-import { Works } from "./components/page/home/Works";
-import { getCurrentYear } from "./utils/dateHelpers";
+import { getCurrentYear } from "@/app/utils/dateHelpers";
+import { Footer } from "../../common/Footer";
+import { Experience } from "./Experience";
+import { Hero } from "./Hero";
+import { Skills } from "./Skills";
+import { Ticker } from "./Ticker";
+import { Works } from "./Works";
 
-export default function Page() {
+export function HomeView() {
   const year = getCurrentYear();
   const yearsSince2017 = year - 2017;
+
   return (
     <>
       <Hero />

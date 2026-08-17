@@ -1,51 +1,43 @@
 "use client";
 
+import { RichText } from "@/app/components/article/RichText";
+import { useLocale } from "@/app/i18n/LocaleProvider";
+
 interface ExperienceProps {
   yearsSince2017: number;
 }
 
 export const Experience = ({ yearsSince2017 }: ExperienceProps) => {
+  const { dict } = useLocale();
+  const home = dict.home;
+
+  const roles = [
+    { label: home.presentLabel, text: home.presentRole, indent: "pl-[8%]" },
+    { label: home.role2020Label, text: home.role2020, indent: "pl-[16%]" },
+    { label: home.role2017Label, text: home.role2017, indent: "pl-[24%]" },
+    { label: home.role2015Label, text: home.role2015, indent: "pl-[32%]" },
+  ];
+
   return (
     <div className="max-w-5xl px-8 mx-auto flex flex-col gap-10 font-light">
       <h2 className="u-stack-label">
-        <span>Experience</span>
+        <span>{home.experienceHeading}</span>
         <span className="ml-4 flex-1 h-px bg-white"></span>
       </h2>
       <p className="text-white">
-        A multidisciplinary designer - born and raised in{" "}
-        <i>Melbourne, Australia</i>, now based in <i>Tokyo</i>. Over the past{" "}
-        {yearsSince2017}+ years, I've worked with startups and growing teams to
-        design and ship digital products. Experienced in SaaS and B2B workflows,
-        I've excelled at the forefront of design production and operations for
-        agile product development teams.
+        <RichText
+          text={home.experienceIntro.replace("{years}", String(yearsSince2017))}
+        />
       </p>
-      <h6 className="pl-[8%] u-stack-label">
-        <span>Present</span>
-        <span className="ml-4 flex-1 h-px bg-white"></span>
-      </h6>
-      <p className="pl-[8%] text-white">UX Designer — Sollective (HR Tech)</p>
-      <h6 className="pl-[16%] u-stack-label">
-        <span>2020</span>
-        <span className="ml-4 flex-1 h-px bg-white"></span>
-      </h6>
-      <p className="pl-[16%] text-white">
-        Senior UX Designer — Crowd Cast (FinTech)
-      </p>
-      <h6 className="pl-[24%] u-stack-label">
-        <span>2017</span>
-        <span className="ml-4 flex-1 h-px bg-white"></span>
-      </h6>
-      <p className="pl-[24%] text-white">
-        Graphic Designer & Front-End Developer — Wisenet Information Systems
-        (EdTech)
-      </p>
-      <h6 className="pl-[32%] u-stack-label">
-        <span>2015</span>
-        <span className="ml-4 flex-1 h-px bg-white"></span>
-      </h6>
-      <p className="ml-[32%] text-white">
-        Bachelor of Design (Digital Media) — RMIT University
-      </p>
+      {roles.map((role) => (
+        <div key={role.label} className="flex flex-col gap-10">
+          <h6 className={`${role.indent} u-stack-label`}>
+            <span>{role.label}</span>
+            <span className="ml-4 flex-1 h-px bg-white"></span>
+          </h6>
+          <p className={`${role.indent} text-white`}>{role.text}</p>
+        </div>
+      ))}
     </div>
   );
 };

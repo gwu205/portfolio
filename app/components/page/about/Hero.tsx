@@ -1,5 +1,6 @@
 "use client";
 
+import { useLocale } from "@/app/i18n/LocaleProvider";
 import { MeshGradient } from "@paper-design/shaders-react";
 import gsap from "gsap";
 import { useEffect, useRef } from "react";
@@ -8,6 +9,7 @@ import { AnimatedTitle } from "../../common/AnimatedTitle";
 import { Header } from "../../common/Header";
 
 export const Hero = () => {
+  const { dict } = useLocale();
   const { width } = useWindowSize();
   const isDesktop = width >= 768;
   const sectionRef = useRef<HTMLElement>(null);
@@ -35,12 +37,8 @@ export const Hero = () => {
           className="mb-16"
           titleLines={
             isDesktop
-              ? [
-                  "Product designer focused on",
-                  "systems, clarity, and ",
-                  "end‑to‑end execution",
-                ]
-              : ["Designing", "systems", "with clarity", "and execution"]
+              ? dict.about.heroTitleLinesDesktop
+              : dict.about.heroTitleLinesMobile
           }
         />
       </div>

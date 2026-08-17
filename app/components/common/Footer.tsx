@@ -1,5 +1,7 @@
 "use client";
 
+import { useLocale } from "@/app/i18n/LocaleProvider";
+import { localizeHref } from "@/app/i18n/locales";
 import { getCurrentYear } from "@/app/utils/dateHelpers";
 import Image from "next/image";
 import Link from "next/link";
@@ -13,31 +15,35 @@ interface FooterProps {
 
 export const Footer = ({ type = "default" }: FooterProps) => {
   const pathname = usePathname();
+  const { locale, dict } = useLocale();
   const year = getCurrentYear();
+
+  const aboutHref = localizeHref(locale, "/about");
+  const isAboutPage = pathname === aboutHref;
+  const crossLinkHref = isAboutPage ? localizeHref(locale, "/") : aboutHref;
+  const crossLinkLabel = isAboutPage ? dict.nav.work : dict.nav.philosophy;
 
   if (type !== "article") {
     return (
       <footer className="content-auto p-3 w-full">
         <div className="flex flex-col md:flex-row md:justify-between justify-center items-center p-8">
           <p className="text-[#D7C9E3] md:text-[74px] text-3xl tracking-[-0.1rem] font-semibold">
-            Let's connect
+            {dict.footer.connectHeading}
           </p>
           <div className="flex items-center gap-6 text-white uppercase tracking-[0.15rem] font-extralight text-sm">
             <Link
               href={`mailto:${process.env.NEXT_PUBLIC_EMAIL_ADDRESS}`}
               className="hover:underline"
             >
-              Reach Out
+              {dict.footer.reachOut}
             </Link>
-            <TransitionLink
-              href={pathname === "/about" ? "/" : "/about"}
-              className="hover:underline"
-            >
-              {pathname === "/about" ? "Work" : "Philosophy"}
+            <TransitionLink href={crossLinkHref} className="hover:underline">
+              {crossLinkLabel}
             </TransitionLink>
             <div
               className="p-4 flex w-fit cursor-pointer hover:scale-110 transition-transform duration-300"
               onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+              title={dict.footer.returnToTop}
             >
               <Logo size={32} color="white" />
             </div>
@@ -56,33 +62,43 @@ export const Footer = ({ type = "default" }: FooterProps) => {
       <div className="text-sm max-w-lg text-center text-balance">
         <Image
           src="/images/avatar.jpeg"
-          alt="Geoffrey Wu"
+          alt={dict.footer.avatarAlt}
           width={64}
           height={64}
           className="rounded-full mx-auto mb-3"
         />
         <p className="text-gray-600 font-bold">
-          Geoffrey is a product designer, front-end engineer, and creative
-          technologist based in{" "}
-          <span className="cursor-tyo hover:text-red-600 transition-all duration-300">
-            Tokyo
-          </span>
-          . </p><p className="text-gray-600 mt-3">He helps product teams ship with clarity and confidence, reducing friction, mediating between stakeholders, and advocating for user experience. Whether it’s a SaaS product for web or mobile, or a complex brand site focused on conversion, he consistently brings a thoughtful, solutions‑oriented approach to every new challenge.
+          {dict.footer.articleBioIntro
+            .split("{city}")
+            .flatMap((segment, index) =>
+              index === 0
+                ? [segment]
+                : [
+                    <span
+                      key={index}
+                      className="cursor-tyo hover:text-red-600 transition-all duration-300"
+                    >
+                      {dict.footer.cityName}
+                    </span>,
+                    segment,
+                  ],
+            )}
         </p>
+        <p className="text-gray-600 mt-3">{dict.footer.articleBioBody}</p>
         <p className="text-gray-600 mt-3">
-          Interested in{" "}
+          {dict.footer.articleBioCtaPrefix}{" "}
           <a
             href={`mailto:${process.env.NEXT_PUBLIC_EMAIL_ADDRESS}`}
             className="hover:underline"
           >
-            working together?
+            {dict.footer.articleBioCtaLink}
           </a>
         </p>
       </div>
       <div
         className="p-4 flex w-fit cursor-pointer hover:scale-110 transition-transform duration-300"
         onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-        title="Return to top"
+        title={dict.footer.returnToTop}
       >
         <Logo size={32} color="black" />
       </div>

@@ -1,5 +1,8 @@
 "use client";
 
+import { useLocale } from "@/app/i18n/LocaleProvider";
+import { LocaleSwitcher } from "@/app/i18n/LocaleSwitcher";
+import { localizeHref } from "@/app/i18n/locales";
 import gsap from "gsap";
 import { ArrowLeft } from "lucide-react";
 import { usePathname } from "next/navigation";
@@ -99,7 +102,11 @@ const SwapText = ({
 
   return (
     <span className="inline-flex text-swap-container">
-      <span className="invisible">{text1}</span>
+      {/* Sizer stacks both strings so the container fits the wider script. */}
+      <span className="invisible grid">
+        <span className="col-start-1 row-start-1">{text1}</span>
+        <span className="col-start-1 row-start-1">{text2}</span>
+      </span>
       <span className="absolute inset-0 flex">
         {text1.split("").map((char, i) => (
           <span
@@ -164,16 +171,21 @@ interface HeaderProps {
 
 export const Header = ({ type = "default", articleTitle }: HeaderProps) => {
   const pathname = usePathname();
+  const { locale, dict } = useLocale();
   const { startTransition } = useRouteTransition();
   const headerRef = useRef<HTMLElement>(null);
   const word1 = useTextSwap(3500, 6500, 0);
   const word2 = useTextSwap(3500, 6500, 2000);
 
+  const homeHref = localizeHref(locale, "/");
+  const aboutHref = localizeHref(locale, "/about");
+  const tagline = dict.nav.tagline;
+
   const handleLogoClick = useCallback(() => {
-    if (pathname !== "/") {
-      startTransition("/");
+    if (pathname !== homeHref) {
+      startTransition(homeHref);
     }
-  }, [pathname, startTransition]);
+  }, [pathname, homeHref, startTransition]);
 
   useEffect(() => {
     if (type !== "article" && headerRef.current) {
@@ -205,40 +217,58 @@ export const Header = ({ type = "default", articleTitle }: HeaderProps) => {
           >
             <LogoComponent />
           </div>
-          <TransitionLink href="/" className="relative group overflow-hidden">
-            <span className="block top-0 left-0 w-full h-full group-hover:translate-y-[-100%] transition-transform duration-300">
-              Work
-            </span>
-            <span className="block absolute top-[100%] left-0 w-full h-full group-hover:translate-y-[-100%] transition-transform duration-300">
-              Work
-            </span>
-          </TransitionLink>
           <TransitionLink
-            href="/about"
+            href={homeHref}
             className="relative group overflow-hidden"
           >
             <span className="block top-0 left-0 w-full h-full group-hover:translate-y-[-100%] transition-transform duration-300">
-              Philosophy
+              {dict.nav.work}
             </span>
             <span className="block absolute top-[100%] left-0 w-full h-full group-hover:translate-y-[-100%] transition-transform duration-300">
-              Philosophy
+              {dict.nav.work}
             </span>
           </TransitionLink>
+          <TransitionLink
+            href={aboutHref}
+            className="relative group overflow-hidden"
+          >
+            <span className="block top-0 left-0 w-full h-full group-hover:translate-y-[-100%] transition-transform duration-300">
+              {dict.nav.philosophy}
+            </span>
+            <span className="block absolute top-[100%] left-0 w-full h-full group-hover:translate-y-[-100%] transition-transform duration-300">
+              {dict.nav.philosophy}
+            </span>
+          </TransitionLink>
+          <LocaleSwitcher />
         </div>
         <div className="hidden sm:flex font-bold gap-2 items-baseline">
-          <SwapText
-            text1="Designer"
-            text2="デザイナー"
-            isAlt={word1.isAlt}
-            position="end"
-          />
-
-          <span className="opacity-50">Based in</span>
-
-          <div className="cursor-tyo hover:scale-110 transition-all duration-300">
+          <div
+            className={
+              tagline.citySlot === "lead"
+                ? "cursor-tyo hover:scale-110 transition-all duration-300"
+                : undefined
+            }
+          >
             <SwapText
-              text1="Tokyo"
-              text2="東京"
+              text1={tagline.leadSwap[0]}
+              text2={tagline.leadSwap[1]}
+              isAlt={word1.isAlt}
+              position="end"
+            />
+          </div>
+
+          <span className="opacity-50">{tagline.middle}</span>
+
+          <div
+            className={
+              tagline.citySlot === "trail"
+                ? "cursor-tyo hover:scale-110 transition-all duration-300"
+                : undefined
+            }
+          >
+            <SwapText
+              text1={tagline.trailSwap[0]}
+              text2={tagline.trailSwap[1]}
               isAlt={word2.isAlt}
               position="start"
               delay={0.1}
@@ -252,10 +282,10 @@ export const Header = ({ type = "default", articleTitle }: HeaderProps) => {
       <header className="w-full flex items-center justify-between md:p-7 p-4 absolute top-0 left-0 z-20 text-white uppercase tracking-[0.15rem] font-extralight text-sm">
         <div className="w-full flex items-center gap-8">
           <TransitionLink
-            href="/"
+            href={homeHref}
             className="hidden sm:flex items-center gap-2 w-1/3"
           >
-            <ArrowLeft className="w-4 h-4" /> Home
+            <ArrowLeft className="w-4 h-4" /> {dict.nav.backHome}
           </TransitionLink>
           <div className="w-full sm:w-1/3">
             <div
@@ -265,9 +295,12 @@ export const Header = ({ type = "default", articleTitle }: HeaderProps) => {
               <LogoComponent />
             </div>
           </div>
-          <span className="hidden sm:inline-block u-stack-label w-1/3 text-right opacity-70">
-            {articleTitle}
-          </span>
+          <div className="hidden sm:flex items-center justify-end gap-4 w-1/3">
+            <span className="u-stack-label text-right opacity-70">
+              {articleTitle}
+            </span>
+            <LocaleSwitcher />
+          </div>
         </div>
       </header>
     );

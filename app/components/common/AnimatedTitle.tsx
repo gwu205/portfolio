@@ -3,19 +3,12 @@
 import gsap from "gsap";
 import { useEffect, useRef } from "react";
 
-const lines = [
-  "Crafting",
-  "interfaces that",
-  "work hard and",
-  "feel effortless.",
-];
-
 export function AnimatedTitle({
   className,
-  titleLines = lines,
+  titleLines,
 }: {
   className?: string;
-  titleLines?: string[];
+  titleLines: string[];
 }) {
   const lineRefs = useRef<(HTMLSpanElement | null)[]>([]);
 

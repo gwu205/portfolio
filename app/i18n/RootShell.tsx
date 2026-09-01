@@ -1,6 +1,7 @@
 import { GoogleAnalytics } from "@next/third-parties/google";
 import { ReactNode } from "react";
 import { AnimatedMain } from "../components/common/AnimatedMain";
+import { Preloader } from "../components/common/Preloader";
 import { RouteTransitionProvider } from "../components/common/RouteTransitionProvider";
 import { SmoothScroll } from "../components/common/SmoothScroll";
 import { LocaleProvider } from "./LocaleProvider";
@@ -18,6 +19,7 @@ export function RootShell({
       <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID as string} />
       <body className="font-sans bg-gradient-to-b from-gray-800 to-black">
         <SmoothScroll />
+        <Preloader />
         <LocaleProvider locale={locale}>
           <RouteTransitionProvider>
             <AnimatedMain>{children}</AnimatedMain>

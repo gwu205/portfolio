@@ -1,5 +1,7 @@
 "use client";
 
+import { useIsElementActive } from "@/app/hooks/useIsElementActive";
+import { usePrefersReducedMotion } from "@/app/hooks/usePrefersReducedMotion";
 import { useLocale } from "@/app/i18n/LocaleProvider";
 import { MeshGradient } from "@paper-design/shaders-react";
 import gsap from "gsap";
@@ -28,6 +30,9 @@ const Icon = ({ icon, size = 24 }: { icon: any; size?: number }) => {
 export const Hero = () => {
   const { dict } = useLocale();
   const sectionRef = useRef<HTMLElement>(null);
+  const isActive = useIsElementActive(sectionRef);
+  const prefersReducedMotion = usePrefersReducedMotion();
+  const shaderActive = isActive && !prefersReducedMotion;
 
   useEffect(() => {
     if (sectionRef.current) {
@@ -97,17 +102,19 @@ export const Hero = () => {
           />
         </a>
       </div>
-      <div className="h-full w-full overflow-hidden absolute top-0 left-0 -z-10">
-        <MeshGradient
-          width={"100%"}
-          height={"100%"}
-          colors={["#9336a8", "#bd3434ff", "#3af1dcff", "#6155c2"]}
-          distortion={0.5}
-          swirl={0}
-          grainMixer={0}
-          grainOverlay={0}
-          speed={0.5}
-        />
+      <div className="h-full w-full overflow-hidden absolute top-0 left-0 -z-10 bg-black">
+        {shaderActive && (
+          <MeshGradient
+            width={"100%"}
+            height={"100%"}
+            colors={["#9336a8", "#bd3434ff", "#3af1dcff", "#6155c2"]}
+            distortion={0.5}
+            swirl={0}
+            grainMixer={0}
+            grainOverlay={0}
+            speed={0.5}
+          />
+        )}
       </div>
     </section>
   );

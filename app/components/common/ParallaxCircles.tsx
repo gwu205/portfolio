@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useLenis } from "lenis/react";
+import { useRef } from "react";
 
 const CircleSvg = ({
   width = "1086",
@@ -42,17 +43,18 @@ export const ParallaxCircles = ({
   circles,
   className = "",
 }: ParallaxCirclesProps) => {
-  const [scrollY, setScrollY] = useState(0);
-  const parallaxRef = useRef<HTMLDivElement>(null);
+  const itemRefs = useRef<(HTMLDivElement | null)[]>([]);
 
-  useEffect(() => {
-    const handleScroll = () => {
-      setScrollY(window.scrollY);
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  // Writes transforms straight to the DOM from Lenis' scroll callback instead
+  // of routing scroll position through React state, so a scroll tick no
+  // longer re-renders every circle.
+  useLenis((lenis) => {
+    if (lenis.prefersReducedMotion) return;
+    circles.forEach((circle, index) => {
+      const el = itemRefs.current[index];
+      if (el) el.style.transform = `translateY(${lenis.scroll * circle.speed}px)`;
+    });
+  }, [circles]);
 
   const getPositionClasses = (circle: Circle) => {
     const positionClass =
@@ -71,16 +73,15 @@ export const ParallaxCircles = ({
   return (
     <div
       className={`absolute inset-0 overflow-hidden pointer-events-none ${className}`}
-      ref={parallaxRef}
     >
       {circles.map((circle, index) => (
         <div
           key={index}
-          className={getPositionClasses(circle)}
-          style={{
-            transform: `translateY(${scrollY * circle.speed}px)`,
-            ...getPositionStyles(circle),
+          ref={(el) => {
+            itemRefs.current[index] = el;
           }}
+          className={getPositionClasses(circle)}
+          style={getPositionStyles(circle)}
         >
           <CircleSvg
             width={circle.width}

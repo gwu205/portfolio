@@ -1,5 +1,7 @@
 "use client";
 
+import { useIsElementActive } from "@/app/hooks/useIsElementActive";
+import { usePrefersReducedMotion } from "@/app/hooks/usePrefersReducedMotion";
 import { useLocale } from "@/app/i18n/LocaleProvider";
 import { MeshGradient } from "@paper-design/shaders-react";
 import gsap from "gsap";
@@ -13,6 +15,9 @@ export const Hero = () => {
   const { width } = useWindowSize();
   const isDesktop = width >= 768;
   const sectionRef = useRef<HTMLElement>(null);
+  const isActive = useIsElementActive(sectionRef);
+  const prefersReducedMotion = usePrefersReducedMotion();
+  const shaderActive = isActive && !prefersReducedMotion;
 
   useEffect(() => {
     if (sectionRef.current) {
@@ -42,17 +47,19 @@ export const Hero = () => {
           }
         />
       </div>
-      <div className="h-full w-full overflow-hidden absolute top-0 left-0 -z-10">
-        <MeshGradient
-          width={"100%"}
-          height={"100%"}
-          colors={["#a72439ff", "#545452ff", "#b5c441ff", "#495d3cff"]}
-          distortion={0.8}
-          swirl={1}
-          grainMixer={0}
-          grainOverlay={0}
-          speed={0.5}
-        />
+      <div className="h-full w-full overflow-hidden absolute top-0 left-0 -z-10 bg-black">
+        {shaderActive && (
+          <MeshGradient
+            width={"100%"}
+            height={"100%"}
+            colors={["#a72439ff", "#545452ff", "#b5c441ff", "#495d3cff"]}
+            distortion={0.8}
+            swirl={1}
+            grainMixer={0}
+            grainOverlay={0}
+            speed={0.5}
+          />
+        )}
       </div>
     </section>
   );

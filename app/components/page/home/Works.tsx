@@ -29,7 +29,7 @@ export const Works = () => {
   return (
     <>
       <div className="max-w-5xl mx-auto px-8 py-16 md:py-32 flex md:flex-row flex-col-reverse gap-8 relative">
-        <div className="md:w-1/2 w-full flex flex-col gap-8 md:-mt-[30%] z-10">
+        <div className="md:w-1/2 w-full flex flex-col gap-8 z-10">
           {projects.map(({ slug, content }, index) => {
             const study = content[locale];
             return (

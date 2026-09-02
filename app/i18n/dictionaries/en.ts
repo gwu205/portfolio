@@ -9,6 +9,8 @@ export const en: Dictionary = {
   nav: {
     work: "Work",
     philosophy: "Philosophy",
+    about: "About",
+    contact: "Contact",
     basedIn: "Based in",
     backHome: "Home",
     tagline: {
@@ -36,12 +38,10 @@ export const en: Dictionary = {
     avatarAlt: "Geoffrey Wu",
   },
   home: {
-    heroTitleLines: [
-      "Crafting",
-      "interfaces that",
-      "work hard and",
-      "feel effortless.",
-    ],
+    heroIntro: {
+      before: "Geoffrey",
+      after: "is a designer with a strong focus on delivering thoughtfully considered product experiences",
+    },
     focusAreas: "Focus Areas",
     skills: {
       designSystems: {

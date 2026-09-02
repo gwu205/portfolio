@@ -6,6 +6,10 @@ export interface Dictionary {
   nav: {
     work: string;
     philosophy: string;
+    /** Bottom sticky-nav jumplink label (points at the in-page #about section). */
+    about: string;
+    /** Bottom sticky-nav jumplink label (points at the in-page #contact section). */
+    contact: string;
     basedIn: string;
     backHome: string;
     /**
@@ -38,7 +42,15 @@ export interface Dictionary {
     avatarAlt: string;
   };
   home: {
-    heroTitleLines: string[];
+    /**
+     * Hero headline, split around two fixed inline media elements the
+     * component inserts itself (a photo after `before`, a looping clip
+     * after `after`): "{before} [photo] {after} [clip]".
+     */
+    heroIntro: {
+      before: string;
+      after: string;
+    };
     focusAreas: string;
     skills: {
       designSystems: { title: string; description: string };

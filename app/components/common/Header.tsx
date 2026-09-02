@@ -1,12 +1,13 @@
 "use client";
 
+import { useScrollSurfaceColor } from "@/app/hooks/useScrollSurfaceColor";
 import { useLocale } from "@/app/i18n/LocaleProvider";
-import { LocaleSwitcher } from "@/app/i18n/LocaleSwitcher";
 import { localizeHref } from "@/app/i18n/locales";
 import gsap from "gsap";
 import { ArrowLeft } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import { Logo } from "./Logo";
 import { useRouteTransition } from "./RouteTransitionProvider";
 import { TransitionLink } from "./TransitionLink";
@@ -201,17 +202,17 @@ const SwapText = ({
   );
 };
 
-const LogoComponent = () => {
+const LogoComponent = ({ color = "white" }: { color?: string }) => {
   return (
     <>
       <Logo
-        size={32}
-        color="white"
+        size={64}
+        color={color}
         className="group-hover:scale-150 group-hover:opacity-0 transition-all duration-700"
       />
       <Logo
-        size={32}
-        color="white"
+        size={64}
+        color={color}
         className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-0 scale-50 group-hover:opacity-100 group-hover:scale-100 transition-all duration-700"
       />
     </>
@@ -219,7 +220,7 @@ const LogoComponent = () => {
 };
 
 interface HeaderProps {
-  type?: "default" | "article";
+  type?: "default" | "article" | "minimal";
   articleTitle?: string;
 }
 
@@ -230,6 +231,13 @@ export const Header = ({ type = "default", articleTitle }: HeaderProps) => {
   const headerRef = useRef<HTMLElement>(null);
   const word1 = useTextSwap(3500, 6500, 0);
   const word2 = useTextSwap(3500, 6500, 2000);
+  // No-ops on pages with no [data-nav-surface] sections (currently just the
+  // home page), so safe to call regardless of `type`.
+  useScrollSurfaceColor(headerRef, "top");
+  // Only the "minimal" variant portals (see below) — declared unconditionally
+  // since hooks can't be called conditionally.
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
 
   const homeHref = localizeHref(locale, "/");
   const aboutHref = localizeHref(locale, "/about");
@@ -242,7 +250,10 @@ export const Header = ({ type = "default", articleTitle }: HeaderProps) => {
   }, [pathname, homeHref, startTransition]);
 
   useEffect(() => {
-    if (type !== "article" && headerRef.current) {
+    // Only the "default" variant fades itself in — "minimal" renders
+    // straight away (the Preloader owns the first-load reveal on the
+    // pages that use it), and "article" never animated in the first place.
+    if (type === "default" && headerRef.current) {
       gsap.fromTo(
         headerRef.current,
         { y: -20, opacity: 0 },
@@ -256,6 +267,78 @@ export const Header = ({ type = "default", articleTitle }: HeaderProps) => {
       );
     }
   }, [type]);
+
+  const taglineBlock = (
+    <div className="hidden sm:flex font-light gap-2 items-baseline">
+      <div
+        className={
+          tagline.citySlot === "lead"
+            ? "cursor-tyo hover:scale-110 transition-all duration-300"
+            : undefined
+        }
+      >
+        <SwapText
+          text1={tagline.leadSwap[0]}
+          text2={tagline.leadSwap[1]}
+          isAlt={word1.isAlt}
+          position="end"
+        />
+      </div>
+
+      <span className="opacity-50">{tagline.middle}</span>
+
+      <div
+        className={
+          tagline.citySlot === "trail"
+            ? "cursor-tyo hover:scale-110 transition-all duration-300"
+            : undefined
+        }
+      >
+        <SwapText
+          text1={tagline.trailSwap[0]}
+          text2={tagline.trailSwap[1]}
+          isAlt={word2.isAlt}
+          position="start"
+          delay={0.1}
+        />
+      </div>
+    </div>
+  );
+
+  if (type === "minimal") {
+    // Fixed + portaled to <body>, same reasoning as StickyNav: <main> picks
+    // up a residual transform from AnimatedMain's entrance tween, which
+    // makes it the containing block for `position: fixed` descendants
+    // instead of the viewport — this would otherwise stay pinned to the top
+    // of <main>'s own box rather than the top of the viewport while scrolling.
+    // Color legibility is handled by useScrollSurfaceColor above (hardcoded
+    // per-section colors, scrubbed smoothly across each boundary) rather
+    // than mix-blend-mode — blend-mode's per-channel math only reliably
+    // yields a high-contrast result against near-black/near-white
+    // backdrops, not the saturated section colors here. text-[#DAD6DB] is
+    // just the pre-JS fallback (the home page always opens on the dark
+    // hero); the hook takes over as soon as it mounts. LogoComponent gets
+    // currentColor instead of its default white so the mark tracks it too.
+    const minimalHeader = (
+      <header
+        ref={headerRef}
+        className="w-full flex items-center justify-between md:px-3 px-2 fixed top-0 left-0 z-20 text-[#DAD6DB] uppercase tracking-[0.15rem] font-extralight text-sm"
+      >
+        <div
+          className="flex w-fit cursor-pointer group relative"
+          onClick={handleLogoClick}
+        >
+          <LogoComponent color="currentColor" />
+        </div>
+        <div className="flex items-center gap-4 md:gap-6">
+          {taglineBlock}
+        </div>
+      </header>
+    );
+
+    if (!mounted) return null;
+    return createPortal(minimalHeader, document.body);
+  }
 
   if (type !== "article") {
     return (
@@ -295,41 +378,7 @@ export const Header = ({ type = "default", articleTitle }: HeaderProps) => {
           </TransitionLink>
         </div>
         <div className="flex items-center gap-4 md:gap-6">
-          <div className="hidden sm:flex font-bold gap-2 items-baseline">
-            <div
-              className={
-                tagline.citySlot === "lead"
-                  ? "cursor-tyo hover:scale-110 transition-all duration-300"
-                  : undefined
-              }
-            >
-              <SwapText
-                text1={tagline.leadSwap[0]}
-                text2={tagline.leadSwap[1]}
-                isAlt={word1.isAlt}
-                position="end"
-              />
-            </div>
-
-            <span className="opacity-50">{tagline.middle}</span>
-
-            <div
-              className={
-                tagline.citySlot === "trail"
-                  ? "cursor-tyo hover:scale-110 transition-all duration-300"
-                  : undefined
-              }
-            >
-              <SwapText
-                text1={tagline.trailSwap[0]}
-                text2={tagline.trailSwap[1]}
-                isAlt={word2.isAlt}
-                position="start"
-                delay={0.1}
-              />
-            </div>
-          </div>
-          <LocaleSwitcher />
+          {taglineBlock}
         </div>
       </header>
     );
@@ -356,7 +405,6 @@ export const Header = ({ type = "default", articleTitle }: HeaderProps) => {
             <span className="hidden sm:inline-block u-stack-label text-right opacity-70">
               {articleTitle}
             </span>
-            <LocaleSwitcher />
           </div>
         </div>
       </header>

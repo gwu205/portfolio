@@ -42,7 +42,7 @@ function LenisGsapSync() {
 export function SmoothScroll() {
   return (
     <>
-      <ReactLenis root options={{ autoRaf: false }} />
+      <ReactLenis root options={{ autoRaf: false, anchors: true }} />
       <LenisGsapSync />
     </>
   );

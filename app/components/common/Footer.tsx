@@ -25,7 +25,11 @@ export const Footer = ({ type = "default" }: FooterProps) => {
 
   if (type !== "article") {
     return (
-      <footer className="content-auto p-3 w-full">
+      <footer
+        id="contact"
+        data-nav-surface="dark"
+        className="content-auto p-3 w-full"
+      >
         <div className="flex flex-col md:flex-row md:justify-between justify-center items-center p-8">
           <p className="text-[#D7C9E3] md:text-[74px] text-3xl tracking-[-0.1rem] font-semibold">
             {dict.footer.connectHeading}

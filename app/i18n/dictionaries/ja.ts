@@ -18,6 +18,8 @@ export const ja: Dictionary = {
   nav: {
     work: "Work",
     philosophy: "Philosophy",
+    about: "About",
+    contact: "Contact",
     basedIn: "Based in",
     backHome: "Home",
     // Identical to en.ts: "Designer based in Tokyo" stays English, with the
@@ -48,12 +50,10 @@ export const ja: Dictionary = {
     avatarAlt: "Geoffrey Wu",
   },
   home: {
-    heroTitleLines: [
-      "Crafting",
-      "interfaces that",
-      "work hard and",
-      "feel effortless.",
-    ],
+    heroIntro: {
+      before: "Geoffrey",
+      after: "is a designer with a strong focus on delivering thoughtfully considered product experiences",
+    },
     focusAreas: "Focus Areas",
     skills: {
       designSystems: {

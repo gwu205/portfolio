@@ -23,7 +23,7 @@ export const projects: { slug: string; content: LocalizedCaseStudy }[] = [
   { slug: "timesheets", content: timesheets },
   { slug: "site-redesign", content: siteRedesign },
   { slug: "invoice-builder", content: invoiceBuilder },
-  { slug: "platform-navigation", content: platformNavigation },
+  // { slug: "platform-navigation", content: platformNavigation },
   { slug: "staple-lite", content: stapleLite },
   { slug: "staple", content: staple },
   { slug: "crowdcast", content: crowdcast },

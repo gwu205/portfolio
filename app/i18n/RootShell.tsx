@@ -17,7 +17,7 @@ export function RootShell({
   return (
     <html lang={localeHtmlLang[locale]}>
       <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID as string} />
-      <body className="font-sans bg-gradient-to-b from-gray-800 to-black">
+      <body className="overflow-x-hidden font-sans bg-gradient-to-b from-gray-800 to-black">
         <SmoothScroll />
         <Preloader />
         <LocaleProvider locale={locale}>

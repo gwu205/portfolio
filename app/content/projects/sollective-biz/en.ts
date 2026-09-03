@@ -2,15 +2,15 @@ import { CaseStudy } from "../../types";
 
 export const en: CaseStudy = {
   card: {
-    title: "Sollective Biz",
+    title: "Brand Campaign",
     skills: ["Framer", "Weavy", "LP Design"],
-    imgSrc: "/images/projects/biz-hero.png",
+    videoSrc: "https://res.cloudinary.com/gswu205/video/upload/v1788338439/sollective-biz-5s_fggya7.mp4",
   },
   meta: {
     articleTitle: "Sollective Biz",
     heroImageSrc: "/images/projects/biz-hero.png",
     heroImageAlt: "Sollective Biz campaign",
-    clientName: "Sollective",
+    clientName: "Sollective.Biz",
     year: "2026",
     role: "Product Designer",
     stack: ["Framer", "Weavy", "After Effects"],

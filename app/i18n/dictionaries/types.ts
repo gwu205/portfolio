@@ -118,6 +118,11 @@ export interface Dictionary {
     /**
      * Project title + client, split into styled segments. Order differs by
      * locale: English trails the client ("X for Y"), Japanese leads with it.
+     * Concatenated (segment `.text` values, no extra separator — the
+     * non-leading segment already carries its own leading space) into each
+     * work card's `aria-label`, since the client name is otherwise only
+     * ever shown via a mouse-following label a keyboard/no-hover visitor
+     * can't reach.
      */
     cardHeading: (
       title: string,

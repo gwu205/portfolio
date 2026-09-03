@@ -19,7 +19,7 @@ export function HomeView() {
       <main
         id="work"
         data-nav-surface="light"
-        className="w-full relative z-10 bg-white"
+        className="w-full relative z-10 bg-[#DAD6DB]"
       >
         <Works />
       </main>

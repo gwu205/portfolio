@@ -5,7 +5,7 @@ const QUALIFIED_INVOICE_URL =
 
 export const ja: CaseStudy = {
   card: {
-    title: "Invoice Builder",
+    title: "請求書ツール",
     client: "FreelanceOS",
     skills: ["UI Design", "UX Research", "Web SaaS"],
     imgSrc: "/images/projects/invoices-hero.png",

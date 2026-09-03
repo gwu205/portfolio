@@ -2,7 +2,7 @@ import { CaseStudy } from "../../types";
 
 export const en: CaseStudy = {
   card: {
-    title: "Product Website",
+    title: "Brand Site",
     skills: ["Web Design", "Framer", "Motion Design", "Branding"],
     videoSrc:
       "https://res.cloudinary.com/gswu205/video/upload/v1770948413/sollectivejp-reel_zdbmbj.mp4",

@@ -2,32 +2,24 @@
 
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { useEffect, useRef } from "react";
-import FolioItem from "./FolioItem";
+import { ReactNode, useEffect, useRef } from "react";
 
 gsap.registerPlugin(ScrollTrigger);
 
-interface AnimatedFolioItemProps {
-  title: string;
-  client: string;
-  skills: string[];
-  img_src?: string;
-  video_src?: string;
-  link: string;
-  index: number;
+interface ScrollFadeInProps {
+  children: ReactNode;
+  index?: number;
   className?: string;
 }
 
-export const AnimatedFolioItem = ({
-  title,
-  client,
-  skills,
-  img_src,
-  video_src,
-  link,
+// Fades/slides an entrance in the first time it scrolls into view.
+// Generalized from the old AnimatedFolioItem (which hardcoded FolioItem as
+// its only possible child) so it can wrap anything.
+export const ScrollFadeIn = ({
+  children,
   index,
   className = "",
-}: AnimatedFolioItemProps) => {
+}: ScrollFadeInProps) => {
   const itemRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -62,14 +54,7 @@ export const AnimatedFolioItem = ({
       className={className}
       style={{ opacity: 0, transform: "translateY(32px)" }}
     >
-      <FolioItem
-        title={title}
-        client={client}
-        skills={skills}
-        img_src={img_src}
-        video_src={video_src}
-        link={link}
-      />
+      {children}
     </div>
   );
 };

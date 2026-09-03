@@ -2,7 +2,7 @@ import { CaseStudy } from "../../types";
 
 export const ja: CaseStudy = {
   card: {
-    title: "Web App Redesign",
+    title: "経費精算アプリ",
     skills: ["Frontend Dev", "UI/UX Design", "B2B SaaS"],
     imgSrc: "/images/projects/staplecard.jpg",
   },

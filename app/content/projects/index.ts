@@ -13,21 +13,33 @@ import { timesheets } from "./timesheets";
 
 export type LocalizedCaseStudy = Record<Locale, CaseStudy>;
 
-/**
- * Showcase order on the home page. Adding a case study means adding its
- * content directory and one entry here — nothing else changes.
- */
-export const projects: { slug: string; content: LocalizedCaseStudy }[] = [
+interface ProjectEntry {
+  slug: string;
+  content: LocalizedCaseStudy;
+  /**
+   * Hide from the home page without unregistering the route. `getProject`
+   * reads this same list, so removing an entry breaks its static export.
+   */
+  hiddenFromHome?: boolean;
+}
+
+/** Every case study, in home page showcase order. */
+export const projects: ProjectEntry[] = [
   { slug: "experience-lab", content: experienceLab },
   { slug: "sollective-biz", content: sollectiveBiz },
   { slug: "timesheets", content: timesheets },
   { slug: "site-redesign", content: siteRedesign },
   { slug: "invoice-builder", content: invoiceBuilder },
-  { slug: "platform-navigation", content: platformNavigation },
+  { slug: "platform-navigation", content: platformNavigation, hiddenFromHome: true },
   { slug: "staple-lite", content: stapleLite },
   { slug: "staple", content: staple },
   { slug: "crowdcast", content: crowdcast },
 ];
+
+/** The subset the home page actually lists. */
+export const showcaseProjects = projects.filter(
+  (project) => !project.hiddenFromHome,
+);
 
 export function getProject(slug: string, locale: Locale): CaseStudy {
   const entry = projects.find((project) => project.slug === slug);

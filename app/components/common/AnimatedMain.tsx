@@ -1,4 +1,3 @@
-// app/components/AnimatedMain.tsx
 "use client";
 
 import gsap from "gsap";

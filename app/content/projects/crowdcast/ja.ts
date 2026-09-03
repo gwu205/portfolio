@@ -2,7 +2,7 @@ import { CaseStudy } from "../../types";
 
 export const ja: CaseStudy = {
   card: {
-    title: "Corporate Brand",
+    title: "ブランドリニューアル",
     skills: ["Branding", "Visual Design"],
     imgSrc: "/images/projects/crowdcast.jpg",
   },

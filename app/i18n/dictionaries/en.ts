@@ -8,8 +8,8 @@ export const en: Dictionary = {
   },
   nav: {
     work: "Work",
-    philosophy: "Philosophy",
-    basedIn: "Based in",
+    about: "About",
+    contact: "Contact",
     backHome: "Home",
     tagline: {
       leadSwap: ["Designer", "デザイナー"],
@@ -23,8 +23,7 @@ export const en: Dictionary = {
     toJapanese: "Switch to Japanese",
   },
   footer: {
-    connectHeading: "Let's connect",
-    reachOut: "Reach Out",
+    connectHeading: "Say<br/><a class=\"hover:underline\" href='mailto:hello@wuxdesign.dev'>hello@wuxdesign.dev</a>",
     returnToTop: "Return to top",
     articleBioIntro:
       "Geoffrey is a product designer, front-end engineer, and creative technologist based in {city}.",
@@ -36,13 +35,14 @@ export const en: Dictionary = {
     avatarAlt: "Geoffrey Wu",
   },
   home: {
-    heroTitleLines: [
-      "Crafting",
-      "interfaces that",
-      "work hard and",
-      "feel effortless.",
-    ],
-    focusAreas: "Focus Areas",
+    heroIntro: {
+      before: "Geoffrey",
+      after: "is a designer with a strong focus on delivering thoughtfully considered product experiences",
+    },
+    aboutIntro:
+      "I design digital products that are clear to use, maintainable for teams, and grounded in real business goals.",
+    aboutBrandsLabel: "Brands",
+    aboutFocusLabel: "Focus",
     skills: {
       designSystems: {
         title: "Design Systems & UI Libraries",
@@ -70,99 +70,8 @@ export const en: Dictionary = {
           "Interfaces and flows that integrate AI to streamline decisions and user tasks.",
       },
     },
-    stackCta: "Technology Stack",
     jobTitle: "Product Designer + Design Engineer",
-    designedBuilt:
-      "Design built on clarity, refined with motion, and powered by code to bring products to life.",
     openForWorkAlt: "Open for work",
-    sayHi: "Say",
-    copied: "Copied!",
-    experienceHeading: "Experience",
-    experienceIntro:
-      "A multidisciplinary designer - born and raised in *Melbourne, Australia*, now based in *Tokyo*. Over the past {years}+ years, I've worked with startups and growing teams to design and ship digital products. Experienced in SaaS and B2B workflows, I've excelled at the forefront of design production and operations for agile product development teams.",
-    presentLabel: "Present",
-    presentRole: "UX Designer — Sollective (HR Tech)",
-    role2020Label: "2020",
-    role2020: "Senior UX Designer — Crowd Cast (FinTech)",
-    role2017Label: "2017",
-    role2017:
-      "Graphic Designer & Front-End Developer — Wisenet Information Systems (EdTech)",
-    role2015Label: "2015",
-    role2015: "Bachelor of Design (Digital Media) — RMIT University",
-  },
-  about: {
-    seoTitle: "Design Philosophy | Geoffrey Wu",
-    seoDescription:
-      "How I approach product design: systems first, clarity over cleverness, design and engineering as one loop — plus the tools and workflow I work with.",
-    heroTitleLinesDesktop: [
-      "Product designer focused on",
-      "systems, clarity, and ",
-      "end‑to‑end execution",
-    ],
-    heroTitleLinesMobile: [
-      "Designing",
-      "systems",
-      "with clarity",
-      "and execution",
-    ],
-    bioParagraph1:
-      "I design digital products that are clear to use, maintainable for teams, and grounded in real business goals. With a background in product design, UI/motion, and front-end engineering, I move comfortably between Figma, code, and conversations with stakeholders to keep design and implementation aligned.",
-    bioParagraph2:
-      "Most of my work sits at the intersection of brand/marketing, B2B SaaS, and design systems, helping teams turn complex requirements into simple, intentional experiences. Having spent time in both Australia and Japan, working mostly with startups and small teams, I have a firm grasp on both local Western/Asian markets. I'm able to navigate the nuances of each and excel in environments where messy problem spaces need to become clear, shippable products.",
-    philosophyHeading1: "Design",
-    philosophyHeading2: "Philosophy",
-    principles: [
-      {
-        title: "Systems first.",
-        body: "A good interface is more than a single screen - it's a system of components, patterns, and rules that teams can understand and build on. I focus on making design decisions reusable, consistent, and easy to extend, so products stay coherent as they grow.",
-      },
-      {
-        title: "Clarity over cleverness.",
-        body: "Whether it's dense tables, forms, or dashboards, I prioritise readability, hierarchy, and considered interactions that support comprehension. Every element on the screen should have a clear purpose, and every interaction should be predictable. I focus on reducing cognitive load and making the user's journey obvious and effortless.",
-      },
-      {
-        title: "Design and engineering as one loop.",
-        body: "Great products come from diverse perspectives and open communication. I foster collaboration by documenting decisions, facilitating workshops, and creating shared vocabularies that help everyone move faster. I treat engineers as partners - I prototype in code when it adds value, share constraints early, and use shared language (tokens, variants, props) to avoid handoff friction.",
-      },
-      {
-        title: "Continuous learning.",
-        body: "I'm always learning - from users, from data, and from the people I work with. I believe in iterating based on real feedback, not assumptions. Whether it's A/B testing, analytics, or user research, I use data to guide decisions and refine the experience over time.",
-      },
-      {
-        title: "Local context, global standards.",
-        body: "Having worked on bilingual products in Japan, I try to balance local expectations (language, layout, cultural nuance) with global usability and accessibility best practices.",
-      },
-    ],
-    stackHeading: "Stack",
-    stackSections: {
-      design: "Design",
-      development: "Development",
-      workflow: "Workflow",
-      delivery: "Delivery",
-      qualifications: "Qualifications",
-      portfolio: "Portfolio",
-    },
-    workflowBadges: [
-      "Design Tokens",
-      "Component Libraries",
-      "Design Documentation",
-      "Git-based Collaboration",
-      "UX Copywriting",
-      "Accessibility",
-      "AI Photo/Video",
-    ],
-    deliveryBadges: [
-      "Design Specs",
-      "Interactive Prototypes",
-      "Production Code",
-      "Performance Metrics",
-      "User Testing",
-      "Product Showcases",
-    ],
-    qualifications: ["Framer Expert", "日本語能力試験 (JLPT) N2"],
-    portfolioBuiltWith: "Built with",
-    portfolioBuiltWithConjunction: ", and ",
-    portfolioBuiltWithSuffix: ".",
   },
   caseStudy: {
     client: "Client",
@@ -173,26 +82,6 @@ export const en: Dictionary = {
     timeline: "Timeline:",
   },
   folio: {
-    skillLabels: {
-      Framer: "Framer",
-      Weavy: "Weavy",
-      "Frontend Dev": "Frontend Dev",
-      "Motion Design": "Motion Design",
-      "LP Design": "LP Design",
-      "UI Design": "UI Design",
-      "UX Research": "UX Research",
-      "Web SaaS": "Web SaaS",
-      "Web Design": "Web Design",
-      Branding: "Branding",
-      B2C: "B2C",
-      "Mobile App": "Mobile App",
-      "Product Design": "Product Design",
-      "Design System": "Design System",
-      "B2B SaaS": "B2B SaaS",
-      "Visual Design": "Visual Design",
-      "Visual identity": "Visual identity",
-      "UI/UX Design": "UI/UX Design",
-    },
     cardHeading: (title, client) => [
       { text: title, muted: false },
       { text: ` for ${client}`, muted: true },

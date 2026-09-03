@@ -1,17 +1,18 @@
 "use client";
 
+import { useFooterVisible } from "@/app/hooks/useFooterVisible";
+import { REDUCED_MOTION_QUERY } from "@/app/hooks/usePrefersReducedMotion";
+import { useScrollSurfaceColor } from "@/app/hooks/useScrollSurfaceColor";
 import { useLocale } from "@/app/i18n/LocaleProvider";
-import { LocaleSwitcher } from "@/app/i18n/LocaleSwitcher";
 import { localizeHref } from "@/app/i18n/locales";
 import gsap from "gsap";
 import { ArrowLeft } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
+import { BodyPortal } from "./BodyPortal";
 import { Logo } from "./Logo";
 import { useRouteTransition } from "./RouteTransitionProvider";
 import { TransitionLink } from "./TransitionLink";
-
-const REDUCED_MOTION_QUERY = "(prefers-reduced-motion: reduce)";
 
 function useTextSwap(
   baseMinMs: number,
@@ -41,9 +42,8 @@ function useTextSwap(
       }
     };
 
-    // Under reduced motion the swap stops entirely and pins to the primary
-    // (English) word. Dropping just the animation would still leave text
-    // auto-updating every few seconds with no way to pause it (WCAG 2.2.2).
+    // Reduced motion pins the primary word rather than swapping silently
+    // every few seconds with no way to pause it (WCAG 2.2.2).
     const apply = () => {
       stop();
       if (media.matches) {
@@ -92,10 +92,8 @@ const SwapText = ({
   const prevIsAlt = useRef(isAlt);
   const tlRef = useRef<gsap.core.Timeline | null>(null);
 
-  // Frozen at mount. GSAP owns transform/opacity from here on, so these values
-  // must never change across renders — React writing the end state during the
-  // swap commit is what made characters jump instead of animate (GSAP then
-  // tweened from the destination to itself, a visual no-op).
+  // Frozen at mount: GSAP owns transform/opacity, so React must not rewrite
+  // the end state mid-swap or the characters jump instead of animating.
   const initialShowText1 = !useRef(isAlt).current;
 
   useEffect(() => {
@@ -106,21 +104,16 @@ const SwapText = ({
     const chars1 = text1Refs.current.slice(0, text1.length).filter(Boolean);
     const chars2 = text2Refs.current.slice(0, text2.length).filter(Boolean);
 
-    // `y` stays a percentage string rather than `yPercent`: the element's start
-    // value is read from a computed matrix in px, and a matrix can't tell
-    // translateY(-100%) from translateY(-20px). Mixing the two silently no-ops.
+    // A percentage string, not yPercent: the start value is read from a px
+    // matrix, and mixing the two silently no-ops.
     const outgoing = { y: showText1 ? "100%" : "-100%", opacity: 0 };
     const incoming = { y: "0%", opacity: 1 };
 
     const from1 = showText1 ? incoming : outgoing;
     const from2 = showText1 ? outgoing : incoming;
 
-    // A swap landing mid-flight would otherwise leave two tweens fighting over
-    // the same properties.
     tlRef.current?.kill();
 
-    // Only reachable when the setting is switched on mid-swap: snap back to
-    // the pinned word rather than animating there.
     if (prefersReducedMotion()) {
       gsap.set(chars1, from1);
       gsap.set(chars2, from2);
@@ -152,7 +145,7 @@ const SwapText = ({
 
   return (
     <span className="inline-flex text-swap-container">
-      {/* Sizer stacks both strings so the container fits the wider script. */}
+      {/* Sizes the container to the wider script. */}
       <span className="invisible grid">
         <span className="col-start-1 row-start-1">{text1}</span>
         <span className="col-start-1 row-start-1">{text2}</span>
@@ -201,17 +194,17 @@ const SwapText = ({
   );
 };
 
-const LogoComponent = () => {
+const LogoComponent = ({ color = "white" }: { color?: string }) => {
   return (
     <>
       <Logo
-        size={32}
-        color="white"
+        size={64}
+        color={color}
         className="group-hover:scale-150 group-hover:opacity-0 transition-all duration-700"
       />
       <Logo
-        size={32}
-        color="white"
+        size={64}
+        color={color}
         className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-0 scale-50 group-hover:opacity-100 group-hover:scale-100 transition-all duration-700"
       />
     </>
@@ -219,7 +212,7 @@ const LogoComponent = () => {
 };
 
 interface HeaderProps {
-  type?: "default" | "article";
+  type?: "default" | "article" | "minimal";
   articleTitle?: string;
 }
 
@@ -230,9 +223,10 @@ export const Header = ({ type = "default", articleTitle }: HeaderProps) => {
   const headerRef = useRef<HTMLElement>(null);
   const word1 = useTextSwap(3500, 6500, 0);
   const word2 = useTextSwap(3500, 6500, 2000);
+  useScrollSurfaceColor(headerRef, "top");
+  const footerVisible = useFooterVisible();
 
   const homeHref = localizeHref(locale, "/");
-  const aboutHref = localizeHref(locale, "/about");
   const tagline = dict.nav.tagline;
 
   const handleLogoClick = useCallback(() => {
@@ -242,7 +236,8 @@ export const Header = ({ type = "default", articleTitle }: HeaderProps) => {
   }, [pathname, homeHref, startTransition]);
 
   useEffect(() => {
-    if (type !== "article" && headerRef.current) {
+    // Only "default" fades in; the Preloader owns the reveal for "minimal".
+    if (type === "default" && headerRef.current) {
       gsap.fromTo(
         headerRef.current,
         { y: -20, opacity: 0 },
@@ -256,6 +251,64 @@ export const Header = ({ type = "default", articleTitle }: HeaderProps) => {
       );
     }
   }, [type]);
+
+  const taglineBlock = (
+    <div className="hidden sm:flex font-light gap-2 items-baseline">
+      <div
+        className={
+          tagline.citySlot === "lead"
+            ? "cursor-tyo hover:scale-110 transition-all duration-300"
+            : undefined
+        }
+      >
+        <SwapText
+          text1={tagline.leadSwap[0]}
+          text2={tagline.leadSwap[1]}
+          isAlt={word1.isAlt}
+          position="end"
+        />
+      </div>
+
+      <span className="opacity-50">{tagline.middle}</span>
+
+      <div
+        className={
+          tagline.citySlot === "trail"
+            ? "cursor-tyo hover:scale-110 transition-all duration-300"
+            : undefined
+        }
+      >
+        <SwapText
+          text1={tagline.trailSwap[0]}
+          text2={tagline.trailSwap[1]}
+          isAlt={word2.isAlt}
+          position="start"
+          delay={0.1}
+        />
+      </div>
+    </div>
+  );
+
+  if (type === "minimal") {
+    // text-[#DAD6DB] is the pre-JS fallback; useScrollSurfaceColor takes over
+    // on mount, and currentColor lets the mark track it.
+    return (
+      <BodyPortal>
+        <header
+          ref={headerRef}
+          className={`w-full flex items-center justify-between md:px-3 px-2 fixed top-0 left-0 z-20 text-[#DAD6DB] uppercase tracking-[0.15rem] font-extralight text-sm transition-opacity duration-500 ${footerVisible ? "opacity-0 pointer-events-none" : "opacity-100"}`}
+        >
+          <div
+            className="flex w-fit cursor-pointer group relative"
+            onClick={handleLogoClick}
+          >
+            <LogoComponent color="currentColor" />
+          </div>
+          <div className="flex items-center gap-4 md:gap-6">{taglineBlock}</div>
+        </header>
+      </BodyPortal>
+    );
+  }
 
   if (type !== "article") {
     return (
@@ -282,55 +335,8 @@ export const Header = ({ type = "default", articleTitle }: HeaderProps) => {
               {dict.nav.work}
             </span>
           </TransitionLink>
-          <TransitionLink
-            href={aboutHref}
-            className="relative group overflow-hidden"
-          >
-            <span className="block top-0 left-0 w-full h-full group-hover:translate-y-[-100%] transition-transform duration-300">
-              {dict.nav.philosophy}
-            </span>
-            <span className="block absolute top-[100%] left-0 w-full h-full group-hover:translate-y-[-100%] transition-transform duration-300">
-              {dict.nav.philosophy}
-            </span>
-          </TransitionLink>
         </div>
-        <div className="flex items-center gap-4 md:gap-6">
-          <div className="hidden sm:flex font-bold gap-2 items-baseline">
-            <div
-              className={
-                tagline.citySlot === "lead"
-                  ? "cursor-tyo hover:scale-110 transition-all duration-300"
-                  : undefined
-              }
-            >
-              <SwapText
-                text1={tagline.leadSwap[0]}
-                text2={tagline.leadSwap[1]}
-                isAlt={word1.isAlt}
-                position="end"
-              />
-            </div>
-
-            <span className="opacity-50">{tagline.middle}</span>
-
-            <div
-              className={
-                tagline.citySlot === "trail"
-                  ? "cursor-tyo hover:scale-110 transition-all duration-300"
-                  : undefined
-              }
-            >
-              <SwapText
-                text1={tagline.trailSwap[0]}
-                text2={tagline.trailSwap[1]}
-                isAlt={word2.isAlt}
-                position="start"
-                delay={0.1}
-              />
-            </div>
-          </div>
-          <LocaleSwitcher />
-        </div>
+        <div className="flex items-center gap-4 md:gap-6">{taglineBlock}</div>
       </header>
     );
   } else {
@@ -356,7 +362,6 @@ export const Header = ({ type = "default", articleTitle }: HeaderProps) => {
             <span className="hidden sm:inline-block u-stack-label text-right opacity-70">
               {articleTitle}
             </span>
-            <LocaleSwitcher />
           </div>
         </div>
       </header>

@@ -5,19 +5,14 @@ export interface Dictionary {
   };
   nav: {
     work: string;
-    philosophy: string;
-    basedIn: string;
+    about: string;
+    contact: string;
     backHome: string;
-    /**
-     * Header flourish. Each slot cycles between two scripts. Slot order is
-     * locale-specific: English reads "Designer / Based in / Tokyo", Japanese
-     * reads "東京 / を拠点とする / デザイナー".
-     */
+    /** Header flourish. Each slot cycles between two scripts. */
     tagline: {
       leadSwap: [string, string];
       middle: string;
       trailSwap: [string, string];
-      /** Which slot carries the Tokyo cursor easter egg. */
       citySlot: "lead" | "trail";
     };
   };
@@ -27,9 +22,8 @@ export interface Dictionary {
   };
   footer: {
     connectHeading: string;
-    reachOut: string;
     returnToTop: string;
-    /** Contains a {city} placeholder that renders the Tokyo cursor easter egg. */
+    /** Contains a {city} placeholder. */
     articleBioIntro: string;
     cityName: string;
     articleBioBody: string;
@@ -38,8 +32,14 @@ export interface Dictionary {
     avatarAlt: string;
   };
   home: {
-    heroTitleLines: string[];
-    focusAreas: string;
+    /** Split around two inline media elements: "{before} [photo] {after} [clip]". */
+    heroIntro: {
+      before: string;
+      after: string;
+    };
+    aboutIntro: string;
+    aboutBrandsLabel: string;
+    aboutFocusLabel: string;
     skills: {
       designSystems: { title: string; description: string };
       productUi: { title: string; description: string };
@@ -47,51 +47,8 @@ export interface Dictionary {
       landingPages: { title: string; description: string };
       aiWorkflows: { title: string; description: string };
     };
-    stackCta: string;
     jobTitle: string;
-    designedBuilt: string;
     openForWorkAlt: string;
-    sayHi: string;
-    copied: string;
-    experienceHeading: string;
-    experienceIntro: string;
-    presentLabel: string;
-    presentRole: string;
-    role2020Label: string;
-    role2020: string;
-    role2017Label: string;
-    role2017: string;
-    role2015Label: string;
-    role2015: string;
-  };
-  about: {
-    seoTitle: string;
-    seoDescription: string;
-    heroTitleLinesDesktop: string[];
-    heroTitleLinesMobile: string[];
-    bioParagraph1: string;
-    bioParagraph2: string;
-    philosophyHeading1: string;
-    philosophyHeading2: string;
-    principles: {
-      title: string;
-      body: string;
-    }[];
-    stackHeading: string;
-    stackSections: {
-      design: string;
-      development: string;
-      workflow: string;
-      delivery: string;
-      qualifications: string;
-      portfolio: string;
-    };
-    workflowBadges: string[];
-    deliveryBadges: string[];
-    qualifications: string[];
-    portfolioBuiltWith: string;
-    portfolioBuiltWithConjunction: string;
-    portfolioBuiltWithSuffix: string;
   };
   caseStudy: {
     client: string;
@@ -102,11 +59,7 @@ export interface Dictionary {
     timeline: string;
   };
   folio: {
-    skillLabels: Record<string, string>;
-    /**
-     * Project title + client, split into styled segments. Order differs by
-     * locale: English trails the client ("X for Y"), Japanese leads with it.
-     */
+    /** Title + client as styled segments; order differs by locale. */
     cardHeading: (
       title: string,
       client: string,

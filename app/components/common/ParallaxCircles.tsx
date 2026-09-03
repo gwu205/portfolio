@@ -45,9 +45,7 @@ export const ParallaxCircles = ({
 }: ParallaxCirclesProps) => {
   const itemRefs = useRef<(HTMLDivElement | null)[]>([]);
 
-  // Writes transforms straight to the DOM from Lenis' scroll callback instead
-  // of routing scroll position through React state, so a scroll tick no
-  // longer re-renders every circle.
+  // Written straight to the DOM so a scroll tick doesn't re-render.
   useLenis((lenis) => {
     if (lenis.prefersReducedMotion) return;
     circles.forEach((circle, index) => {
@@ -58,7 +56,7 @@ export const ParallaxCircles = ({
 
   const getPositionClasses = (circle: Circle) => {
     const positionClass =
-      circle.position === "top" ? "top-[15%]" : "bottom-[15%]";
+      circle.position === "top" ? "top-[5%]" : "bottom-[35%]";
     return `absolute ${positionClass}`;
   };
 

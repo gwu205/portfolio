@@ -1,8 +1,4 @@
-/**
- * Inline strings support a small markup subset so translators can keep
- * emphasis and links inside a single translatable unit:
- *   **bold**   *italic*   [label](https://example.com)
- */
+/** Inline markup subset: **bold**  *italic*  [label](https://example.com) */
 export type RichText = string;
 
 export type ListItem = RichText | { text: RichText; items: RichText[] };
@@ -21,22 +17,19 @@ export type Block =
       width: number;
       height: number;
     }
-  | { type: "video"; src: string; background?: string }
+  | { type: "video"; src: string; background?: string; audio?: boolean }
   | { type: "embed"; src: string; title: string }
-  /** Pull-quote framing a "How might we…" style design question. */
   | { type: "aside"; lead: RichText; highlight: RichText };
 
 export interface CaseStudy {
-  /** Card shown in the showcase grid on the home page. */
   card: {
     title: string;
-    /** Overrides meta.clientName when the card credits a different entity. */
+    /** Overrides meta.clientName. */
     client?: string;
     skills: string[];
     imgSrc?: string;
     videoSrc?: string;
   };
-  /** Hero + meta panel rendered by CaseStudyMeta. */
   meta: {
     articleTitle: string;
     heroImageSrc: string;

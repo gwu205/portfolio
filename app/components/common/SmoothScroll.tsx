@@ -8,9 +8,7 @@ import { useEffect } from "react";
 
 gsap.registerPlugin(ScrollTrigger);
 
-// Drives Lenis off the app's existing gsap.ticker rather than its own
-// requestAnimationFrame loop, so scroll, GSAP tweens, and ScrollTrigger all
-// advance on one shared clock instead of racing rAF callbacks.
+// Drives Lenis off gsap.ticker so scroll and tweens share one clock.
 function LenisGsapSync() {
   const lenis = useLenis();
   const pathname = usePathname();
@@ -30,8 +28,7 @@ function LenisGsapSync() {
     };
   }, [lenis]);
 
-  // The route wipe in RouteTransitionProvider swaps in a new page underneath
-  // the overlay; reset scroll so it doesn't land mid-scroll from the last page.
+  // The route wipe swaps pages underneath the overlay; reset scroll.
   useEffect(() => {
     lenis?.scrollTo(0, { immediate: true });
   }, [lenis, pathname]);
@@ -42,7 +39,7 @@ function LenisGsapSync() {
 export function SmoothScroll() {
   return (
     <>
-      <ReactLenis root options={{ autoRaf: false }} />
+      <ReactLenis root options={{ autoRaf: false, anchors: true }} />
       <LenisGsapSync />
     </>
   );

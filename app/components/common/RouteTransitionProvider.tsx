@@ -39,17 +39,14 @@ export function RouteTransitionProvider({ children }: ProviderProps) {
   const hasNavigated = useRef(false);
   const previousPathname = useRef(pathname);
   const wipeRef = useRef<HTMLDivElement>(null);
-  const tlRef = useRef<gsap.core.Timeline | null>(null);
 
   const duration = 0.6;
   const easing = "cubic-bezier(0.25, 0.8, 0.25, 1)";
 
-  // Listen for pathname changes to detect when navigation completes
   useEffect(() => {
     if (pathname !== previousPathname.current) {
       if (isActive && hasNavigated.current) {
         previousPathname.current = pathname;
-        // Page has loaded — play exit animation
         const wipe = wipeRef.current;
         if (wipe) {
           gsap.to(wipe, {
@@ -60,13 +57,12 @@ export function RouteTransitionProvider({ children }: ProviderProps) {
               setIsActive(false);
               pendingHref.current = null;
               hasNavigated.current = false;
-              // Reset to off-screen below for next transition
               gsap.set(wipe, { y: "100%" });
             },
           });
         }
       } else if (!isActive) {
-        // Keeps state in sync for back/forward buttons or standard router.push
+        // Keeps state in sync for back/forward and plain router.push.
         previousPathname.current = pathname;
       }
     }
@@ -81,7 +77,6 @@ export function RouteTransitionProvider({ children }: ProviderProps) {
 
       const wipe = wipeRef.current;
       if (wipe) {
-        // Enter animation: wipe up from bottom to cover the screen
         gsap.fromTo(
           wipe,
           { y: "100%" },

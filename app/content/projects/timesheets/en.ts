@@ -2,7 +2,7 @@ import { CaseStudy } from "../../types";
 
 export const en: CaseStudy = {
   card: {
-    title: "Timesheets",
+    title: "B2B Timesheets",
     skills: ["UI Design", "UX Research", "Web SaaS"],
     imgSrc: "/images/projects/timesheets-hero.png",
   },

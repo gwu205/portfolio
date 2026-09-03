@@ -2,32 +2,23 @@
 
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { useEffect, useRef } from "react";
-import FolioItem from "./FolioItem";
+import { ReactNode, useEffect, useRef } from "react";
 
 gsap.registerPlugin(ScrollTrigger);
 
-interface AnimatedFolioItemProps {
-  title: string;
-  client: string;
-  skills: string[];
-  img_src?: string;
-  video_src?: string;
-  link: string;
-  index: number;
+interface ScrollFadeInProps {
+  children: ReactNode;
   className?: string;
 }
 
-export const AnimatedFolioItem = ({
-  title,
-  client,
-  skills,
-  img_src,
-  video_src,
-  link,
-  index,
+// Shared by the tween and the inline start state, so they can't drift.
+const RISE_DISTANCE = 32;
+
+// Fades its children in the first time they scroll into view.
+export const ScrollFadeIn = ({
+  children,
   className = "",
-}: AnimatedFolioItemProps) => {
+}: ScrollFadeInProps) => {
   const itemRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -36,7 +27,7 @@ export const AnimatedFolioItem = ({
     const ctx = gsap.context(() => {
       gsap.fromTo(
         itemRef.current,
-        { opacity: 0, y: 32 },
+        { opacity: 0, y: RISE_DISTANCE },
         {
           opacity: 1,
           y: 0,
@@ -58,18 +49,10 @@ export const AnimatedFolioItem = ({
   return (
     <div
       ref={itemRef}
-      data-index={index}
       className={className}
-      style={{ opacity: 0, transform: "translateY(32px)" }}
+      style={{ opacity: 0, transform: `translateY(${RISE_DISTANCE}px)` }}
     >
-      <FolioItem
-        title={title}
-        client={client}
-        skills={skills}
-        img_src={img_src}
-        video_src={video_src}
-        link={link}
-      />
+      {children}
     </div>
   );
 };

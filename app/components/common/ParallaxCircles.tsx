@@ -58,7 +58,7 @@ export const ParallaxCircles = ({
 
   const getPositionClasses = (circle: Circle) => {
     const positionClass =
-      circle.position === "top" ? "top-[5%]" : "bottom-[15%]";
+      circle.position === "top" ? "top-[5%]" : "bottom-[35%]";
     return `absolute ${positionClass}`;
   };
 

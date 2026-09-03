@@ -25,7 +25,7 @@ export const en: Dictionary = {
     toJapanese: "Switch to Japanese",
   },
   footer: {
-    connectHeading: "Let's connect",
+    connectHeading: "Say<br/><a class=\"hover:underline\" href='mailto:hello@wuxdesign.dev'>hello@wuxdesign.dev</a>",
     reachOut: "Reach Out",
     returnToTop: "Return to top",
     articleBioIntro:
@@ -42,7 +42,10 @@ export const en: Dictionary = {
       before: "Geoffrey",
       after: "is a designer with a strong focus on delivering thoughtfully considered product experiences",
     },
-    focusAreas: "Focus Areas",
+    aboutIntro:
+      "I design digital products that are clear to use, maintainable for teams, and grounded in real business goals.",
+    aboutBrandsLabel: "Brands",
+    aboutFocusLabel: "Focus",
     skills: {
       designSystems: {
         title: "Design Systems & UI Libraries",

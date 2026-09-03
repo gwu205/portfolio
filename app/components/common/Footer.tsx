@@ -28,29 +28,30 @@ export const Footer = ({ type = "default" }: FooterProps) => {
       <footer
         id="contact"
         data-nav-surface="dark"
-        className="content-auto p-3 w-full"
+        className="content-auto p-3 w-full min-h-screen flex flex-col"
       >
-        <div className="flex flex-col md:flex-row md:justify-between justify-center items-center p-8">
-          <p className="text-[#D7C9E3] md:text-[74px] text-3xl tracking-[-0.1rem] font-semibold">
-            {dict.footer.connectHeading}
+        <div className="flex flex-col justify-center items-center grow p-8 gap-16">
+          <div
+            className="p-4 flex w-fit cursor-pointer hover:scale-110 transition-transform duration-300"
+            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+            title={dict.footer.returnToTop}
+          >
+            <Logo size={32} color="white" />
+          </div>
+          <p className="text-[#D7C9E3] text-6xl text-center">
+            <span dangerouslySetInnerHTML={{ __html: dict.footer.connectHeading }} />
           </p>
-          <div className="flex items-center gap-6 text-white uppercase tracking-[0.15rem] font-extralight text-sm">
-            <Link
-              href={`mailto:${process.env.NEXT_PUBLIC_EMAIL_ADDRESS}`}
-              className="hover:underline"
-            >
-              {dict.footer.reachOut}
-            </Link>
-            <TransitionLink href={crossLinkHref} className="hover:underline">
-              {crossLinkLabel}
-            </TransitionLink>
-            <div
-              className="p-4 flex w-fit cursor-pointer hover:scale-110 transition-transform duration-300"
-              onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-              title={dict.footer.returnToTop}
-            >
-              <Logo size={32} color="white" />
-            </div>
+          <div className="flex flex-col items-center gap-2 text-[#D7C9E3]">
+            <p className="text-sm text-[#D7C9E3]">Find me on:</p>
+            <a className="hover:underline" href="https://www.linkedin.com/in/geoffrey-wu/" target="_blank" rel="noopener noreferrer">
+              LinkedIn
+            </a>
+            <a className="hover:underline" href="https://github.com/gwu205" target="_blank" rel="noopener noreferrer">
+              GitHub
+            </a>
+            <a className="hover:underline" href="https://www.framer.com/@wuxdesign/" target="_blank" rel="noopener noreferrer">
+              Framer
+            </a>
           </div>
         </div>
         <small className="w-full block text-center text-xs text-slate-700">

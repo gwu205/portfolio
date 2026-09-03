@@ -37,7 +37,7 @@ export const ja: Dictionary = {
     toJapanese: "日本語に切り替える",
   },
   footer: {
-    connectHeading: "Let's connect",
+    connectHeading: "Say<br/><a class=\"hover:underline\" href='mailto:hello@wuxdesign.dev'>hello@wuxdesign.dev</a>",
     reachOut: "Reach Out",
     returnToTop: "Return to top",
     articleBioIntro:
@@ -54,7 +54,10 @@ export const ja: Dictionary = {
       before: "Geoffrey",
       after: "is a designer with a strong focus on delivering thoughtfully considered product experiences",
     },
-    focusAreas: "Focus Areas",
+    aboutIntro:
+      "動くものをつくる。使い続けられるものに仕上げる。それがデザインだと考えています。",
+    aboutBrandsLabel: "Brands",
+    aboutFocusLabel: "Focus",
     skills: {
       designSystems: {
         title: "Design Systems & UI Libraries",

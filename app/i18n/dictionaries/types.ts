@@ -51,7 +51,18 @@ export interface Dictionary {
       before: string;
       after: string;
     };
-    focusAreas: string;
+    /**
+     * Home-page About section's lead heading — a different surface from
+     * the dedicated About page. Sourced from the opening sentence of
+     * about.bioParagraph1 in each locale, but kept as its own key rather
+     * than sliced at runtime: the two live on different pages and could
+     * diverge over time.
+     */
+    aboutIntro: string;
+    /** Home-page About section's micro-label above the brand list, rendered uppercase via CSS (stored normal-case, per convention). */
+    aboutBrandsLabel: string;
+    /** Home-page About section's micro-label above the focus-area rows, rendered uppercase via CSS (stored normal-case). */
+    aboutFocusLabel: string;
     skills: {
       designSystems: { title: string; description: string };
       productUi: { title: string; description: string };

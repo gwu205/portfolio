@@ -62,7 +62,7 @@ export const Hero = () => {
           style={{
             backgroundColor: "#6000E6",
             mixBlendMode: "difference",
-            opacity: 0,
+            opacity: 0.4,
           }}
         />
       </div>

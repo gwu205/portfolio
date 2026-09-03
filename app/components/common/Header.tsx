@@ -1,5 +1,6 @@
 "use client";
 
+import { useFooterVisible } from "@/app/hooks/useFooterVisible";
 import { useScrollSurfaceColor } from "@/app/hooks/useScrollSurfaceColor";
 import { useLocale } from "@/app/i18n/LocaleProvider";
 import { localizeHref } from "@/app/i18n/locales";
@@ -234,6 +235,9 @@ export const Header = ({ type = "default", articleTitle }: HeaderProps) => {
   // No-ops on pages with no [data-nav-surface] sections (currently just the
   // home page), so safe to call regardless of `type`.
   useScrollSurfaceColor(headerRef, "top");
+  // No-ops (stays false) on pages with no #contact footer — only the
+  // "minimal" branch below actually uses this.
+  const footerVisible = useFooterVisible();
   // Only the "minimal" variant portals (see below) — declared unconditionally
   // since hooks can't be called conditionally.
   const [mounted, setMounted] = useState(false);
@@ -322,7 +326,7 @@ export const Header = ({ type = "default", articleTitle }: HeaderProps) => {
     const minimalHeader = (
       <header
         ref={headerRef}
-        className="w-full flex items-center justify-between md:px-3 px-2 fixed top-0 left-0 z-20 text-[#DAD6DB] uppercase tracking-[0.15rem] font-extralight text-sm"
+        className={`w-full flex items-center justify-between md:px-3 px-2 fixed top-0 left-0 z-20 text-[#DAD6DB] uppercase tracking-[0.15rem] font-extralight text-sm transition-opacity duration-500 ${footerVisible ? "opacity-0 pointer-events-none" : "opacity-100"}`}
       >
         <div
           className="flex w-fit cursor-pointer group relative"

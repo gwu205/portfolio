@@ -1,10 +1,17 @@
 "use client";
 
+import { useActiveSection } from "@/app/hooks/useActiveSection";
+import { useFooterVisible } from "@/app/hooks/useFooterVisible";
+import { usePrefersReducedMotion } from "@/app/hooks/usePrefersReducedMotion";
 import { useScrollSurfaceColor } from "@/app/hooks/useScrollSurfaceColor";
 import { useLocale } from "@/app/i18n/LocaleProvider";
 import { LocaleSwitcher } from "@/app/i18n/LocaleSwitcher";
+import gsap from "gsap";
 import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
+
+const DOT_SIZE = 10;
+const DOT_MOVE_DURATION = 0.6;
 
 // Fixed to the viewport, so it's visible over every section as the page
 // scrolls, not just the hero. Color legibility comes from
@@ -17,6 +24,13 @@ export function StickyNav() {
   const [mounted, setMounted] = useState(false);
   const navRef = useRef<HTMLElement>(null);
   useScrollSurfaceColor(navRef, "bottom");
+  const footerVisible = useFooterVisible();
+  const activeId = useActiveSection();
+  const prefersReducedMotion = usePrefersReducedMotion();
+
+  const linkRefs = useRef<Record<string, HTMLAnchorElement | null>>({});
+  const dotRef = useRef<HTMLSpanElement>(null);
+  const hasPositionedRef = useRef(false);
 
   // AnimatedMain leaves a residual `transform` on <main> once its entrance
   // tween finishes, which makes that element the containing block for any
@@ -26,21 +40,94 @@ export function StickyNav() {
   // transformed ancestor) instead of relying on <main> never using one.
   useEffect(() => setMounted(true), []);
 
+  // Moves the dot under whichever nav link matches the current section
+  // (see useActiveSection). `left` (a plain position property, not a
+  // transform) is what's animated — same reasoning as CursorFollower's
+  // position tracking elsewhere in this codebase: a static Tailwind
+  // transform class would otherwise fight GSAP for control of `transform`
+  // the moment GSAP wrote to it. The very first placement after arriving
+  // from a null (Hero) state is instant (gsap.set — nothing to bounce in
+  // from, and it's fading in from opacity-0 anyway); every change after
+  // that bounces, unless the visitor prefers reduced motion, in which
+  // case it always jumps straight there. activeId === null (still on the
+  // Hero, or scrolled back up into it) resets hasPositionedRef instead of
+  // touching the dot at all, so the *next* arrival fades in clean rather
+  // than bouncing in from wherever it was last left.
+  useEffect(() => {
+    const dot = dotRef.current;
+    if (!dot) return;
+
+    if (activeId === null) {
+      hasPositionedRef.current = false;
+      return;
+    }
+
+    const activeLink = linkRefs.current[activeId];
+    if (!activeLink) return;
+
+    const reposition = (animate: boolean) => {
+      const left =
+        activeLink.offsetLeft + activeLink.offsetWidth / 2 - DOT_SIZE / 2;
+      if (animate && !prefersReducedMotion) {
+        gsap.to(dot, { left, duration: DOT_MOVE_DURATION, ease: "bounce.out" });
+      } else {
+        gsap.set(dot, { left });
+      }
+    };
+
+    reposition(hasPositionedRef.current);
+    hasPositionedRef.current = true;
+
+    // Link widths/gaps can reflow at different breakpoints; keep the dot
+    // honest without animating every resize tick.
+    const handleResize = () => reposition(false);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+    // `mounted` has to be a dependency, not just a render gate: the portal
+    // (and therefore dotRef/linkRefs) doesn't exist in the DOM until it
+    // flips true, which happens after this effect's other deps have
+    // already settled — without it here, this runs once too early against
+    // empty refs and never gets another chance to fire.
+  }, [activeId, prefersReducedMotion, mounted]);
+
   const nav = (
     <nav
       ref={navRef}
-      className="fixed bottom-0 left-0 z-30 flex w-full items-center justify-between p-2 text-sm font-extralight uppercase tracking-[0.15rem] text-[#DAD6DB] md:p-3"
+      className={`fixed bottom-0 left-0 z-30 flex w-full items-center justify-between p-2 text-sm font-extralight uppercase tracking-[0.15rem] text-[#DAD6DB] transition-opacity duration-500 md:p-3 ${footerVisible ? "opacity-0 pointer-events-none" : "opacity-100"}`}
     >
-      <div className="flex items-center gap-6 md:gap-8">
-        <a href="#work" className="transition-opacity duration-300 hover:opacity-70">
+      <div className="relative flex items-center gap-6 md:gap-8">
+        <a
+          ref={(el) => {
+            linkRefs.current.work = el;
+          }}
+          href="#work"
+          className="transition-opacity duration-300 hover:opacity-70"
+        >
           {dict.nav.work}
         </a>
-        <a href="#about" className="transition-opacity duration-300 hover:opacity-70">
+        <a
+          ref={(el) => {
+            linkRefs.current.about = el;
+          }}
+          href="#about"
+          className="transition-opacity duration-300 hover:opacity-70"
+        >
           {dict.nav.about}
         </a>
-        <a href="#contact" className="transition-opacity duration-300 hover:opacity-70">
+        <a
+          ref={(el) => {
+            linkRefs.current.contact = el;
+          }}
+          href="#contact"
+          className="transition-opacity duration-300 hover:opacity-70"
+        >
           {dict.nav.contact}
         </a>
+        <span
+          ref={dotRef}
+          style={{ width: DOT_SIZE, height: DOT_SIZE }}
+          className={`pointer-events-none absolute top-full mt-1.5 rounded-full bg-[#BFFF00] transition-opacity duration-300 ${activeId ? "opacity-100" : "opacity-0"}`}
+        />
       </div>
       <LocaleSwitcher />
     </nav>

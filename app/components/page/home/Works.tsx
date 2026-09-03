@@ -1,6 +1,6 @@
 "use client";
 
-import { projects } from "@/app/content/projects";
+import { showcaseProjects } from "@/app/content/projects";
 import { useLocale } from "@/app/i18n/LocaleProvider";
 import { localizeHref } from "@/app/i18n/locales";
 import { ParallaxCircles } from "../../common/ParallaxCircles";
@@ -20,12 +20,11 @@ export const Works = () => {
   return (
     <>
       <div className="relative flex flex-col px-8 py-16 md:px-16 md:py-32 lg:px-24">
-        {projects.map(({ slug, content }, index) => {
+        {showcaseProjects.map(({ slug, content }, index) => {
           const study = content[locale];
           return (
             <ScrollFadeIn
               key={slug}
-              index={index}
               className={index > 0 ? CASCADE_GAP_CLASS : undefined}
             >
               <WorkCard

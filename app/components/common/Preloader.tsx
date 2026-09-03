@@ -1,5 +1,6 @@
 "use client";
 
+import { REDUCED_MOTION_QUERY } from "@/app/hooks/usePrefersReducedMotion";
 import gsap from "gsap";
 import { useLenis } from "lenis/react";
 import { usePathname } from "next/navigation";
@@ -42,9 +43,7 @@ export function Preloader() {
       "navigation",
     )[0] as PerformanceNavigationTiming | undefined;
     if (navEntry?.type === "back_forward") return;
-    const reducedMotion = window.matchMedia(
-      "(prefers-reduced-motion: reduce)",
-    ).matches;
+    const reducedMotion = window.matchMedia(REDUCED_MOTION_QUERY).matches;
     // Reduced-motion visitors skip the intro entirely rather than getting a
     // shortened version of it.
     if (reducedMotion) return;

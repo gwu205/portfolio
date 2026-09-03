@@ -1,27 +1,17 @@
 "use client";
 
 import { useLocale } from "@/app/i18n/LocaleProvider";
-import { localizeHref } from "@/app/i18n/locales";
 import { getCurrentYear } from "@/app/utils/dateHelpers";
 import Image from "next/image";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
 import { Logo } from "./Logo";
-import { TransitionLink } from "./TransitionLink";
 
 interface FooterProps {
   type?: "article" | "default";
 }
 
 export const Footer = ({ type = "default" }: FooterProps) => {
-  const pathname = usePathname();
-  const { locale, dict } = useLocale();
+  const { dict } = useLocale();
   const year = getCurrentYear();
-
-  const aboutHref = localizeHref(locale, "/about");
-  const isAboutPage = pathname === aboutHref;
-  const crossLinkHref = isAboutPage ? localizeHref(locale, "/") : aboutHref;
-  const crossLinkLabel = isAboutPage ? dict.nav.work : dict.nav.philosophy;
 
   if (type !== "article") {
     return (

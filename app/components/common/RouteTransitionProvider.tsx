@@ -39,7 +39,6 @@ export function RouteTransitionProvider({ children }: ProviderProps) {
   const hasNavigated = useRef(false);
   const previousPathname = useRef(pathname);
   const wipeRef = useRef<HTMLDivElement>(null);
-  const tlRef = useRef<gsap.core.Timeline | null>(null);
 
   const duration = 0.6;
   const easing = "cubic-bezier(0.25, 0.8, 0.25, 1)";

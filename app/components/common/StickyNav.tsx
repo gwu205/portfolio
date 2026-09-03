@@ -8,10 +8,17 @@ import { useLocale } from "@/app/i18n/LocaleProvider";
 import { LocaleSwitcher } from "@/app/i18n/LocaleSwitcher";
 import gsap from "gsap";
 import { useEffect, useRef, useState } from "react";
-import { createPortal } from "react-dom";
+import { BodyPortal } from "./BodyPortal";
 
 const DOT_SIZE = 10;
 const DOT_MOVE_DURATION = 0.6;
+
+// The nav model, in display order. Each id does triple duty — the in-page
+// anchor target (`#work`), the `dict.nav` key holding its label, and the
+// section id the scrollspy watches — so adding or renaming an item is a
+// one-line edit here rather than three edits that fail silently when they
+// drift out of sync.
+const NAV_ITEMS = ["work", "about", "contact"] as const;
 
 // Fixed to the viewport, so it's visible over every section as the page
 // scrolls, not just the hero. Color legibility comes from
@@ -21,24 +28,20 @@ const DOT_MOVE_DURATION = 0.6;
 // near-black/near-white backdrops, not the saturated section colors here.
 export function StickyNav() {
   const { dict } = useLocale();
-  const [mounted, setMounted] = useState(false);
   const navRef = useRef<HTMLElement>(null);
   useScrollSurfaceColor(navRef, "bottom");
   const footerVisible = useFooterVisible();
-  const activeId = useActiveSection();
+  const activeId = useActiveSection(NAV_ITEMS);
   const prefersReducedMotion = usePrefersReducedMotion();
 
   const linkRefs = useRef<Record<string, HTMLAnchorElement | null>>({});
-  const dotRef = useRef<HTMLSpanElement>(null);
+  // The dot is held in state rather than a ref so the positioning effect
+  // below re-runs the moment the node actually attaches. It lives inside a
+  // BodyPortal, which renders nothing until it has mounted, so a plain ref
+  // would still be null on this component's first effect pass and nothing
+  // would ever trigger a second one.
+  const [dot, setDot] = useState<HTMLSpanElement | null>(null);
   const hasPositionedRef = useRef(false);
-
-  // AnimatedMain leaves a residual `transform` on <main> once its entrance
-  // tween finishes, which makes that element the containing block for any
-  // `position: fixed` descendant instead of the viewport — this nav would
-  // otherwise render pinned to the bottom of <main>'s full scroll height,
-  // not the viewport. Portaling to <body> sidesteps that (and any future
-  // transformed ancestor) instead of relying on <main> never using one.
-  useEffect(() => setMounted(true), []);
 
   // Moves the dot under whichever nav link matches the current section
   // (see useActiveSection). `left` (a plain position property, not a
@@ -54,7 +57,6 @@ export function StickyNav() {
   // touching the dot at all, so the *next* arrival fades in clean rather
   // than bouncing in from wherever it was last left.
   useEffect(() => {
-    const dot = dotRef.current;
     if (!dot) return;
 
     if (activeId === null) {
@@ -83,56 +85,35 @@ export function StickyNav() {
     const handleResize = () => reposition(false);
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
-    // `mounted` has to be a dependency, not just a render gate: the portal
-    // (and therefore dotRef/linkRefs) doesn't exist in the DOM until it
-    // flips true, which happens after this effect's other deps have
-    // already settled — without it here, this runs once too early against
-    // empty refs and never gets another chance to fire.
-  }, [activeId, prefersReducedMotion, mounted]);
+  }, [activeId, prefersReducedMotion, dot]);
 
-  const nav = (
-    <nav
-      ref={navRef}
-      className={`fixed bottom-0 left-0 z-30 flex w-full items-center justify-between p-2 text-sm font-extralight uppercase tracking-[0.15rem] text-[#DAD6DB] transition-opacity duration-500 md:p-3 ${footerVisible ? "opacity-0 pointer-events-none" : "opacity-100"}`}
-    >
-      <div className="relative flex items-center gap-6 md:gap-8">
-        <a
-          ref={(el) => {
-            linkRefs.current.work = el;
-          }}
-          href="#work"
-          className="transition-opacity duration-300 hover:opacity-70"
-        >
-          {dict.nav.work}
-        </a>
-        <a
-          ref={(el) => {
-            linkRefs.current.about = el;
-          }}
-          href="#about"
-          className="transition-opacity duration-300 hover:opacity-70"
-        >
-          {dict.nav.about}
-        </a>
-        <a
-          ref={(el) => {
-            linkRefs.current.contact = el;
-          }}
-          href="#contact"
-          className="transition-opacity duration-300 hover:opacity-70"
-        >
-          {dict.nav.contact}
-        </a>
-        <span
-          ref={dotRef}
-          style={{ width: DOT_SIZE, height: DOT_SIZE }}
-          className={`pointer-events-none absolute top-full mt-1.5 rounded-full bg-[#BFFF00] transition-opacity duration-300 ${activeId ? "opacity-100" : "opacity-0"}`}
-        />
-      </div>
-      <LocaleSwitcher />
-    </nav>
+  return (
+    <BodyPortal>
+      <nav
+        ref={navRef}
+        className={`fixed bottom-0 left-0 z-30 flex w-full items-center justify-between p-2 text-sm font-extralight uppercase tracking-[0.15rem] text-[#DAD6DB] transition-opacity duration-500 md:p-3 ${footerVisible ? "opacity-0 pointer-events-none" : "opacity-100"}`}
+      >
+        <div className="relative flex items-center gap-6 md:gap-8">
+          {NAV_ITEMS.map((id) => (
+            <a
+              key={id}
+              ref={(el) => {
+                linkRefs.current[id] = el;
+              }}
+              href={`#${id}`}
+              className="transition-opacity duration-300 hover:opacity-70"
+            >
+              {dict.nav[id]}
+            </a>
+          ))}
+          <span
+            ref={setDot}
+            style={{ width: DOT_SIZE, height: DOT_SIZE }}
+            className={`pointer-events-none absolute top-full mt-1.5 rounded-full bg-[#BFFF00] transition-opacity duration-300 ${activeId ? "opacity-100" : "opacity-0"}`}
+          />
+        </div>
+        <LocaleSwitcher />
+      </nav>
+    </BodyPortal>
   );
-
-  if (!mounted) return null;
-  return createPortal(nav, document.body);
 }

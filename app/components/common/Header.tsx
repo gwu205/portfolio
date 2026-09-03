@@ -1,6 +1,7 @@
 "use client";
 
 import { useFooterVisible } from "@/app/hooks/useFooterVisible";
+import { REDUCED_MOTION_QUERY } from "@/app/hooks/usePrefersReducedMotion";
 import { useScrollSurfaceColor } from "@/app/hooks/useScrollSurfaceColor";
 import { useLocale } from "@/app/i18n/LocaleProvider";
 import { localizeHref } from "@/app/i18n/locales";
@@ -8,12 +9,10 @@ import gsap from "gsap";
 import { ArrowLeft } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
-import { createPortal } from "react-dom";
+import { BodyPortal } from "./BodyPortal";
 import { Logo } from "./Logo";
 import { useRouteTransition } from "./RouteTransitionProvider";
 import { TransitionLink } from "./TransitionLink";
-
-const REDUCED_MOTION_QUERY = "(prefers-reduced-motion: reduce)";
 
 function useTextSwap(
   baseMinMs: number,
@@ -238,10 +237,6 @@ export const Header = ({ type = "default", articleTitle }: HeaderProps) => {
   // No-ops (stays false) on pages with no #contact footer — only the
   // "minimal" branch below actually uses this.
   const footerVisible = useFooterVisible();
-  // Only the "minimal" variant portals (see below) — declared unconditionally
-  // since hooks can't be called conditionally.
-  const [mounted, setMounted] = useState(false);
-  useEffect(() => setMounted(true), []);
 
   const homeHref = localizeHref(locale, "/");
   const aboutHref = localizeHref(locale, "/about");
@@ -310,11 +305,8 @@ export const Header = ({ type = "default", articleTitle }: HeaderProps) => {
   );
 
   if (type === "minimal") {
-    // Fixed + portaled to <body>, same reasoning as StickyNav: <main> picks
-    // up a residual transform from AnimatedMain's entrance tween, which
-    // makes it the containing block for `position: fixed` descendants
-    // instead of the viewport — this would otherwise stay pinned to the top
-    // of <main>'s own box rather than the top of the viewport while scrolling.
+    // Fixed, and portaled to <body> (see BodyPortal for why `position: fixed`
+    // can't stay inside <main> here).
     // Color legibility is handled by useScrollSurfaceColor above (hardcoded
     // per-section colors, scrubbed smoothly across each boundary) rather
     // than mix-blend-mode — blend-mode's per-channel math only reliably
@@ -323,25 +315,22 @@ export const Header = ({ type = "default", articleTitle }: HeaderProps) => {
     // just the pre-JS fallback (the home page always opens on the dark
     // hero); the hook takes over as soon as it mounts. LogoComponent gets
     // currentColor instead of its default white so the mark tracks it too.
-    const minimalHeader = (
-      <header
-        ref={headerRef}
-        className={`w-full flex items-center justify-between md:px-3 px-2 fixed top-0 left-0 z-20 text-[#DAD6DB] uppercase tracking-[0.15rem] font-extralight text-sm transition-opacity duration-500 ${footerVisible ? "opacity-0 pointer-events-none" : "opacity-100"}`}
-      >
-        <div
-          className="flex w-fit cursor-pointer group relative"
-          onClick={handleLogoClick}
+    return (
+      <BodyPortal>
+        <header
+          ref={headerRef}
+          className={`w-full flex items-center justify-between md:px-3 px-2 fixed top-0 left-0 z-20 text-[#DAD6DB] uppercase tracking-[0.15rem] font-extralight text-sm transition-opacity duration-500 ${footerVisible ? "opacity-0 pointer-events-none" : "opacity-100"}`}
         >
-          <LogoComponent color="currentColor" />
-        </div>
-        <div className="flex items-center gap-4 md:gap-6">
-          {taglineBlock}
-        </div>
-      </header>
+          <div
+            className="flex w-fit cursor-pointer group relative"
+            onClick={handleLogoClick}
+          >
+            <LogoComponent color="currentColor" />
+          </div>
+          <div className="flex items-center gap-4 md:gap-6">{taglineBlock}</div>
+        </header>
+      </BodyPortal>
     );
-
-    if (!mounted) return null;
-    return createPortal(minimalHeader, document.body);
   }
 
   if (type !== "article") {
@@ -381,9 +370,7 @@ export const Header = ({ type = "default", articleTitle }: HeaderProps) => {
             </span>
           </TransitionLink>
         </div>
-        <div className="flex items-center gap-4 md:gap-6">
-          {taglineBlock}
-        </div>
+        <div className="flex items-center gap-4 md:gap-6">{taglineBlock}</div>
       </header>
     );
   } else {

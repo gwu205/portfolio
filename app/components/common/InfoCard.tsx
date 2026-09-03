@@ -8,44 +8,20 @@ interface InfoCardProps {
   icon: LucideIcon;
   title: string;
   description: string;
-  /**
-   * Color treatment for the row itself. The floating tooltip stays dark
-   * in both cases — it's a small overlay meant to contrast with whatever
-   * is beneath the cursor, not with the section background. Defaults to
-   * "dark" (the original Skills-section treatment) so existing callers
-   * are unaffected.
-   */
-  variant?: "dark" | "light";
 }
 
-const VARIANT_STYLES: Record<
-  "dark" | "light",
-  { row: string; icon: string; title: string; description: string }
-> = {
-  dark: {
-    row: "hover:bg-white/10",
-    icon: "text-white group-hover:text-purple-200",
-    title:
-      "from-white to-white group-hover:from-purple-200 group-hover:to-orange-300",
-    description: "text-white/80",
-  },
-  light: {
-    row: "hover:bg-[#4E3960]/10",
-    icon: "text-[#4E3960] group-hover:text-[#1B0E26]",
-    title:
-      "from-[#4E3960] to-[#4E3960] group-hover:from-[#312135] group-hover:to-[#1B0E26]",
-    description: "text-[#4E3960]/70",
-  },
+// Row colors for the light section background this now lives on. The
+// floating tooltip stays dark regardless — it's a small overlay meant to
+// contrast with whatever is beneath the cursor, not with the section.
+const styles = {
+  row: "hover:bg-[#4E3960]/10",
+  icon: "text-[#4E3960] group-hover:text-[#1B0E26]",
+  title:
+    "from-[#4E3960] to-[#4E3960] group-hover:from-[#312135] group-hover:to-[#1B0E26]",
+  description: "text-[#4E3960]/70",
 };
 
-export const InfoCard = ({
-  icon: Icon,
-  title,
-  description,
-  variant = "dark",
-}: InfoCardProps) => {
-  const styles = VARIANT_STYLES[variant];
-  const [isHovered, setIsHovered] = useState(false);
+export const InfoCard = ({ icon: Icon, title, description }: InfoCardProps) => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const tooltipRef = useRef<HTMLDivElement>(null);
 
@@ -69,7 +45,6 @@ export const InfoCard = ({
   };
 
   const handleMouseEnter = () => {
-    setIsHovered(true);
     if (tooltipRef.current) {
       gsap.to(tooltipRef.current, {
         scale: 1,
@@ -82,7 +57,6 @@ export const InfoCard = ({
   };
 
   const handleMouseLeave = () => {
-    setIsHovered(false);
     if (tooltipRef.current) {
       gsap.to(tooltipRef.current, {
         scale: 0.8,

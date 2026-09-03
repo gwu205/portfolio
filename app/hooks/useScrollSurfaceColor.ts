@@ -2,7 +2,7 @@
 
 import gsap from "gsap";
 import { useLenis } from "lenis/react";
-import { RefObject } from "react";
+import { RefObject, useCallback, useEffect, useRef } from "react";
 
 const SURFACE_COLORS = {
   dark: "#DAD6DB",
@@ -31,18 +31,27 @@ const HALF_ZONE = 60;
  * renders its own "at rest" state the instant it's created, so whichever
  * boundary happens to be created last wins regardless of actual scroll
  * position. Computing one authoritative value per tick avoids that.
+ *
+ * The color is also applied once on mount, so a consumer is legible before
+ * the visitor has scrolled at all — without that, the first correct value
+ * only lands on the first scroll tick, and every call site has to hardcode
+ * a matching fallback color and know which surface its page opens on.
  */
 export function useScrollSurfaceColor(
   ref: RefObject<HTMLElement | null>,
   edge: "top" | "bottom",
 ) {
-  useLenis(() => {
+  // The section list only changes when the page's markup does, so it's
+  // resolved once rather than re-queried inside the scroll callback: this
+  // hook has two subscribers on the home page, and runs on every other page
+  // too, where the query exists only to discover there is nothing to do.
+  const sectionsRef = useRef<HTMLElement[]>([]);
+
+  const applyColor = useCallback(() => {
     const el = ref.current;
     if (!el) return;
 
-    const sections = Array.from(
-      document.querySelectorAll<HTMLElement>("[data-nav-surface]"),
-    );
+    const sections = sectionsRef.current;
     if (sections.length === 0) return;
 
     const surfaceOf = (index: number): Surface =>
@@ -79,4 +88,13 @@ export function useScrollSurfaceColor(
 
     el.style.color = color;
   }, [ref, edge]);
+
+  useEffect(() => {
+    sectionsRef.current = Array.from(
+      document.querySelectorAll<HTMLElement>("[data-nav-surface]"),
+    );
+    applyColor();
+  }, [applyColor]);
+
+  useLenis(applyColor, [applyColor]);
 }

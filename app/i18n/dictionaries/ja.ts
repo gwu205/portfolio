@@ -20,7 +20,6 @@ export const ja: Dictionary = {
     philosophy: "Philosophy",
     about: "About",
     contact: "Contact",
-    basedIn: "Based in",
     backHome: "Home",
     // Identical to en.ts: "Designer based in Tokyo" stays English, with the
     // existing EN↔JA script flourish intact.
@@ -38,7 +37,6 @@ export const ja: Dictionary = {
   },
   footer: {
     connectHeading: "Say<br/><a class=\"hover:underline\" href='mailto:hello@wuxdesign.dev'>hello@wuxdesign.dev</a>",
-    reachOut: "Reach Out",
     returnToTop: "Return to top",
     articleBioIntro:
       "Geoffrey Wuは、{city}を拠点とするプロダクトデザイナー、フロントエンドエンジニア、クリエイティブテクノロジストです。",
@@ -85,25 +83,8 @@ export const ja: Dictionary = {
           "AIを組み込み、意思決定やユーザーのタスクを効率化するインターフェースとフロー。",
       },
     },
-    stackCta: "Technology Stack",
     jobTitle: "Product Designer + Design Engineer",
-    designedBuilt:
-      "Design built on clarity, refined with motion, and powered by code to bring products to life.",
     openForWorkAlt: "Open for work",
-    sayHi: "Say",
-    copied: "Copied!",
-    experienceHeading: "Experience",
-    experienceIntro:
-      "マルチディシプリナリーなデザイナーとして、*オーストラリア・メルボルン*で生まれ育ち、現在は*東京*を拠点に活動しています。これまで{years}年以上にわたり、スタートアップや成長中のチームとともにデジタルプロダクトの設計とリリースに携わってきました。SaaSやB2Bのワークフローに精通し、アジャイルなプロダクト開発チームの最前線でデザイン制作とオペレーションを担ってきました。",
-    presentLabel: "Present",
-    presentRole: "UX Designer — Sollective (HR Tech)",
-    role2020Label: "2020",
-    role2020: "Senior UX Designer — Crowd Cast (FinTech)",
-    role2017Label: "2017",
-    role2017:
-      "Graphic Designer & Front-End Developer — Wisenet Information Systems (EdTech)",
-    role2015Label: "2015",
-    role2015: "Bachelor of Design (Digital Media) — RMIT University",
   },
   about: {
     seoTitle: "デザイン哲学 | Geoffrey Wu",
@@ -188,26 +169,6 @@ export const ja: Dictionary = {
     timeline: "Timeline:",
   },
   folio: {
-    skillLabels: {
-      Framer: "Framer",
-      Weavy: "Weavy",
-      "Frontend Dev": "Frontend Dev",
-      "Motion Design": "Motion Design",
-      "LP Design": "LP Design",
-      "UI Design": "UI Design",
-      "UX Research": "UX Research",
-      "Web SaaS": "Web SaaS",
-      "Web Design": "Web Design",
-      Branding: "Branding",
-      B2C: "B2C",
-      "Mobile App": "Mobile App",
-      "Product Design": "Product Design",
-      "Design System": "Design System",
-      "B2B SaaS": "B2B SaaS",
-      "Visual Design": "Visual Design",
-      "Visual identity": "Visual identity",
-      "UI/UX Design": "UI/UX Design",
-    },
     cardHeading: (title, client) => [
       { text: title, muted: false },
       { text: ` for ${client}`, muted: true },

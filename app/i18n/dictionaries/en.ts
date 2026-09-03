@@ -11,7 +11,6 @@ export const en: Dictionary = {
     philosophy: "Philosophy",
     about: "About",
     contact: "Contact",
-    basedIn: "Based in",
     backHome: "Home",
     tagline: {
       leadSwap: ["Designer", "デザイナー"],
@@ -26,7 +25,6 @@ export const en: Dictionary = {
   },
   footer: {
     connectHeading: "Say<br/><a class=\"hover:underline\" href='mailto:hello@wuxdesign.dev'>hello@wuxdesign.dev</a>",
-    reachOut: "Reach Out",
     returnToTop: "Return to top",
     articleBioIntro:
       "Geoffrey is a product designer, front-end engineer, and creative technologist based in {city}.",
@@ -73,25 +71,8 @@ export const en: Dictionary = {
           "Interfaces and flows that integrate AI to streamline decisions and user tasks.",
       },
     },
-    stackCta: "Technology Stack",
     jobTitle: "Product Designer + Design Engineer",
-    designedBuilt:
-      "Design built on clarity, refined with motion, and powered by code to bring products to life.",
     openForWorkAlt: "Open for work",
-    sayHi: "Say",
-    copied: "Copied!",
-    experienceHeading: "Experience",
-    experienceIntro:
-      "A multidisciplinary designer - born and raised in *Melbourne, Australia*, now based in *Tokyo*. Over the past {years}+ years, I've worked with startups and growing teams to design and ship digital products. Experienced in SaaS and B2B workflows, I've excelled at the forefront of design production and operations for agile product development teams.",
-    presentLabel: "Present",
-    presentRole: "UX Designer — Sollective (HR Tech)",
-    role2020Label: "2020",
-    role2020: "Senior UX Designer — Crowd Cast (FinTech)",
-    role2017Label: "2017",
-    role2017:
-      "Graphic Designer & Front-End Developer — Wisenet Information Systems (EdTech)",
-    role2015Label: "2015",
-    role2015: "Bachelor of Design (Digital Media) — RMIT University",
   },
   about: {
     seoTitle: "Design Philosophy | Geoffrey Wu",
@@ -176,26 +157,6 @@ export const en: Dictionary = {
     timeline: "Timeline:",
   },
   folio: {
-    skillLabels: {
-      Framer: "Framer",
-      Weavy: "Weavy",
-      "Frontend Dev": "Frontend Dev",
-      "Motion Design": "Motion Design",
-      "LP Design": "LP Design",
-      "UI Design": "UI Design",
-      "UX Research": "UX Research",
-      "Web SaaS": "Web SaaS",
-      "Web Design": "Web Design",
-      Branding: "Branding",
-      B2C: "B2C",
-      "Mobile App": "Mobile App",
-      "Product Design": "Product Design",
-      "Design System": "Design System",
-      "B2B SaaS": "B2B SaaS",
-      "Visual Design": "Visual Design",
-      "Visual identity": "Visual identity",
-      "UI/UX Design": "UI/UX Design",
-    },
     cardHeading: (title, client) => [
       { text: title, muted: false },
       { text: ` for ${client}`, muted: true },

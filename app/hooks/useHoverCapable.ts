@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useMediaQuery } from "./useMediaQuery";
 
 const HOVER_CAPABLE_QUERY = "(hover: hover) and (pointer: fine)";
 
@@ -18,17 +18,5 @@ const HOVER_CAPABLE_QUERY = "(hover: hover) and (pointer: fine)";
  * flash on first paint for the common case.
  */
 export function useHoverCapable() {
-  const [hoverCapable, setHoverCapable] = useState(true);
-
-  useEffect(() => {
-    const media = window.matchMedia(HOVER_CAPABLE_QUERY);
-
-    const apply = () => setHoverCapable(media.matches);
-    apply();
-
-    media.addEventListener("change", apply);
-    return () => media.removeEventListener("change", apply);
-  }, []);
-
-  return hoverCapable;
+  return useMediaQuery(HOVER_CAPABLE_QUERY, true);
 }

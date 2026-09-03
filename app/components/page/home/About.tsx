@@ -7,9 +7,8 @@ import { InfoCard } from "../../common/InfoCard";
 
 // Proper nouns (client/employer names) — kept out of the i18n dictionary
 // and hardcoded here instead, per the convention documented at the top of
-// ja.ts (brand names stay identical across locales, read as brand voice
-// rather than information) — same treatment Ticker.tsx already gives
-// "Geoffrey Wu".
+// ja.ts: brand names stay identical across locales, reading as brand voice
+// rather than as information to translate.
 const BRANDS = [
   "Sollective",
   "FreelanceOS",
@@ -117,7 +116,6 @@ export const About = () => {
                   icon={card.icon}
                   title={card.title}
                   description={card.description}
-                  variant="light"
                 />
               ))}
             </div>

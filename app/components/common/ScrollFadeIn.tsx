@@ -8,16 +8,19 @@ gsap.registerPlugin(ScrollTrigger);
 
 interface ScrollFadeInProps {
   children: ReactNode;
-  index?: number;
   className?: string;
 }
+
+// Distance (px) the entrance travels. Shared by the tween's start state and
+// the inline style that holds that same state before GSAP takes over, so the
+// two can't drift apart and make the entrance jump on its first frame.
+const RISE_DISTANCE = 32;
 
 // Fades/slides an entrance in the first time it scrolls into view.
 // Generalized from the old AnimatedFolioItem (which hardcoded FolioItem as
 // its only possible child) so it can wrap anything.
 export const ScrollFadeIn = ({
   children,
-  index,
   className = "",
 }: ScrollFadeInProps) => {
   const itemRef = useRef<HTMLDivElement>(null);
@@ -28,7 +31,7 @@ export const ScrollFadeIn = ({
     const ctx = gsap.context(() => {
       gsap.fromTo(
         itemRef.current,
-        { opacity: 0, y: 32 },
+        { opacity: 0, y: RISE_DISTANCE },
         {
           opacity: 1,
           y: 0,
@@ -50,9 +53,8 @@ export const ScrollFadeIn = ({
   return (
     <div
       ref={itemRef}
-      data-index={index}
       className={className}
-      style={{ opacity: 0, transform: "translateY(32px)" }}
+      style={{ opacity: 0, transform: `translateY(${RISE_DISTANCE}px)` }}
     >
       {children}
     </div>

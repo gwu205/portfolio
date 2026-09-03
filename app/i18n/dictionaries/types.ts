@@ -10,7 +10,6 @@ export interface Dictionary {
     about: string;
     /** Bottom sticky-nav jumplink label (points at the in-page #contact section). */
     contact: string;
-    basedIn: string;
     backHome: string;
     /**
      * Header flourish. Each slot cycles between two scripts. Slot order is
@@ -31,7 +30,6 @@ export interface Dictionary {
   };
   footer: {
     connectHeading: string;
-    reachOut: string;
     returnToTop: string;
     /** Contains a {city} placeholder that renders the Tokyo cursor easter egg. */
     articleBioIntro: string;
@@ -70,22 +68,8 @@ export interface Dictionary {
       landingPages: { title: string; description: string };
       aiWorkflows: { title: string; description: string };
     };
-    stackCta: string;
     jobTitle: string;
-    designedBuilt: string;
     openForWorkAlt: string;
-    sayHi: string;
-    copied: string;
-    experienceHeading: string;
-    experienceIntro: string;
-    presentLabel: string;
-    presentRole: string;
-    role2020Label: string;
-    role2020: string;
-    role2017Label: string;
-    role2017: string;
-    role2015Label: string;
-    role2015: string;
   };
   about: {
     seoTitle: string;
@@ -125,7 +109,6 @@ export interface Dictionary {
     timeline: string;
   };
   folio: {
-    skillLabels: Record<string, string>;
     /**
      * Project title + client, split into styled segments. Order differs by
      * locale: English trails the client ("X for Y"), Japanese leads with it.

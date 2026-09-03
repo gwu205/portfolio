@@ -43,7 +43,7 @@ const IDLE_MS = 100;
 // scroll distance once the page has scrolled. Anchoring to the nearest
 // positioned ancestor instead sidesteps that architecture entirely,
 // regardless of what any ancestor's transform is doing — the same
-// approach already proven by the Skills section's InfoCard tooltip.
+// approach InfoCard's floating tooltip already uses.
 // Listeners attach directly to targetRef (not window) so the browser
 // itself only fires them while the cursor is actually over that element.
 //

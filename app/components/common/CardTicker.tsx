@@ -1,8 +1,7 @@
 "use client";
 
-import { usePrefersReducedMotion } from "@/app/hooks/usePrefersReducedMotion";
 import { useLenis } from "lenis/react";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 
 const REPEAT_COUNT = 12;
 
@@ -37,27 +36,48 @@ export const CardTicker = ({
 }: CardTickerProps) => {
   const scrollRef = useRef<HTMLDivElement>(null);
   const offsetRef = useRef(0);
-  const prefersReducedMotion = usePrefersReducedMotion();
+  // Content is REPEAT_COUNT identical copies laid side by side; wrapping at
+  // half that width keeps the loop seamless (shifting by exactly half lands
+  // on an identical repeat-phase) regardless of scroll direction or how far
+  // the offset has drifted. Measured here rather than inside the scroll
+  // callback: reading `scrollWidth` after the previous card wrote its own
+  // inline transform forces a synchronous layout, so doing it per tick cost
+  // one forced reflow per card per frame for the whole page. A
+  // ResizeObserver keeps it current across resizes, font loads, and locale
+  // changes — everything that actually moves this number.
+  const halfWidthRef = useRef(0);
+
+  useEffect(() => {
+    const el = scrollRef.current;
+    if (!el) return;
+
+    const observer = new ResizeObserver(() => {
+      halfWidthRef.current = el.scrollWidth / 2;
+    });
+    observer.observe(el);
+
+    return () => observer.disconnect();
+  }, []);
 
   useLenis(
     (lenis) => {
-      if (prefersReducedMotion) return;
+      // Lenis already tracks the reduced-motion preference, so this doesn't
+      // need its own matchMedia subscription (which, at one per card, also
+      // meant a re-render per card when it resolved).
+      if (lenis.prefersReducedMotion) return;
       const el = scrollRef.current;
       if (!el) return;
+
+      const halfWidth = halfWidthRef.current;
+      if (halfWidth === 0) return;
 
       const direction = reverse ? 1 : -1;
       offsetRef.current += direction * lenis.velocity * SCROLL_TO_TICKER_FACTOR;
 
-      // Content is REPEAT_COUNT identical copies laid side by side;
-      // wrapping at half that width keeps the loop seamless (shifting by
-      // exactly half lands on an identical repeat-phase) regardless of
-      // scroll direction or how far the offset has drifted.
-      const halfWidth = el.scrollWidth / 2;
-      if (halfWidth === 0) return;
       const wrapped = ((offsetRef.current % halfWidth) + halfWidth) % halfWidth;
       el.style.transform = `translateX(${-wrapped}px)`;
     },
-    [prefersReducedMotion, reverse],
+    [reverse],
   );
 
   return (

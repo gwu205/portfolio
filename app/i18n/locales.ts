@@ -20,21 +20,14 @@ function localeToPathPrefix(locale: Locale): string {
   return locale === defaultLocale ? "" : `/${locale}`;
 }
 
-/**
- * Build a locale-aware href from a default-locale (en) path.
- * e.g. localizeHref("ja", "/projects/crowdcast") -> "/ja/projects/crowdcast"
- */
+/** localizeHref("ja", "/projects/x") -> "/ja/projects/x" */
 export function localizeHref(locale: Locale, path: string): string {
   const prefix = localeToPathPrefix(locale);
   if (path === "/") return prefix || "/";
   return `${prefix}${path}`;
 }
 
-/**
- * Given the current pathname (which may carry a locale prefix) and a target
- * locale, return the equivalent path in that locale. Used by the locale
- * switcher so it always lands on the same page, not the homepage.
- */
+/** The equivalent path in `locale`, so switching stays on the same page. */
 export function switchLocalePath(pathname: string, targetLocale: Locale): string {
   const isJa = pathname === "/ja" || pathname.startsWith("/ja/");
   const basePath = isJa ? pathname.slice(3) || "/" : pathname;

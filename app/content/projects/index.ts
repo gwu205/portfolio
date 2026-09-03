@@ -17,18 +17,13 @@ interface ProjectEntry {
   slug: string;
   content: LocalizedCaseStudy;
   /**
-   * Withhold from the home page showcase while keeping the case study's own
-   * route working. Set this rather than removing the entry — `getProject`
-   * resolves route params against this same list, so an unregistered slug
-   * fails the static export of `/projects/<slug>` instead of just hiding it.
+   * Hide from the home page without unregistering the route. `getProject`
+   * reads this same list, so removing an entry breaks its static export.
    */
   hiddenFromHome?: boolean;
 }
 
-/**
- * Every case study, in home page showcase order. Adding one means adding its
- * content directory and one entry here — nothing else changes.
- */
+/** Every case study, in home page showcase order. */
 export const projects: ProjectEntry[] = [
   { slug: "experience-lab", content: experienceLab },
   { slug: "sollective-biz", content: sollectiveBiz },

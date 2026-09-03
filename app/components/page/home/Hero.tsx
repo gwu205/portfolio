@@ -6,8 +6,7 @@ import { useRef } from "react";
 import { Header } from "../../common/Header";
 import { HeroHeadline } from "./HeroHeadline";
 
-// ogl is client-only and best kept out of the initial bundle — load it after
-// the rest of the page.
+// ogl is client-only; keep it out of the initial bundle.
 const GradientWaves = dynamic(() => import("./GradientWaves"), {
   ssr: false,
 });
@@ -16,9 +15,7 @@ export const Hero = () => {
   const prefersReducedMotion = usePrefersReducedMotion();
   const overlayRef = useRef<HTMLDivElement>(null);
 
-  // Writes opacity straight to the DOM rather than through React state, so
-  // mousemove doesn't trigger a re-render on every event — same reasoning
-  // as the scroll-driven transforms in ParallaxCircles.
+  // Written straight to the DOM so mousemove doesn't re-render.
   const handleMouseMove = (e: React.MouseEvent<HTMLElement>) => {
     if (!overlayRef.current) return;
     const rect = e.currentTarget.getBoundingClientRect();

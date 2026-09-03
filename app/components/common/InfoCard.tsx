@@ -10,9 +10,8 @@ interface InfoCardProps {
   description: string;
 }
 
-// Row colors for the light section background this now lives on. The
-// floating tooltip stays dark regardless — it's a small overlay meant to
-// contrast with whatever is beneath the cursor, not with the section.
+// The tooltip stays dark regardless: it contrasts with whatever is under
+// the cursor, not with the section.
 const styles = {
   row: "hover:bg-[#4E3960]/10",
   icon: "text-[#4E3960] group-hover:text-[#1B0E26]",
@@ -33,7 +32,6 @@ export const InfoCard = ({ icon: Icon, title, description }: InfoCardProps) => {
     const mouseX = e.clientX - rect.left;
     const mouseY = e.clientY - rect.top;
 
-    // Check if tooltip would go beyond right edge of container
     const wouldClipRight = mouseX + tooltipOffset + tooltipWidth > rect.width;
 
     setMousePosition({

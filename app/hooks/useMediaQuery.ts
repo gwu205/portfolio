@@ -2,13 +2,7 @@
 
 import { useEffect, useState } from "react";
 
-/**
- * Subscribes to a CSS media query and re-renders when it changes.
- *
- * `initialValue` is what callers see during SSR and until the effect runs
- * after mount — pick whichever answer causes the least visible correction
- * for the common case, since a wrong guess shows for one frame.
- */
+// `initialValue` is used for SSR and until the effect runs after mount.
 export function useMediaQuery(query: string, initialValue: boolean) {
   const [matches, setMatches] = useState(initialValue);
 

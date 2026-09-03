@@ -1,14 +1,7 @@
 import { Dictionary } from "./types";
 
-/**
- * Japanese locale.
- *
- * Deliberate convention: short labels — navigation, section headings, CTAs,
- * badges, tags, job titles, and the brand taglines — stay in English, matching
- * `en.ts` verbatim. Their meaning and intent drift when translated, and they
- * read as brand voice rather than information. Running prose (bios, principle
- * bodies, case-study copy, alt text) and SEO metadata are translated.
- */
+// Convention: short labels stay in English as brand voice; running prose
+// and SEO metadata are translated.
 export const ja: Dictionary = {
   meta: {
     siteTitle: "Geoffrey Wu | プロダクトデザイナー",
@@ -20,8 +13,6 @@ export const ja: Dictionary = {
     about: "About",
     contact: "Contact",
     backHome: "Home",
-    // Identical to en.ts: "Designer based in Tokyo" stays English, with the
-    // existing EN↔JA script flourish intact.
     tagline: {
       leadSwap: ["Designer", "デザイナー"],
       middle: "Based in",
@@ -30,7 +21,6 @@ export const ja: Dictionary = {
     },
   },
   localeSwitcher: {
-    // Assistive-only labels, never rendered visually.
     toEnglish: "英語に切り替える",
     toJapanese: "日本語に切り替える",
   },

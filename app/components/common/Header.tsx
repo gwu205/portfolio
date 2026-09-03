@@ -42,9 +42,8 @@ function useTextSwap(
       }
     };
 
-    // Under reduced motion the swap stops entirely and pins to the primary
-    // (English) word. Dropping just the animation would still leave text
-    // auto-updating every few seconds with no way to pause it (WCAG 2.2.2).
+    // Reduced motion pins the primary word rather than swapping silently
+    // every few seconds with no way to pause it (WCAG 2.2.2).
     const apply = () => {
       stop();
       if (media.matches) {
@@ -93,10 +92,8 @@ const SwapText = ({
   const prevIsAlt = useRef(isAlt);
   const tlRef = useRef<gsap.core.Timeline | null>(null);
 
-  // Frozen at mount. GSAP owns transform/opacity from here on, so these values
-  // must never change across renders — React writing the end state during the
-  // swap commit is what made characters jump instead of animate (GSAP then
-  // tweened from the destination to itself, a visual no-op).
+  // Frozen at mount: GSAP owns transform/opacity, so React must not rewrite
+  // the end state mid-swap or the characters jump instead of animating.
   const initialShowText1 = !useRef(isAlt).current;
 
   useEffect(() => {
@@ -107,21 +104,16 @@ const SwapText = ({
     const chars1 = text1Refs.current.slice(0, text1.length).filter(Boolean);
     const chars2 = text2Refs.current.slice(0, text2.length).filter(Boolean);
 
-    // `y` stays a percentage string rather than `yPercent`: the element's start
-    // value is read from a computed matrix in px, and a matrix can't tell
-    // translateY(-100%) from translateY(-20px). Mixing the two silently no-ops.
+    // A percentage string, not yPercent: the start value is read from a px
+    // matrix, and mixing the two silently no-ops.
     const outgoing = { y: showText1 ? "100%" : "-100%", opacity: 0 };
     const incoming = { y: "0%", opacity: 1 };
 
     const from1 = showText1 ? incoming : outgoing;
     const from2 = showText1 ? outgoing : incoming;
 
-    // A swap landing mid-flight would otherwise leave two tweens fighting over
-    // the same properties.
     tlRef.current?.kill();
 
-    // Only reachable when the setting is switched on mid-swap: snap back to
-    // the pinned word rather than animating there.
     if (prefersReducedMotion()) {
       gsap.set(chars1, from1);
       gsap.set(chars2, from2);
@@ -153,7 +145,7 @@ const SwapText = ({
 
   return (
     <span className="inline-flex text-swap-container">
-      {/* Sizer stacks both strings so the container fits the wider script. */}
+      {/* Sizes the container to the wider script. */}
       <span className="invisible grid">
         <span className="col-start-1 row-start-1">{text1}</span>
         <span className="col-start-1 row-start-1">{text2}</span>
@@ -231,11 +223,7 @@ export const Header = ({ type = "default", articleTitle }: HeaderProps) => {
   const headerRef = useRef<HTMLElement>(null);
   const word1 = useTextSwap(3500, 6500, 0);
   const word2 = useTextSwap(3500, 6500, 2000);
-  // No-ops on pages with no [data-nav-surface] sections (currently just the
-  // home page), so safe to call regardless of `type`.
   useScrollSurfaceColor(headerRef, "top");
-  // No-ops (stays false) on pages with no #contact footer — only the
-  // "minimal" branch below actually uses this.
   const footerVisible = useFooterVisible();
 
   const homeHref = localizeHref(locale, "/");
@@ -248,9 +236,7 @@ export const Header = ({ type = "default", articleTitle }: HeaderProps) => {
   }, [pathname, homeHref, startTransition]);
 
   useEffect(() => {
-    // Only the "default" variant fades itself in — "minimal" renders
-    // straight away (the Preloader owns the first-load reveal on the
-    // pages that use it), and "article" never animated in the first place.
+    // Only "default" fades in; the Preloader owns the reveal for "minimal".
     if (type === "default" && headerRef.current) {
       gsap.fromTo(
         headerRef.current,
@@ -304,16 +290,8 @@ export const Header = ({ type = "default", articleTitle }: HeaderProps) => {
   );
 
   if (type === "minimal") {
-    // Fixed, and portaled to <body> (see BodyPortal for why `position: fixed`
-    // can't stay inside <main> here).
-    // Color legibility is handled by useScrollSurfaceColor above (hardcoded
-    // per-section colors, scrubbed smoothly across each boundary) rather
-    // than mix-blend-mode — blend-mode's per-channel math only reliably
-    // yields a high-contrast result against near-black/near-white
-    // backdrops, not the saturated section colors here. text-[#DAD6DB] is
-    // just the pre-JS fallback (the home page always opens on the dark
-    // hero); the hook takes over as soon as it mounts. LogoComponent gets
-    // currentColor instead of its default white so the mark tracks it too.
+    // text-[#DAD6DB] is the pre-JS fallback; useScrollSurfaceColor takes over
+    // on mount, and currentColor lets the mark track it.
     return (
       <BodyPortal>
         <header

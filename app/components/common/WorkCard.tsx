@@ -16,21 +16,8 @@ interface WorkCardProps {
   index: number;
 }
 
-// One project row: a viewport-edge-to-edge ticker anchored 24px above the
-// image's bottom edge, rendered in front of it (not behind — the image no
-// longer occludes the ticker where they overlap). Image alignment and
-// ticker direction both alternate off the same index parity — left-aligned
-// cards run their ticker with scroll direction, right-aligned cards run it
-// reversed. The ticker's own motion is scroll-linked (see CardTicker)
-// rather than hover-gated, so it's unaffected by any of this.
-// Hover is tracked on the row itself, not just the image, so the row's
-// full footprint (including the gap beside the image) is part of the
-// hoverable/cursor-followed area — the row, not the image, is `group` and
-// CursorFollower's targetRef. `isActive` — hover, or permanently on for
-// devices that can't hover (see useHoverCapable) — is the single source
-// of truth for every remaining hover-state visual (grayscale, scale,
-// video playback, cursor label) so none of them can drift out of sync
-// with each other.
+// Alignment and ticker direction alternate on index parity. Hover is tracked
+// on the whole row, not the image, so the gap beside it is hoverable too.
 export function WorkCard({
   title,
   client,
@@ -55,8 +42,7 @@ export function WorkCard({
     const video = videoRef.current;
     if (!video) return;
     if (isActive) {
-      // Interrupting an in-flight play() (a fast hover in/out) rejects
-      // the promise with an AbortError — expected here, not a real failure.
+      // A fast hover in/out rejects with AbortError; expected.
       video.play().catch(() => {});
     } else {
       video.pause();

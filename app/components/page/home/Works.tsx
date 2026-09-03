@@ -7,11 +7,7 @@ import { ParallaxCircles } from "../../common/ParallaxCircles";
 import { ScrollFadeIn } from "../../common/ScrollFadeIn";
 import { WorkCard } from "../../common/WorkCard";
 
-// Vertical gap between rows, applied to every row after the first. Lives
-// here (not inside WorkCard) because it's a property of how this list
-// spaces its own items, not of any one card; left/right alignment, by
-// contrast, stays inside WorkCard since it's about that card's own
-// position within its row.
+// Gap between rows, applied to every row after the first.
 const CASCADE_GAP_CLASS = "mt-12 sm:mt-16 md:mt-24";
 
 export const Works = () => {

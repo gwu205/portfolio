@@ -6,11 +6,8 @@ import gsap from "gsap";
 import Image from "next/image";
 import { useEffect, useRef } from "react";
 
-// Circular, sized in `em` so it tracks the surrounding text at every
-// breakpoint instead of needing its own responsive size steps. The baseline
-// nudge uses margin, not transform — the magnetic effect below owns
-// `transform` on this element exclusively, so a translate-based nudge here
-// would get overwritten the first time GSAP touches it.
+// Sized in `em` to track the surrounding text. The baseline nudge uses
+// margin, not transform, which the repel effect below owns.
 const INLINE_MEDIA_CLASS =
   "relative inline-block h-[1em] w-[1em] -mt-[0.05em] align-middle overflow-hidden rounded-full mx-2 md:mx-3";
 
@@ -31,9 +28,7 @@ export function HeroHeadline() {
     );
     if (targets.length === 0) return;
 
-    // Tracked so the "return to rest" tween only fires once per exit,
-    // instead of re-tweening to the same {x:0,y:0} on every mousemove
-    // while the cursor is nowhere near either image.
+    // So the return-to-rest tween fires once per exit, not per mousemove.
     const repelled = new Set<HTMLSpanElement>();
 
     const handleMouseMove = (e: MouseEvent) => {

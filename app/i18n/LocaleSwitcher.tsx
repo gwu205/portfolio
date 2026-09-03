@@ -4,13 +4,7 @@ import { usePathname } from "next/navigation";
 import { useLocale } from "./LocaleProvider";
 import { Locale, switchLocalePath } from "./locales";
 
-/**
- * Language toggle. Renders as a single link to the other locale rather than a
- * stateful switch — flipping it is a navigation, so one click = one destination.
- *
- * "JP" is used as the visible label (common on Japanese sites) while `lang` and
- * `hrefLang` stay the correct BCP 47 `ja`.
- */
+// "JP" is the visible label; `lang`/`hrefLang` stay the correct BCP 47 `ja`.
 const VISIBLE_LABEL: Record<Locale, string> = { en: "EN", ja: "JP" };
 
 export function LocaleSwitcher({ className = "" }: { className?: string }) {

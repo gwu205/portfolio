@@ -11,14 +11,10 @@ interface ScrollFadeInProps {
   className?: string;
 }
 
-// Distance (px) the entrance travels. Shared by the tween's start state and
-// the inline style that holds that same state before GSAP takes over, so the
-// two can't drift apart and make the entrance jump on its first frame.
+// Shared by the tween and the inline start state, so they can't drift.
 const RISE_DISTANCE = 32;
 
-// Fades/slides an entrance in the first time it scrolls into view.
-// Generalized from the old AnimatedFolioItem (which hardcoded FolioItem as
-// its only possible child) so it can wrap anything.
+// Fades its children in the first time they scroll into view.
 export const ScrollFadeIn = ({
   children,
   className = "",

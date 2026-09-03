@@ -239,7 +239,6 @@ export const Header = ({ type = "default", articleTitle }: HeaderProps) => {
   const footerVisible = useFooterVisible();
 
   const homeHref = localizeHref(locale, "/");
-  const aboutHref = localizeHref(locale, "/about");
   const tagline = dict.nav.tagline;
 
   const handleLogoClick = useCallback(() => {
@@ -356,17 +355,6 @@ export const Header = ({ type = "default", articleTitle }: HeaderProps) => {
             </span>
             <span className="block absolute top-[100%] left-0 w-full h-full group-hover:translate-y-[-100%] transition-transform duration-300">
               {dict.nav.work}
-            </span>
-          </TransitionLink>
-          <TransitionLink
-            href={aboutHref}
-            className="relative group overflow-hidden"
-          >
-            <span className="block top-0 left-0 w-full h-full group-hover:translate-y-[-100%] transition-transform duration-300">
-              {dict.nav.philosophy}
-            </span>
-            <span className="block absolute top-[100%] left-0 w-full h-full group-hover:translate-y-[-100%] transition-transform duration-300">
-              {dict.nav.philosophy}
             </span>
           </TransitionLink>
         </div>

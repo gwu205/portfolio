@@ -8,7 +8,6 @@ export const en: Dictionary = {
   },
   nav: {
     work: "Work",
-    philosophy: "Philosophy",
     about: "About",
     contact: "Contact",
     backHome: "Home",
@@ -73,80 +72,6 @@ export const en: Dictionary = {
     },
     jobTitle: "Product Designer + Design Engineer",
     openForWorkAlt: "Open for work",
-  },
-  about: {
-    seoTitle: "Design Philosophy | Geoffrey Wu",
-    seoDescription:
-      "How I approach product design: systems first, clarity over cleverness, design and engineering as one loop — plus the tools and workflow I work with.",
-    heroTitleLinesDesktop: [
-      "Product designer focused on",
-      "systems, clarity, and ",
-      "end‑to‑end execution",
-    ],
-    heroTitleLinesMobile: [
-      "Designing",
-      "systems",
-      "with clarity",
-      "and execution",
-    ],
-    bioParagraph1:
-      "I design digital products that are clear to use, maintainable for teams, and grounded in real business goals. With a background in product design, UI/motion, and front-end engineering, I move comfortably between Figma, code, and conversations with stakeholders to keep design and implementation aligned.",
-    bioParagraph2:
-      "Most of my work sits at the intersection of brand/marketing, B2B SaaS, and design systems, helping teams turn complex requirements into simple, intentional experiences. Having spent time in both Australia and Japan, working mostly with startups and small teams, I have a firm grasp on both local Western/Asian markets. I'm able to navigate the nuances of each and excel in environments where messy problem spaces need to become clear, shippable products.",
-    philosophyHeading1: "Design",
-    philosophyHeading2: "Philosophy",
-    principles: [
-      {
-        title: "Systems first.",
-        body: "A good interface is more than a single screen - it's a system of components, patterns, and rules that teams can understand and build on. I focus on making design decisions reusable, consistent, and easy to extend, so products stay coherent as they grow.",
-      },
-      {
-        title: "Clarity over cleverness.",
-        body: "Whether it's dense tables, forms, or dashboards, I prioritise readability, hierarchy, and considered interactions that support comprehension. Every element on the screen should have a clear purpose, and every interaction should be predictable. I focus on reducing cognitive load and making the user's journey obvious and effortless.",
-      },
-      {
-        title: "Design and engineering as one loop.",
-        body: "Great products come from diverse perspectives and open communication. I foster collaboration by documenting decisions, facilitating workshops, and creating shared vocabularies that help everyone move faster. I treat engineers as partners - I prototype in code when it adds value, share constraints early, and use shared language (tokens, variants, props) to avoid handoff friction.",
-      },
-      {
-        title: "Continuous learning.",
-        body: "I'm always learning - from users, from data, and from the people I work with. I believe in iterating based on real feedback, not assumptions. Whether it's A/B testing, analytics, or user research, I use data to guide decisions and refine the experience over time.",
-      },
-      {
-        title: "Local context, global standards.",
-        body: "Having worked on bilingual products in Japan, I try to balance local expectations (language, layout, cultural nuance) with global usability and accessibility best practices.",
-      },
-    ],
-    stackHeading: "Stack",
-    stackSections: {
-      design: "Design",
-      development: "Development",
-      workflow: "Workflow",
-      delivery: "Delivery",
-      qualifications: "Qualifications",
-      portfolio: "Portfolio",
-    },
-    workflowBadges: [
-      "Design Tokens",
-      "Component Libraries",
-      "Design Documentation",
-      "Git-based Collaboration",
-      "UX Copywriting",
-      "Accessibility",
-      "AI Photo/Video",
-    ],
-    deliveryBadges: [
-      "Design Specs",
-      "Interactive Prototypes",
-      "Production Code",
-      "Performance Metrics",
-      "User Testing",
-      "Product Showcases",
-    ],
-    qualifications: ["Framer Expert", "日本語能力試験 (JLPT) N2"],
-    portfolioBuiltWith: "Built with",
-    portfolioBuiltWithConjunction: ", and ",
-    portfolioBuiltWithSuffix: ".",
   },
   caseStudy: {
     client: "Client",

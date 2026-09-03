@@ -17,7 +17,6 @@ export const ja: Dictionary = {
   },
   nav: {
     work: "Work",
-    philosophy: "Philosophy",
     about: "About",
     contact: "Contact",
     backHome: "Home",
@@ -85,80 +84,6 @@ export const ja: Dictionary = {
     },
     jobTitle: "Product Designer + Design Engineer",
     openForWorkAlt: "Open for work",
-  },
-  about: {
-    seoTitle: "デザイン哲学 | Geoffrey Wu",
-    seoDescription:
-      "システムを起点に、巧妙さより明快さを、デザインとエンジニアリングをひとつのループに。プロダクトデザインへの考え方と、実際に使っているツールやワークフローをご紹介します。",
-    heroTitleLinesDesktop: [
-      "Product designer focused on",
-      "systems, clarity, and ",
-      "end‑to‑end execution",
-    ],
-    heroTitleLinesMobile: [
-      "Designing",
-      "systems",
-      "with clarity",
-      "and execution",
-    ],
-    bioParagraph1:
-      "私は、使いやすく、チームにとって保守しやすく、実際のビジネス目標に根ざしたデジタルプロダクトをデザインしています。プロダクトデザイン、UI/モーション、フロントエンド開発の経験を活かし、Figma、コード、そしてステークホルダーとの対話を自在に行き来しながら、デザインと実装の一貫性を保っています。",
-    bioParagraph2:
-      "手がけてきた仕事の多くは、ブランド/マーケティング、B2B SaaS、デザインシステムの交差点に位置し、複雑な要件をシンプルで意図的な体験へと落とし込む役割を担ってきました。オーストラリアと日本の両方で、主にスタートアップや小規模チームと働いてきた経験から、欧米とアジア双方のローカル市場を深く理解しています。それぞれの文化的なニュアンスを踏まえながら、混沌とした課題を明快でリリース可能なプロダクトへと形にしていく環境で力を発揮します。",
-    philosophyHeading1: "Design",
-    philosophyHeading2: "Philosophy",
-    principles: [
-      {
-        title: "Systems first.",
-        body: "優れたインターフェースとは、単一の画面以上のものです。チームが理解し、そのうえに積み上げていけるコンポーネント、パターン、ルールの集合体です。デザイン上の意思決定を再利用可能で一貫性があり、拡張しやすいものにすることを重視し、プロダクトが成長してもまとまりを保てるようにしています。",
-      },
-      {
-        title: "Clarity over cleverness.",
-        body: "情報量の多いテーブル、フォーム、ダッシュボードであっても、可読性、階層構造、そして理解を助ける丁寧なインタラクションを優先します。画面上のすべての要素には明確な目的があるべきで、すべてのインタラクションは予測可能であるべきだと考えています。認知負荷を減らし、ユーザーの体験を分かりやすく、ストレスのないものにすることに注力しています。",
-      },
-      {
-        title: "Design and engineering as one loop.",
-        body: "優れたプロダクトは、多様な視点とオープンなコミュニケーションから生まれます。意思決定を記録し、ワークショップを主導し、チーム全体のスピードを高める共通言語をつくることで、コラボレーションを育てています。エンジニアをパートナーとして捉え、価値があればコードでプロトタイピングを行い、制約を早い段階で共有し、トークンやバリアント、propsといった共通言語でハンドオフの摩擦を減らしています。",
-      },
-      {
-        title: "Continuous learning.",
-        body: "ユーザーから、データから、そして共に働く人々から、私は常に学び続けています。憶測ではなく、実際のフィードバックに基づいて改善を重ねることを大切にしています。A/Bテスト、アナリティクス、ユーザーリサーチなど、データを活用して意思決定を導き、時間をかけて体験を磨き上げています。",
-      },
-      {
-        title: "Local context, global standards.",
-        body: "日本でバイリンガル対応のプロダクトに携わってきた経験から、言語やレイアウト、文化的なニュアンスといったローカルな期待と、グローバルなユーザビリティ/アクセシビリティのベストプラクティスとのバランスを大切にしています。",
-      },
-    ],
-    stackHeading: "Stack",
-    stackSections: {
-      design: "Design",
-      development: "Development",
-      workflow: "Workflow",
-      delivery: "Delivery",
-      qualifications: "Qualifications",
-      portfolio: "Portfolio",
-    },
-    workflowBadges: [
-      "Design Tokens",
-      "Component Libraries",
-      "Design Documentation",
-      "Git-based Collaboration",
-      "UX Copywriting",
-      "Accessibility",
-      "AI Photo/Video",
-    ],
-    deliveryBadges: [
-      "Design Specs",
-      "Interactive Prototypes",
-      "Production Code",
-      "Performance Metrics",
-      "User Testing",
-      "Product Showcases",
-    ],
-    qualifications: ["Framer Expert", "日本語能力試験 (JLPT) N2"],
-    portfolioBuiltWith: "Built with",
-    portfolioBuiltWithConjunction: ", and ",
-    portfolioBuiltWithSuffix: ".",
   },
   caseStudy: {
     client: "Client",

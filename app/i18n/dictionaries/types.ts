@@ -5,7 +5,6 @@ export interface Dictionary {
   };
   nav: {
     work: string;
-    philosophy: string;
     /** Bottom sticky-nav jumplink label (points at the in-page #about section). */
     about: string;
     /** Bottom sticky-nav jumplink label (points at the in-page #contact section). */
@@ -49,13 +48,7 @@ export interface Dictionary {
       before: string;
       after: string;
     };
-    /**
-     * Home-page About section's lead heading — a different surface from
-     * the dedicated About page. Sourced from the opening sentence of
-     * about.bioParagraph1 in each locale, but kept as its own key rather
-     * than sliced at runtime: the two live on different pages and could
-     * diverge over time.
-     */
+    /** Home-page About section's lead heading. */
     aboutIntro: string;
     /** Home-page About section's micro-label above the brand list, rendered uppercase via CSS (stored normal-case, per convention). */
     aboutBrandsLabel: string;
@@ -70,35 +63,6 @@ export interface Dictionary {
     };
     jobTitle: string;
     openForWorkAlt: string;
-  };
-  about: {
-    seoTitle: string;
-    seoDescription: string;
-    heroTitleLinesDesktop: string[];
-    heroTitleLinesMobile: string[];
-    bioParagraph1: string;
-    bioParagraph2: string;
-    philosophyHeading1: string;
-    philosophyHeading2: string;
-    principles: {
-      title: string;
-      body: string;
-    }[];
-    stackHeading: string;
-    stackSections: {
-      design: string;
-      development: string;
-      workflow: string;
-      delivery: string;
-      qualifications: string;
-      portfolio: string;
-    };
-    workflowBadges: string[];
-    deliveryBadges: string[];
-    qualifications: string[];
-    portfolioBuiltWith: string;
-    portfolioBuiltWithConjunction: string;
-    portfolioBuiltWithSuffix: string;
   };
   caseStudy: {
     client: string;

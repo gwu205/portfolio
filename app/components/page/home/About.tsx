@@ -17,7 +17,7 @@ const BRANDS = [
   "Wisenet",
 ];
 
-const DIVIDER_CLASS = "w-full h-px bg-[#4E3960]/20";
+const DIVIDER_CLASS = "w-full h-px bg-[#4E3960]";
 
 export const About = () => {
   const { dict } = useLocale();

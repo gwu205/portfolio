@@ -11,6 +11,13 @@ import { LOGO_MARK_PATHS, LOGO_MARK_VIEWBOX } from "./logoMark";
 const useIsomorphicLayoutEffect =
   typeof window !== "undefined" ? useLayoutEffect : useEffect;
 
+// Tailwind's `md` breakpoint — the mark's own size (w-36 vs md:w-48) already
+// branches here, so the animation does too.
+const MOBILE_BREAKPOINT = 768;
+// Fraction of the mark's own SVG box its ink actually fills, from
+// LOGO_MARK_PATHS' coordinate extents within the 64-unit viewBox.
+const GLYPH_WIDTH_RATIO = 47.14 / 64;
+
 export function Preloader() {
   const [active, setActive] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -43,7 +50,22 @@ export function Preloader() {
     lenis?.stop();
 
     const ctx = gsap.context(() => {
-      gsap.set(markRef.current, { xPercent: -50, yPercent: -50, scale: 10 });
+      const isMobile = window.innerWidth < MOBILE_BREAKPOINT;
+      // The opening frame is deliberately oversized enough to fill/exceed
+      // the viewport — but on a narrow mobile viewport, a fixed scale
+      // overshoots far past that into an unrecognizable crop. Scaled from
+      // the mark's own measured (untransformed) box, so it lands close to
+      // the viewport width regardless of the specific device.
+      const baseMarkWidth = markRef.current?.getBoundingClientRect().width ?? 0;
+      const openingScale =
+        isMobile && baseMarkWidth > 0
+          ? (window.innerWidth * 0.95) / (baseMarkWidth * GLYPH_WIDTH_RATIO)
+          : 10;
+      gsap.set(markRef.current, {
+        xPercent: -50,
+        yPercent: -50,
+        scale: openingScale,
+      });
       gsap.set(leftBarRef.current, { x: -16, y: -60, opacity: 0 });
       gsap.set(middleBarRef.current, { x: 16, y: 60, opacity: 0 });
       gsap.set(triangleRef.current, { x: 70, opacity: 0 });
@@ -108,9 +130,13 @@ export function Preloader() {
               skewX: 14,
               opacity: 1,
             });
+            // A narrow mobile viewport puts the converged mark's actual
+            // center further (proportionally) from true viewport center
+            // than on desktop, so the same multiplier leaves a gap at the
+            // far edge — a bigger buffer on mobile covers it.
             panelTargetScale =
               Math.max(window.innerWidth / width, window.innerHeight / height) *
-              2;
+              (isMobile ? 4 : 2);
           },
           [],
           4.28,

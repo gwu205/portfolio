@@ -28,7 +28,7 @@ export const Footer = ({ type = "default" }: FooterProps) => {
           >
             <Logo size={32} color="white" />
           </div>
-          <p className="text-[#D7C9E3] text-6xl text-center">
+          <p className="text-[#D7C9E3] text-2xl md:text-6xl text-center">
             <span dangerouslySetInnerHTML={{ __html: dict.footer.connectHeading }} />
           </p>
           <div className="flex flex-col items-center gap-2 text-[#D7C9E3]">

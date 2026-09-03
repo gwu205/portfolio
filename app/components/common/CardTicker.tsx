@@ -63,7 +63,7 @@ export const CardTicker = ({
         {Array.from({ length: REPEAT_COUNT }).map((_, i) => (
           <span
             key={i}
-            className="px-6 text-[90px] font-normal uppercase tracking-[-0.03em] text-white"
+            className="px-6 text-6xl md:text-[90px] font-normal uppercase tracking-[-0.03em] text-white"
           >
             {text}
           </span>

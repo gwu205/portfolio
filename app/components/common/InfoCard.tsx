@@ -3,6 +3,7 @@
 import gsap from "gsap";
 import { LucideIcon } from "lucide-react";
 import { useRef, useState } from "react";
+import { useMediaQuery } from "@/app/hooks/useMediaQuery";
 
 interface InfoCardProps {
   icon: LucideIcon;
@@ -23,6 +24,10 @@ const styles = {
 export const InfoCard = ({ icon: Icon, title, description }: InfoCardProps) => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const tooltipRef = useRef<HTMLDivElement>(null);
+  // Matches Tailwind's `md` breakpoint, same as WorkCard's CursorFollower
+  // gate: the cursor-follow tooltip is redundant on mobile anyway, since
+  // the paragraph below already shows this same description inline.
+  const isDesktopViewport = useMediaQuery("(min-width: 768px)", true);
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     const rect = e.currentTarget.getBoundingClientRect();
@@ -74,9 +79,9 @@ export const InfoCard = ({ icon: Icon, title, description }: InfoCardProps) => {
     <div className="relative group cursor-help">
       <div
         className={`flex items-center gap-8 p-6 bg-transparent rounded-[32px] transition-colors group ${styles.row}`}
-        onMouseEnter={handleMouseEnter}
-        onMouseLeave={handleMouseLeave}
-        onMouseMove={handleMouseMove}
+        onMouseEnter={isDesktopViewport ? handleMouseEnter : undefined}
+        onMouseLeave={isDesktopViewport ? handleMouseLeave : undefined}
+        onMouseMove={isDesktopViewport ? handleMouseMove : undefined}
       >
         <Icon className={`w-6 h-6 transition-all duration-500 ${styles.icon}`} />
         <div>
@@ -90,22 +95,24 @@ export const InfoCard = ({ icon: Icon, title, description }: InfoCardProps) => {
           </p>
         </div>
       </div>
-      <div
-        ref={tooltipRef}
-        className="absolute bg-black/50 backdrop-blur-sm p-3 rounded-tr-2xl rounded-br-2xl rounded-bl-2xl w-48"
-        style={{
-          left: `${mousePosition.x}px`,
-          top: `${mousePosition.y}px`,
-          cursor: "none",
-          zIndex: 9999,
-          transform: "scale(0.8)",
-          opacity: 0,
-          visibility: "hidden",
-          pointerEvents: "none",
-        }}
-      >
-        <p className="text-sm text-white">{description}</p>
-      </div>
+      {isDesktopViewport && (
+        <div
+          ref={tooltipRef}
+          className="absolute bg-black/50 backdrop-blur-sm p-3 rounded-tr-2xl rounded-br-2xl rounded-bl-2xl w-48"
+          style={{
+            left: `${mousePosition.x}px`,
+            top: `${mousePosition.y}px`,
+            cursor: "none",
+            zIndex: 9999,
+            transform: "scale(0.8)",
+            opacity: 0,
+            visibility: "hidden",
+            pointerEvents: "none",
+          }}
+        >
+          <p className="text-sm text-white">{description}</p>
+        </div>
+      )}
     </div>
   );
 };

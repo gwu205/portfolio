@@ -90,10 +90,11 @@ function BlockItem({ block }: { block: Block }) {
         >
           <video
             src={block.src}
-            autoPlay
+            autoPlay={block.audio ? false : true}
             muted
             loop
-            playsInline
+            playsInline={block.audio ? false : true}
+            controls={block.audio ? true : false}
             className={`object-cover w-full max-w-2xl mx-auto ${
               block.background ? "border-r border-l border-black" : ""
             }`}

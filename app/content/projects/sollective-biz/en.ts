@@ -144,9 +144,9 @@ export const en: CaseStudy = {
       ],
     },
     {
-      type: "embed",
-      src: "https://www.youtube.com/embed/TFTCI-WN6Po?start=1",
-      title: "Sollective Biz Campaign",
+      type: "video",
+      audio: true,
+      src: "https://res.cloudinary.com/gswu205/video/upload/v1788408726/compressed_8MB_%E6%A0%AA%E5%BC%8F%E4%BC%9A%E7%A4%BE%E3%82%BD%E3%83%AC%E3%82%AF%E3%83%86%E3%82%A3%E3%83%95%E3%82%99_%E3%83%A1%E3%82%A4%E3%83%B3%E5%8B%95%E7%94%BB_Final_ujugtk.mp4",
     },
     { type: "h2", text: "Key Takeaways" },
     {

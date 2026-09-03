@@ -21,7 +21,7 @@ export type Block =
       width: number;
       height: number;
     }
-  | { type: "video"; src: string; background?: string }
+  | { type: "video"; src: string; background?: string; audio?: boolean }
   | { type: "embed"; src: string; title: string }
   /** Pull-quote framing a "How might we…" style design question. */
   | { type: "aside"; lead: RichText; highlight: RichText };
